@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tokens.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "themes": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/themeValue"
+      }
+    }
+  },
+  "$defs": {
+    "typographyValue": {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "weight": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number",
+              "minimum": 100,
+              "maximum": 900
+            }
+          ]
+        },
+        "size": {
+          "$ref": "base.schema.json#/$defs/sizing"
+        },
+        "line-height": {
+          "$ref": "base.schema.json#/$defs/sizing"
+        },
+        "letter-spacing": {
+          "$ref": "base.schema.json#/$defs/sizing"
+        }
+      },
+      "required": ["family", "weight", "size", "line-height"],
+      "additionalProperties": false
+    },
+    "themeValue": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "palette": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "color": {
+          "type": "object",
+          "additionalProperties": {
+            "allOf": [
+              {"$ref": "base.schema.json#/$defs/palette"},
+              {"$ref": "base.schema.json#/$defs/color"}
+            ]
+          }
+        },
+        "gradient": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "base.schema.json#/$defs/gradientProps"
+          }
+        },
+        "typography": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/typographyValue"
+          }
+        },
+        "radius": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "base.schema.json#/$defs/sizing"
+          }
+        },
+        "sizing": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "base.schema.json#/$defs/sizing"
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "base.schema.json#/$defs/spacing"
+          }
+        },
+        "opacity": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "shadow": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "base.schema.json#/$defs/effectsProps/properties/shadow"
+          }
+        },
+        "blur": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "base.schema.json#/$defs/blur"
+          }
+        },
+        "easing": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^-?\\d+\\.?\\d*,\\s*-?\\d+\\.?\\d*,\\s*-?\\d+\\.?\\d*,\\s*-?\\d+\\.?\\d*$"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

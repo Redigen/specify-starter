@@ -1,0 +1,172 @@
+slider-md:
+  props:
+    .value: "{{ variable }}"
+    min: 0
+    max: 100
+    step: 1
+    theme: uv-neutral-mid-outline
+    prefix: 0%
+    suffix: 100%
+
+  logic:
+    - createSlider
+
+  styles:
+    lay: row
+    lay-gap: t.spacing.300
+    lay-align-v: center
+
+  theme: "{{ props.theme }}"
+
+  layers:
+    - text:
+        cond-if: "{{ props.prefix }}"
+        content: "{{ props.prefix }}"
+        styles:
+          txt: t.typography.body-md
+          fill: t.color.uv-fg-muted-default
+
+    - frame:
+        this: track
+        styles:
+          lay-width: fill-container
+          lay-height: 4
+          lay-mar-v: 8
+          lay-mar-h: t.spacing.depend-radius
+          vis-radius: 2
+
+          shadow:
+            - x: 0
+              y: 1
+              blur: 1
+              spread: 0
+              position: inside
+              color: "#00000019"
+            - x: 0
+              y: 0
+              blur: 1
+              spread: 0
+              position: inside
+              color: "#00000024"
+
+          fill: t.color.uv-str-default
+
+          css:
+            touch-action: none
+
+        layers:
+          - frame:
+              this: progress
+              theme: uv-primary-outline
+              styles:
+                pos: offset
+                lay-width: 0%
+                lay-max-width: 100%
+                lay-height: 4
+                vis-radius: 2
+                fill: t.color.uv-str-default
+
+                transitions:
+                  - property: lay-width
+                    duration: 100
+                    easing: linear
+
+                shadow:
+                  - x: 0
+                    y: 1
+                    blur: 1
+                    spread: 0
+                    position: inside
+                    color: "#00000019"
+                  - x: 0
+                    y: 0
+                    blur: 1
+                    spread: 0
+                    position: inside
+                    color: "#00000024"
+              layers:
+                - frame:
+                    this: handle
+                    styles:
+                      pos: absolute
+                      pos-top: -18
+                      pos-right: -20
+                      lay: column
+                      lay-align-h: center
+                      lay-align-v: center
+                      lay-width: 40
+                      lay-height: 40
+                      vis-radius: t.radius.md
+                      cursor-type: grab
+                      transitions:
+                        - property: all
+                          duration: 200
+                          easing: ease
+                        - property: fill
+                          duration: 0
+                          easing: linear
+                      pressed:
+                        cursor-type: grabbing
+                      focus:
+                        stroke: t.color.uv-str-focus
+                        css:
+                          outline: 0.125rem solid t.color.base-str-focus
+                          outline-offset: 0.125rem 
+                    on-mount:
+                      run: "{{ logic.createSlider({track: track as HTMLElement, progress: progress as HTMLElement, handle: handle as HTMLElement}, { value: .value, min: props.min, max: props.max, step: props.step, onChange: (val) => { .value = val; } }) }}"
+
+                    layers:
+                      - frame:
+                          styles:
+                            pos: offset
+                            lay-width: 14
+                            lay-height: 14
+                            vis-radius: 10
+                            fill: t.color.uv-str-default
+                            shadow: t.shadow.elevation-low
+                            transitions:
+                              - property: all
+                                duration: 200
+                                easing: ease
+                              - property: fill
+                                duration: 0
+                                easing: linear
+                            hover:
+                              lay-width: 18
+                              lay-height: 18
+                            css:
+                              pointer-events: none
+                          layers:
+                            - frame:
+                                styles:
+                                  pos: absolute
+                                  pos-left: 50%
+                                  pos-bottom: -5
+                                  lay: column
+                                  lay-pad-v: t.spacing.50
+                                  lay-pad-h: t.spacing.150
+                                  vis-opacity: 0
+                                  vis-radius: t.radius.sm
+                                  fill: t.color.primary-bg-default
+                                  transitions:
+                                    - property: all
+                                      duration: 300
+                                      easing: ease-out
+                                  hover:
+                                    pos-bottom: 23
+                                    vis-opacity: 100
+                                  css:
+                                    transform: translate(-50%, 0)
+                                layers:
+                                  - text:
+                                      content: "{{ String(.value) }}"
+                                      styles:
+                                        txt: t.typography.label-lg
+                                        fill: t.color.primary-fg-default
+
+    - text:
+        cond-if: "{{ props.suffix }}"
+        content: "{{ props.suffix }}"
+        styles:
+          txt: t.typography.body-md
+          fill: t.color.uv-fg-muted-default

@@ -1,0 +1,131 @@
+home:
+  path: /
+
+  meta:
+    title: Specify Starter
+    description: ""
+
+  state:
+    version: 0.1
+
+  styles:
+    lay: column
+    lay-padding: t.spacing.500
+    lay-gap: t.spacing.500
+    lay-align-h: center
+
+  layers:
+    - frame: # Hero
+        styles:
+          lay: column
+          lay-width: fill-container
+          lay-height: fill-container
+          lay-gap: t.spacing.250
+          lay-align-h: center
+          lay-align-v: center
+        layers:
+          - frame: # Title
+              styles:
+                lay: row
+                lay-wrap: true
+                lay-align-h: center
+                lay-align-v: bottom
+              html-tag: h1
+              layers:
+                - text:
+                    content:
+                      ru: Рад видеть тебя в 
+                      en: Welcome to 
+                    styles:
+                      txt: t.typography.display-sm
+                      txt-weight: 700
+                      txt-align: center
+                      fill: t.color.surface-fg
+                - vector:
+                    file: ./assets/vectors/specify.svg
+                    styles:
+                      lay-width: 125
+                      lay-height: 35
+                      lay-mar-bottom: 1
+                      fill: t.color.surface-fg
+                - text:
+                    content: "!"
+                    styles:
+                      txt: t.typography.display-sm
+                      txt-weight: 700
+                      fill: t.color.surface-fg
+          - frame: # Call to action
+              styles:
+                lay: inline
+                txt-align: center
+              html-tag: p
+              layers:
+                - text:
+                    content:
+                      ru: "Начни с редактирования файла "
+                      en: "Get started by editing "
+                    styles:
+                      txt: t.typography.body-lg
+                      fill: t.color.surface-fg
+                - text:
+                    content: "/specs/screens/home.yaml"
+                    styles:
+                      txt: t.typography.body-lg
+                      txt-family: monospace
+                      fill: t.color.surface-fg-muted
+
+    - frame: # Links
+        styles:
+          lay: row
+          lay-gap: t.spacing.200
+          lay-align-h: center
+        layers:
+          - c.button-md:
+              props:
+                label:
+                  ru: Документация
+                  en: Documentation
+                prefix: false
+                suffix: false
+                leftIcon: ./assets/vectors/lucide/file-text.svg
+                rightIcon: false
+                iconSize: md
+                disabled: false
+                tabindex: 0
+                theme: uv-neutral-lowest
+              on-click:
+                navigate-to:
+                  link: https://specifyui.com/docs
+                  target: _blank
+          - c.button-md:
+              props:
+                label: GitHub
+                prefix: false
+                suffix: false
+                leftIcon: ./assets/vectors/lucide/git-branch.svg
+                rightIcon: false
+                iconSize: md
+                disabled: false
+                tabindex: 0
+                theme: uv-neutral-lowest
+              on-click:
+                navigate-to:
+                  link: https://github.com/redigen/specify-starter
+                  target: _blank
+
+    - frame: # Version
+        styles:
+          lay: row
+          lay-pad-v: t.spacing.50
+          lay-pad-h: t.spacing.150
+          fill: t.color.surface-low-bg
+          stroke: t.color.surface-low-str
+          vis-radius: t.radius.sm
+        layers:
+          - text:
+              content:
+                ru: "Specify v{{ state.version }} на Svelte"
+                en: "Specify v{{ state.version }} on Svelte"
+              styles:
+                fill: t.color.surface-fg-muted
+                txt: t.typography.label-lg

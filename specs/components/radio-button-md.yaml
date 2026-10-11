@@ -1,0 +1,125 @@
+radio-button-md:
+  props:
+    theme: uv-neutral-mid-outline
+    selected: false
+    disabled: false
+    label: Text
+
+  styles:
+    lay: row
+    lay-pad-v: t.spacing.200
+    lay-gap: t.spacing.150
+    cursor-type: pointer
+    vis-radius: t.radius.md
+
+    focus:
+      stroke: t.color.uv-str-focus
+      css:
+        outline: 0.125rem solid t.color.base-str-focus
+        outline-offset: 0.125rem
+
+  html-tag: button
+  selected: "{{ props.selected }}"
+  disabled: "{{ props.disabled }}"
+  theme: "{{ props.theme }}"
+
+  layers:
+    - frame: # button
+        theme: "{{ props.selected ? 'uv-primary-outline' : props.theme }}"
+        styles:
+          lay: column
+          lay-align-h: center
+          lay-align-v: center
+          lay-width: 20
+          lay-height: 20
+          lay-mar-v: 2
+          vis-radius: 10
+          shadow:
+            - x: 0
+              y: 1
+              blur: 1
+              spread: 0
+              position: inside
+              color: "#00000019"
+            - x: 0
+              y: 0
+              blur: 1
+              spread: 0
+              position: inside
+              color: "#00000024"
+
+          fill: t.color.uv-str-default
+
+          transitions:
+            - property: fill
+              duration: 200
+              easing: ease
+
+          # hover:
+          #   fill: t.color.uv-str-hover
+          # pressed:
+          #   fill: t.color.uv-str-pressed
+          disabled:
+            fill: t.color.uv-str-disabled
+
+        layers:
+          - frame:
+              # cond-if: "{{ props.selected }}"
+              theme: "{{ props.theme }}"
+              styles:                
+                lay-width: 0
+                lay-height: 0
+                vis-radius: 10
+                fill: t.color.uv-bg-default
+                shadow: t.shadow.elevation-low
+
+                hover:
+                  lay-width: 8
+                  lay-height: 8
+                pressed:
+                  lay-width: 4
+                  lay-height: 4
+
+                selected:
+                  lay-width: 14
+                  lay-height: 14
+                  hover:
+                    fill: t.color.uv-bg-hover
+                    lay-width: 16
+                    lay-height: 16
+                  pressed:
+                    fill: t.color.uv-bg-pressed
+                    lay-width: 18
+                    lay-height: 18
+                  disabled:
+                    fill: t.color.uv-bg-disabled
+
+                  transitions:
+                    - property: all
+                      duration: 300
+                      easing: ease
+                    - property: fill
+                      duration: 0
+                      easing: linear
+
+                transitions:
+                  - property: all
+                    duration: 400
+                    easing: ease
+                  - property: fill
+                    duration: 0
+                    easing: linear
+
+                # in:
+                #   lay-width: 0
+                #   lay-height: 0
+                # out:
+                #   lay-width: 0
+                #   lay-height: 0
+    - text:
+        content: "{{ props.label }}"
+        styles:
+          txt: t.typography.body-lg
+          fill: t.color.uv-fg-default
+          disabled:
+            fill: t.color.uv-fg-disabled

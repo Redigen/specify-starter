@@ -1,0 +1,111 @@
+pagination:
+  props:
+    path: /
+    currentPage: "{{ data.VAR.pages }}"
+    totalPages: "{{ data.VAR.totalPages }}"
+
+  logic:
+    - getPagination
+
+  state:
+    pages: "{{ logic.getPagination(Number(props.currentPage), Number(props.totalPages), 3) }}"
+
+  styles:
+    lay: row
+    lay-gap: t.spacing.150
+
+  layers:
+    - c.button-sm:
+        cond-if: "{{ state_pages.start?.length }}"
+        for: page in state.pages.start
+        key: page
+        props:
+          label: "{{String(page)}}"
+          theme: "{{ props.currentPage == page ? 'uv-primary-lighted' : 'uv-neutral-lowest-outline' }}"
+        styles:
+          pos-elevation: 1
+        on-click:
+          navigate-to:
+            link: "{{ props.path }}{{ !page || page === 1 ? '' : '/' + page }}"
+    - frame:
+        cond-if: "{{ state_pages.middle?.length }}"
+        styles:
+          lay: row
+          lay-width: 24
+          lay-mar-left: 0
+          lay-mar-right: 0
+          vis-opacity: 100
+          lay-align-h: center
+          lay-padding: t.spacing.100
+          transitions:
+            - property: vis-opacity
+              duration: 200
+              easing: linear
+            - property: lay-margin
+              duration: 100
+              easing: ease-out
+          in:
+            vis-opacity: 0
+            lay-mar-left: calc((t.spacing.150 + 1.5rem) * -1)
+          out:
+            vis-opacity: 0
+            lay-mar-right: calc((t.spacing.150 + 1.5rem) * -1)
+        layers:
+          - text:
+              content: "…"
+              styles:
+                txt: t.typography.body-lg
+                fill: t.color.surface-fg-muted
+    - c.button-sm:
+        cond-if: "{{ state_pages.middle?.length }}"
+        for: page in state.pages.middle
+        key: page
+        props:
+          label: "{{String(page)}}"
+          theme: "{{ props.currentPage == page ? 'uv-primary-lighted' : 'uv-neutral-lowest-outline' }}"
+        styles:
+          pos-elevation: 1
+        on-click:
+          navigate-to:
+            link: "{{ props.path }}/{{ page }}"
+    - frame:
+        cond-if: "{{ state_pages.end?.length }}"
+        styles:
+          lay: row
+          lay-width: 24
+          lay-mar-left: 0
+          lay-mar-right: 0
+          vis-opacity: 100
+          lay-align-h: center
+          lay-padding: t.spacing.100
+          transitions:
+            - property: vis-opacity
+              duration: 200
+              easing: linear
+            - property: lay-margin
+              duration: 100
+              easing: ease-out
+          in:
+            vis-opacity: 0
+            lay-mar-left: calc((t.spacing.150 + 1.5rem) * -1)
+          out:
+            vis-opacity: 0
+            lay-mar-right: calc((t.spacing.150 + 1.5rem) * -1)
+        layers:
+          - text:
+              content: "…"
+              styles:
+                txt: t.typography.body-lg
+                fill: t.color.surface-fg-muted
+    - c.button-sm:
+        cond-if: "{{ state_pages.end?.length }}"
+        for: page in state.pages.end
+        key: page
+        props:
+          label: "{{String(page)}}"
+          theme: "{{ props.currentPage == page ? 'uv-primary-lighted' : 'uv-neutral-lowest-outline' }}"
+        styles:
+          pos-elevation: 1
+        on-click:
+          navigate-to:
+            link: "{{ props.path }}/{{ page }}"

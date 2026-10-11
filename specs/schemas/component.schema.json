@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "component.schema.json",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/component"
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "properties": {
+        "selected": ["string", "boolean"],
+        "disabled": ["string", "boolean"],
+        "props": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z_.][a-zA-Z0-9_]*$"
+          },
+          "properties": {
+            ".value": ["string", "number", "boolean"],
+            "placeholder": ["string", "number", "boolean"],
+            "type": { "$ref": "base.schema.json#/$defs/layerItem/properties/field/properties/type" },
+            "inputmode": { "$ref": "base.schema.json#/$defs/layerItem/properties/field/properties/inputmode" },
+            "pattern": { "$ref": "base.schema.json#/$defs/layerItem/properties/field/properties/pattern" },
+            "mask": { "$ref": "base.schema.json#/$defs/layerItem/properties/field/properties/mask" },
+            "autocomplete": { "$ref": "base.schema.json#/$defs/layerItem/properties/field/properties/autocomplete" },
+            "accept": {
+              "type": "string",
+              "examples": [
+                "image/*",
+                "image/png, image/jpg"
+              ]
+            },
+            "step": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                { "type": "string" }
+              ]
+            }
+          },
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "object",
+                "$ref": "base.schema.json#/$defs/lang"
+              },
+              { "$ref": "base.schema.json#/$defs/assetsImages" },
+              { "$ref": "base.schema.json#/$defs/assetsAudio" },
+              { "$ref": "base.schema.json#/$defs/assetsVideo" },
+              { "$ref": "base.schema.json#/$defs/assetsVectors" },
+              { "$ref": "base.schema.json#/$defs/assetsCursors" },
+              { "$ref": "base.schema.json#/$defs/themes" },
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "boolean" },
+              {
+                "type": "object",
+                "additionalProperties": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "type": "number" },
+                    { "type": "boolean" },
+                    { "type": "object", "additionalProperties": true }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "state": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z_][a-zA-Z0-9_]*$"
+          },
+          "additionalProperties": true
+        },
+        "data": {
+          "$ref": "base.schema.json#/$defs/dataProps"
+        },
+        "stores": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z_][a-zA-Z0-9_]*$" }
+        },
+        "logic": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z_][a-zA-Z0-9_]*$" }
+        },
+        "meta": {
+          "$ref": "base.schema.json#/$defs/metaProps"
+        },
+        "html-tag": { "$ref": "base.schema.json#/$defs/htmlTags" },
+        "contenteditable": { "$ref": "base.schema.json#/$defs/contenteditable" },
+        "on-keydown": { "$ref": "base.schema.json#/$defs/on-keydown" },
+        "tabindex": ["string", "number"],
+        "theme": {
+          "anyOf": [
+            { "$ref": "base.schema.json#/$defs/themes" },
+            { "type": "string" }
+          ]
+        },
+        "styles": {
+          "$ref": "base.schema.json#/$defs/frameStylesProps"
+        },
+        "layers": {
+          "$ref": "base.schema.json#/$defs/layersProps"
+        }
+      }
+    }
+  }
+}

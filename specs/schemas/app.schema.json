@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "app.schema.json",
+  "type": "object",
+  "properties": {
+    "specs-version": {
+      "type": "number"
+    },
+    "lang": {
+      "type": "string",
+      "description": "Default website language"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Default meta tags",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["title", "description"]
+    },
+    "app-label": {
+      "type": "object",
+      "description": "Application name displayed under the app icon",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "short-name": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "short-name"]
+    },
+    "themes": {
+      "type": "object",
+      "properties": {
+        "light": { "$ref": "base.schema.json#/$defs/themes" },
+        "dark": { "$ref": "base.schema.json#/$defs/themes" }
+      },
+      "required": ["light", "dark"]
+    },
+    "integrations": {
+      "type": "object",
+      "properties": {
+        "appwrite": {
+          "type": "object",
+          "properties": {
+            "endpoint": {
+              "type": "string",
+              "pattern": "^https?://.*$"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "anonymousSession": {
+              "type": "boolean"
+            }
+          },
+          "required": ["endpoint", "projectId"]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "required": ["specs-version", "lang", "meta", "app-label"]
+}

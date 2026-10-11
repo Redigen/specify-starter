@@ -1,0 +1,51 @@
+spinner-lg:
+  styles:
+    pos: fixed
+    pos-top: 50%
+    pos-left: 50%
+    pos-elevation: 100
+    lay: block
+    lay-width: 48
+    lay-mar-top: -24
+    lay-mar-left: -24
+    
+  layers:
+    - vector:
+        file: ./assets/vectors/quarter-arc.svg
+        styles:
+          pos: absolute
+          pos-top: 0
+          pos-left: 0
+          lay-width: 48
+          lay-height: 48
+          stroke:
+            color: t.color.secondary-bg-default
+            weight: 1
+          css:
+            animation: spinner 800ms linear infinite
+    - vector:
+        file: ./assets/vectors/quarter-arc.svg
+        styles:
+          pos: absolute
+          pos-top: 0
+          pos-left: 0
+          lay-width: 48
+          lay-height: 48
+          stroke:
+            color: t.color.secondary-bg-default
+            weight: 1
+          css:
+            animation: spinner 800ms ease-in infinite
+    - vector:
+        file: ./assets/vectors/quarter-arc.svg
+        styles:
+          pos: absolute
+          pos-top: 0
+          pos-left: 0
+          lay-width: 48
+          lay-height: 48
+          stroke:
+            color: t.color.secondary-bg-default
+            weight: 1
+          css:
+            animation: spinner 800ms ease-out infinite

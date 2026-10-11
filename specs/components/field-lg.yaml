@@ -1,0 +1,457 @@
+field-lg:
+  props:
+    label: Title
+    .value: "{{ variable }}"
+    placeholder: Placeholder
+    hint: Help text
+    prefix: false
+    suffix: false
+    leftIcon: false
+    rightIcon: false
+    innerButtons: true
+    type: text
+    inputmode: text
+    disabled: false
+    required: false
+    min: -100
+    max: 100
+    minlength: 0
+    maxlength: 250
+    pattern: ""
+    mask: ""
+    step: 1
+    rows: 3
+    autocomplete: "off"
+    theme: uv-neutral-lowest-outline
+
+  state:
+    showPassword: false
+
+  theme: "{{props.theme}}"
+  disabled: "{{props.disabled}}"
+
+  styles:
+    lay: column
+    lay-gap: t.spacing.150
+    invalid:
+      fill: t.color.transparent
+
+  layers:
+    - c.label-md:
+        props:
+          label: "{{props.label}}"
+          required: "{{props.required}}"
+        cond-if: "{{props.label}}"
+        styles:
+          lay-width: fill-container
+    - frame:
+        styles:
+          lay: row
+          lay-width: fill-container
+          vis-radius: t.radius.lg
+          txt: t.typography.body-lg
+          fill: t.color.uv-bg-default
+          stroke: t.color.uv-str-default
+          hover:
+            stroke: t.color.uv-str-hover
+          focus:
+            stroke: t.color.uv-str-focus
+          pressed:
+            stroke: t.color.uv-str-pressed
+          disabled:
+            fill: t.color.uv-bg-disabled
+            stroke: t.color.uv-str-disabled
+          invalid:
+            stroke: t.color.error-outline-str-default
+            hover:
+              stroke: t.color.error-outline-str-hover
+            focus:
+              stroke: t.color.error-outline-str-focus
+            disabled:
+              stroke: t.color.error-outline-str-disabled
+
+        layers:
+          # Left button
+          - frame:
+              cond-if: "{{props.innerButtons && props.type === 'number' && window.matchMedia('(pointer: coarse)').matches}}"
+              styles:
+                lay: row
+                lay-align-h: center
+                lay-align-v: center
+                lay-pad-v: t.spacing.100
+                lay-pad-left: t.spacing.100
+                lay-mar-right: calc((t.spacing.200 + t.spacing.depend-radius) * -1)
+              layers:
+                - c.button-sm:
+                    props:
+                      leftIcon: ./assets/vectors/lucide/minus.svg
+                      iconSize: md
+                      disabled: "{{props.disabled || .value <= props.min}}"
+                      tabindex: -1
+                      theme: "{{props.theme.startsWith('uv-neutral') ? props.theme.replace('-outline', '') : props.theme}}"
+                    on-click:
+                      set-props:
+                        .value: "{{.value - (props.step || 1)}}"
+
+          - frame:
+              html-tag: label
+              styles:
+                lay: row
+                lay-width: fill-container
+                lay-pad-v: t.spacing.300
+                lay-pad-h: calc(t.spacing.300 + t.spacing.depend-radius)
+                lay-gap: calc(t.spacing.50 + t.spacing.depend-radius)
+                cursor-type: text
+                disabled:
+                  cursor-type: default
+
+              layers:
+                # Left Icon
+                - frame:
+                    cond-if: "{{props.leftIcon}}"
+                    styles:
+                      lay: row
+                      lay-align-h: center
+                      lay-align-v: center
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-h: calc(t.spacing.depend-radius * -1)
+                    layers:
+                      - vector:
+                          file: "{{props.leftIcon}}"
+                          styles:
+                            lay-width: t.sizing.icon-lg
+                            lay-height: t.sizing.icon-lg
+                            stroke:
+                              color: t.color.uv-fg-muted-default
+                              weight: t.sizing.icon-str-lg
+                            disabled:
+                              stroke:
+                                color: t.color.uv-fg-muted-disabled
+                                weight: t.sizing.icon-str-lg
+
+                - frame:
+                    styles:
+                      lay: row
+                      lay-pad-h: t.spacing.100
+                      lay-width: fill-container
+
+                    layers:
+                      - text:
+                          content: "{{props.prefix}}"
+                          cond-if: "{{props.prefix}}"
+                          styles:
+                            fill: t.color.uv-fg-muted-default
+                            disabled:
+                              fill: t.color.uv-fg-muted-disabled
+                      # Textarea
+                      - frame:
+                          cond-if: "{{props.type === 'textarea'}}"
+                          styles:
+                            lay: column
+                            lay-width: fill-container
+                            # lay-gap: t.spacing.50
+                          layers:
+                            - field:
+                                value: "{{.value}}"
+                                placeholder: "{{props.placeholder ?? ''}}"
+                                type: textarea
+                                inputmode: "{{props.inputmode}}"
+                                disabled: "{{props.disabled}}"
+                                required: "{{props.required}}"
+                                minlength: "{{props.minlength}}"
+                                maxlength: "{{props.maxlength}}"
+                                pattern: "{{props.pattern}}"
+                                mask: "{{props.mask}}"
+                                rows: "{{props.rows}}"
+                                autocomplete: "{{props.autocomplete}}"
+                                this: fieldTextarea
+                                styles:
+                                  lay-width: fill-container
+                                  lay-height: hug-contents
+                                  txt: t.typography.body-lg
+                                  value:
+                                    fill: t.color.uv-fg-default
+                                  placeholder:
+                                    fill: t.color.uv-fg-muted-default
+                                  disabled:
+                                    value:
+                                      fill: t.color.uv-fg-disabled
+                                    placeholder:
+                                      fill: t.color.uv-fg-muted-disabled
+                            - text:
+                                content: "{{.value.length}}/{{props.maxlength}}"
+                                cond-if: "{{props.maxlength}}"
+                                styles:
+                                  txt: t.typography.label-lg
+                                  lay-height: 24
+                                  lay-pad-top: 2.5
+                                  fill: t.color.uv-fg-muted-default
+                                  disabled:
+                                    fill: t.color.uv-fg-muted-disabled
+
+                      # Text input
+                      - field:
+                          cond-if: "{{props.type !== 'number' && props.type !== 'textarea'}}"
+                          value: "{{.value}}"
+                          placeholder: "{{props.placeholder ?? ''}}"
+                          type: "{{ props.type === 'password' ? state.showPassword ? 'text' : 'password' : props.type }}"
+                          inputmode: "{{props.inputmode}}"
+                          disabled: "{{props.disabled}}"
+                          required: "{{props.required}}"
+                          minlength: "{{props.minlength}}"
+                          maxlength: "{{props.maxlength}}"
+                          pattern: "{{props.pattern}}"
+                          mask: "{{props.mask}}"
+                          autocomplete: "{{props.autocomplete}}"
+                          this: fieldInput
+                          styles:
+                            lay-width: fill-container
+                            lay-height: hug-contents
+                            txt: t.typography.body-lg
+                            value:
+                              fill: t.color.uv-fg-default
+                            placeholder:
+                              fill: t.color.uv-fg-muted-default
+                            disabled:
+                              value:
+                                fill: t.color.uv-fg-disabled
+                              placeholder:
+                                fill: t.color.uv-fg-muted-disabled
+
+                      # Number input touch
+                      - field:
+                          cond-if: "{{props.type === 'number' && window.matchMedia('(pointer: coarse)').matches}}"
+                          value: "{{.value}}"
+                          placeholder: "{{props.placeholder ?? ''}}"
+                          type: number
+                          inputmode: "{{props.inputmode}}"
+                          disabled: "{{props.disabled}}"
+                          required: "{{props.required}}"
+                          min: "{{props.min}}"
+                          max: "{{props.max}}"
+                          pattern: "{{props.pattern}}"
+                          mask: "{{props.mask}}"
+                          autocomplete: "{{props.autocomplete}}"
+                          this: fieldInput
+                          styles:
+                            lay-width: fill-container
+                            txt: t.typography.body-lg
+                            txt-align: center
+                            value:
+                              fill: t.color.uv-fg-default
+                            placeholder:
+                              fill: t.color.uv-fg-muted-default
+                            disabled:
+                              value:
+                                fill: t.color.uv-fg-disabled
+                              placeholder:
+                                fill: t.color.uv-fg-muted-disabled
+
+                      # Number input not touch
+                      - field:
+                          cond-if: "{{props.type === 'number' && !window.matchMedia('(pointer: coarse)').matches}}"
+                          value: "{{.value}}"
+                          placeholder: "{{props.placeholder ?? ''}}"
+                          type: number
+                          inputmode: "{{props.inputmode}}"
+                          disabled: "{{props.disabled}}"
+                          required: "{{props.required}}"
+                          min: "{{props.min}}"
+                          max: "{{props.max}}"
+                          pattern: "{{props.pattern}}"
+                          mask: "{{props.mask}}"
+                          autocomplete: "{{props.autocomplete}}"
+                          this: fieldInput
+                          styles:
+                            lay-width: fill-container
+                            txt: t.typography.body-lg
+                            txt-align: right
+                            value:
+                              fill: t.color.uv-fg-default
+                            placeholder:
+                              fill: t.color.uv-fg-muted-default
+                            disabled:
+                              value:
+                                fill: t.color.uv-fg-disabled
+                              placeholder:
+                                fill: t.color.uv-fg-muted-disabled
+                      - text:
+                          content: "{{props.suffix}}"
+                          cond-if: "{{props.suffix}}"
+                          styles:
+                            fill: t.color.uv-fg-muted-default
+                            disabled:
+                              fill: t.color.uv-fg-muted-disabled
+                      - text:
+                          content: "{{.value.length}}/{{props.maxlength}}"
+                          cond-if: "{{props.maxlength && props.type !== 'textarea'}}"
+                          styles:
+                            txt: t.typography.label-lg
+                            txt-align: right
+                            lay-height: 24
+                            lay-pad-top: 2.5
+                            lay-pad-left: t.spacing.200
+                            fill: t.color.uv-fg-muted-default
+                            disabled:
+                              fill: t.color.uv-fg-muted-disabled
+
+                # Right Icon
+                - frame:
+                    cond-if: "{{props.rightIcon}}"
+                    styles:
+                      lay: row
+                      lay-align-h: center
+                      lay-align-v: center
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-h: calc(t.spacing.depend-radius * -1)
+                    layers:
+                      - vector:
+                          file: "{{props.rightIcon}}"
+                          styles:
+                            lay-width: t.sizing.icon-lg
+                            lay-height: t.sizing.icon-lg
+                            stroke:
+                              color: t.color.uv-fg-muted-default
+                              weight: t.sizing.icon-str-lg
+                            disabled:
+                              stroke:
+                                color: t.color.uv-fg-muted-disabled
+                                weight: t.sizing.icon-str-lg
+
+          # Right button
+          - frame:
+              cond-if: "{{ props.innerButtons && (props.type === 'number' || (props.type === 'search' && .value) || props.type === 'password') }}"
+              styles:
+                lay: row
+                lay-height: fill-container
+                lay-align-h: center
+                lay-align-v: bottom
+                lay-pad-v: t.spacing.100
+                lay-pad-right: t.spacing.100
+                lay-mar-left: calc((t.spacing.200 + t.spacing.depend-radius) * -1)
+
+              layers:
+                - c.button-md:
+                    cond-if: "{{props.type === 'number' && window.matchMedia('(pointer: coarse)').matches}}"
+                    props:
+                      leftIcon: ./assets/vectors/lucide/plus.svg
+                      iconSize: lg
+                      disabled: "{{props.disabled || .value >= props.max}}"
+                      tabindex: -1
+                      theme: "{{props.theme.startsWith('uv-neutral') ? props.theme.replace('-outline', '') : props.theme}}"
+                    on-click:
+                      set-props:
+                        .value: "{{.value + (props.step || 1)}}"
+                - c.spin-button-sm:
+                    cond-if: "{{props.type === 'number' && !window.matchMedia('(pointer: coarse)').matches}}"
+                    props:
+                      .value: "{{.value}}"
+                      field: "{{fieldInput}}"
+                      min: "{{props.min}}"
+                      max: "{{props.max}}"
+                      step: "{{props.step}}"
+                      disabled: "{{props.disabled}}"
+                      tabindex: -1
+                      theme: "{{props.theme}}"
+                - c.button-md:
+                    cond-if: "{{props.type === 'search' && .value}}"
+                    props:
+                      leftIcon: ./assets/vectors/lucide/x.svg
+                      iconSize: lg
+                      disabled: "{{props.disabled}}"
+                      tabindex: -1
+                      theme: "{{props.theme.startsWith('uv-neutral') ? props.theme.replace('-outline', '') : props.theme}}"
+                    on-click:
+                      set-props:
+                        .value: ""
+                      run: "{{fieldInput?.focus()}}"
+                - c.button-md:
+                    cond-if: "{{props.type === 'password'}}"
+                    props:
+                      # label:
+                      #   ru: "{{ state.showPassword ? 'Скрыть' : 'Показать' }}"
+                      #   en: "{{ state.showPassword ? 'Hide' : 'Show' }}"
+                      leftIcon: "{{state.showPassword ? './assets/vectors/lucide/eye-off.svg' : './assets/vectors/lucide/eye.svg' }}"
+                      iconSize: lg
+                      disabled: "{{props.disabled}}"
+                      tabindex: -1
+                      theme: "{{props.theme.startsWith('uv-neutral') ? props.theme.replace('-outline', '') : props.theme}}"
+                    on-click:
+                      set-state:
+                        showPassword: "{{ state.showPassword ? false : true }}"
+    # Errors
+    - frame:
+        cond-if: "{{ (props.required && !.value)
+          || (props.minlength && .value.length < props.minlength && .value.length !== 0)
+          || (props.maxlength && .value.length > props.maxlength)
+          || (props.min && .value < props.min)
+          || (props.max && .value > props.max)
+          }}"
+        styles:
+          lay: column
+          lay-width: fill-container
+          lay-pad-h: t.spacing.depend-radius
+          lay-gap: t.spacing.100
+          txt: t.typography.body-md
+          vis: hide
+          invalid:
+            vis: show
+        layers:
+          - text:
+              content:
+                ru: "Обязательное поле"
+                en: "Required field"
+              cond-if: "{{props.required && !.value}}"
+              styles:
+                lay-width: fill-container
+                fill: t.color.error-outline-fg-default
+          - text:
+              content:
+                ru: "Минимальное количество символов: {{props.minlength}}"
+                en: "Minimum number of characters: {{props.minlength}}"
+              cond-if: "{{props.minlength && .value.length < props.minlength && .value.length !== 0}}"
+              styles:
+                lay-width: fill-container
+                fill: t.color.error-outline-fg-default
+          - text:
+              content:
+                ru: "Максимальное количество символов: {{props.maxlength}}"
+                en: "Maximum number of characters: {{props.maxlength}}"
+              cond-if: "{{props.maxlength && .value.length > props.maxlength}}"
+              styles:
+                lay-width: fill-container
+                fill: t.color.error-outline-fg-default
+          - text:
+              content:
+                ru: "Минимальное значение: {{props.min}}"
+                en: "Minimum value: {{props.min}}"
+              cond-if: "{{props.min && .value < props.min}}"
+              styles:
+                lay-width: fill-container
+                fill: t.color.error-outline-fg-default
+          - text:
+              content:
+                ru: "Максимальное значение: {{props.max}}"
+                en: "Maximum value: {{props.max}}"
+              cond-if: "{{props.max && .value > props.max}}"
+              styles:
+                lay-width: fill-container
+                fill: t.color.error-outline-fg-default
+    # Hint
+    - frame:
+        cond-if: "{{props.hint}}"
+        styles:
+          lay: column
+          lay-width: fill-container
+          lay-pad-h: t.spacing.depend-radius
+          lay-gap: t.spacing.100
+          txt: t.typography.body-md
+        layers:
+          - text:
+              content: "{{props.hint}}"
+              cond-if: "{{props.hint}}"
+              styles:
+                lay-width: fill-container
+                fill: t.color.surface-fg-muted

@@ -1,0 +1,1760 @@
+themes:
+  default:
+    palette:
+      p-l-01: "#F9FFFC"
+      p-l-02: "#EBFCF0"
+      p-l-03: "#E0FAE8"
+      p-l-04: "#D6F7E0"
+      p-l-05: "#C9F2D6"
+      p-l-06: "#BCECCC"
+      p-l-07: "#AFE5C1"
+      p-l-08: "#A4E0B8"
+      p-l-09: "#97D9AE"
+      p-l-10: "#8BD2A4"
+      p-l-11: "#80CC9C"
+      p-l-12: "#74C592"
+      p-l-13: "#6BBF8B"
+      p-l-14: "#60B782"
+      p-l-15: "#57B07B"
+      p-d-15: "#48A16D"
+      p-d-14: "#419966"
+      p-d-13: "#3B915F"
+      p-d-12: "#348657"
+      p-d-11: "#2A774C"
+      p-d-10: "#266E46"
+      p-d-09: "#21633E"
+      p-d-08: "#1C5736"
+      p-d-07: "#184C2E"
+      p-d-06: "#1A452C"
+      p-d-05: "#183C26"
+      p-d-04: "#14301F"
+      p-d-03: "#12261A"
+      p-d-02: "#111D15"
+      p-d-01: "#0B110D"
+      pv-l-01: "#FBFFFD"
+      pv-l-02: "#F0FAF3"
+      pv-l-03: "#E7F7EC"
+      pv-l-04: "#DFF3E5"
+      pv-l-05: "#D5EEDC"
+      pv-l-06: "#CAE7D2"
+      pv-l-07: "#BFE0C9"
+      pv-l-08: "#B5DAC1"
+      pv-l-09: "#ABD3B7"
+      pv-l-10: "#A1CCAE"
+      pv-l-11: "#98C5A6"
+      pv-l-12: "#8EBD9D"
+      pv-l-13: "#86B796"
+      pv-l-14: "#7DAF8E"
+      pv-l-15: "#76A887"
+      pv-d-15: "#689A79"
+      pv-d-14: "#619271"
+      pv-d-13: "#5A8A6B"
+      pv-d-12: "#527F62"
+      pv-d-11: "#477156"
+      pv-d-10: "#41684F"
+      pv-d-09: "#3A5E46"
+      pv-d-08: "#32533E"
+      pv-d-07: "#2B4835"
+      pv-d-06: "#294232"
+      pv-d-05: "#24392B"
+      pv-d-04: "#1E2D23"
+      pv-d-03: "#19241C"
+      pv-d-02: "#151C17"
+      pv-d-01: "#0C100E"
+      s-l-01: "#F8FFFF"
+      s-l-02: "#EAFAFF"
+      s-l-03: "#DFF6FF"
+      s-l-04: "#D3F2FF"
+      s-l-05: "#C7ECFF"
+      s-l-06: "#B9E5FF"
+      s-l-07: "#ACDDFF"
+      s-l-08: "#9FD7FF"
+      s-l-09: "#93CFFB"
+      s-l-10: "#86C8F7"
+      s-l-11: "#7BC1F2"
+      s-l-12: "#6FB9ED"
+      s-l-13: "#65B2E8"
+      s-l-14: "#5AAAE0"
+      s-l-15: "#52A3DA"
+      s-d-15: "#4294CA"
+      s-d-14: "#3B8CC1"
+      s-d-13: "#3685B8"
+      s-d-12: "#2E7AAA"
+      s-d-11: "#246D9A"
+      s-d-10: "#21648E"
+      s-d-09: "#1C5A80"
+      s-d-08: "#184F71"
+      s-d-07: "#144463"
+      s-d-06: "#173F59"
+      s-d-05: "#16364C"
+      s-d-04: "#122C3D"
+      s-d-03: "#112330"
+      s-d-02: "#101C24"
+      s-d-01: "#0A1014"
+      sv-l-01: "#FBFFFF"
+      sv-l-02: "#EFF9FF"
+      sv-l-03: "#E6F5FF"
+      sv-l-04: "#DDF0FE"
+      sv-l-05: "#D3EAFB"
+      sv-l-06: "#C8E2F6"
+      sv-l-07: "#BDDBF2"
+      sv-l-08: "#B3D4ED"
+      sv-l-09: "#A8CDE8"
+      sv-l-10: "#9EC5E2"
+      sv-l-11: "#95BEDD"
+      sv-l-12: "#8BB6D6"
+      sv-l-13: "#83B0D1"
+      sv-l-14: "#7AA8C9"
+      sv-l-15: "#72A1C2"
+      sv-d-15: "#6492B3"
+      sv-d-14: "#5D8AAB"
+      sv-d-13: "#5783A2"
+      sv-d-12: "#4F7896"
+      sv-d-11: "#446B87"
+      sv-d-10: "#3F637C"
+      sv-d-09: "#375870"
+      sv-d-08: "#304E63"
+      sv-d-07: "#294356"
+      sv-d-06: "#283E4E"
+      sv-d-05: "#233643"
+      sv-d-04: "#1C2B36"
+      sv-d-03: "#18232A"
+      sv-d-02: "#141B20"
+      sv-d-01: "#0C1012"
+      n-l-01: "#FFFFFE"
+      n-l-02: "#F8F7F4"
+      n-l-03: "#F3F2EE"
+      n-l-04: "#EEEDE8"
+      n-l-05: "#E7E6E0"
+      n-l-06: "#E0DED7"
+      n-l-07: "#D8D6CE"
+      n-l-08: "#D1D0C6"
+      n-l-09: "#C9C8BD"
+      n-l-10: "#C1C0B4"
+      n-l-11: "#BAB9AD"
+      n-l-12: "#B3B1A4"
+      n-l-13: "#ACAA9D"
+      n-l-14: "#A4A295"
+      n-l-15: "#9D9B8E"
+      n-d-15: "#8F8D80"
+      n-d-14: "#878578"
+      n-d-13: "#7F7E71"
+      n-d-12: "#757468"
+      n-d-11: "#68675C"
+      n-d-10: "#605E54"
+      n-d-09: "#56544B"
+      n-d-08: "#4C4A42"
+      n-d-07: "#414039"
+      n-d-06: "#3C3B35"
+      n-d-05: "#34332E"
+      n-d-04: "#2A2925"
+      n-d-03: "#22211E"
+      n-d-02: "#1A1A18"
+      n-d-01: "#0F0F0E"
+      nv-l-01: "#FFFFFD"
+      nv-l-02: "#F8F7F4"
+      nv-l-03: "#F3F2ED"
+      nv-l-04: "#EFEDE6"
+      nv-l-05: "#E8E6DE"
+      nv-l-06: "#E0DED5"
+      nv-l-07: "#D8D6CC"
+      nv-l-08: "#D2D0C3"
+      nv-l-09: "#CAC8BA"
+      nv-l-10: "#C2C0B2"
+      nv-l-11: "#BBB9AA"
+      nv-l-12: "#B3B1A1"
+      nv-l-13: "#ADAA9A"
+      nv-l-14: "#A5A292"
+      nv-l-15: "#9E9B8B"
+      nv-d-15: "#908D7D"
+      nv-d-14: "#888575"
+      nv-d-13: "#807E6F"
+      nv-d-12: "#767465"
+      nv-d-11: "#696759"
+      nv-d-10: "#615E52"
+      nv-d-09: "#575449"
+      nv-d-08: "#4C4A40"
+      nv-d-07: "#424037"
+      nv-d-06: "#3D3B34"
+      nv-d-05: "#34332D"
+      nv-d-04: "#2A2924"
+      nv-d-03: "#22211D"
+      nv-d-02: "#1B1A18"
+      nv-d-01: "#0F0F0E"
+      r-l-01: "#FFFCF7"
+      r-l-02: "#FFF0E7"
+      r-l-03: "#FFE8DB"
+      r-l-04: "#FFE0CF"
+      r-l-05: "#FFD6C1"
+      r-l-06: "#FFCBB3"
+      r-l-07: "#FFC0A5"
+      r-l-08: "#FFB698"
+      r-l-09: "#FFAB8B"
+      r-l-10: "#FFA07F"
+      r-l-11: "#FF9773"
+      r-l-12: "#FE8D67"
+      r-l-13: "#F9845E"
+      r-l-14: "#F17A53"
+      r-l-15: "#EA724A"
+      r-d-15: "#DA643C"
+      r-d-14: "#D05D35"
+      r-d-13: "#C65630"
+      r-d-12: "#B84E29"
+      r-d-11: "#A64320"
+      r-d-10: "#993D1D"
+      r-d-09: "#8A3618"
+      r-d-08: "#7A2F14"
+      r-d-07: "#6B2811"
+      r-d-06: "#612714"
+      r-d-05: "#532313"
+      r-d-04: "#421D10"
+      r-d-03: "#34180F"
+      r-d-02: "#27150F"
+      r-d-01: "#160D0A"
+      rv-l-01: "#FFFDFA"
+      rv-l-02: "#FFF3ED"
+      rv-l-03: "#FFECE4"
+      rv-l-04: "#FFE5DB"
+      rv-l-05: "#FFDCD0"
+      rv-l-06: "#FFD3C4"
+      rv-l-07: "#FCC9B8"
+      rv-l-08: "#F8C0AE"
+      rv-l-09: "#F4B7A3"
+      rv-l-10: "#EEAE99"
+      rv-l-11: "#E9A58F"
+      rv-l-12: "#E39C85"
+      rv-l-13: "#DE957D"
+      rv-l-14: "#D68C74"
+      rv-l-15: "#CF856D"
+      rv-d-15: "#BF775F"
+      rv-d-14: "#B66F58"
+      rv-d-13: "#AD6952"
+      rv-d-12: "#A1604A"
+      rv-d-11: "#905440"
+      rv-d-10: "#854D3B"
+      rv-d-09: "#784434"
+      rv-d-08: "#6A3C2D"
+      rv-d-07: "#5C3427"
+      rv-d-06: "#543125"
+      rv-d-05: "#482A21"
+      rv-d-04: "#3A221B"
+      rv-d-03: "#2E1C16"
+      rv-d-02: "#231713"
+      rv-d-01: "#130E0C"
+      o-l-01: "#FFFEF6"
+      o-l-02: "#FFF5E4"
+      o-l-03: "#FFEFD7"
+      o-l-04: "#FFE9C9"
+      o-l-05: "#FFE1BA"
+      o-l-06: "#FBD8AB"
+      o-l-07: "#F7CF9B"
+      o-l-08: "#F3C78D"
+      o-l-09: "#EEBE7F"
+      o-l-10: "#E8B570"
+      o-l-11: "#E3AD63"
+      o-l-12: "#DDA456"
+      o-l-13: "#D79D4A"
+      o-l-14: "#D0943D"
+      o-l-15: "#C98D32"
+      o-d-15: "#BA7F1F"
+      o-d-14: "#B17715"
+      o-d-13: "#A8700F"
+      o-d-12: "#9C6704"
+      o-d-11: "#8C5A00"
+      o-d-10: "#815300"
+      o-d-09: "#744A00"
+      o-d-08: "#674100"
+      o-d-07: "#593800"
+      o-d-06: "#513405"
+      o-d-05: "#452E09"
+      o-d-04: "#382509"
+      o-d-03: "#2C1E0B"
+      o-d-02: "#21180C"
+      o-d-01: "#130E09"
+      ov-l-01: "#FFFEF9"
+      ov-l-02: "#FEF6EC"
+      ov-l-03: "#FCF0E1"
+      ov-l-04: "#FAEBD7"
+      ov-l-05: "#F6E3CB"
+      ov-l-06: "#F1DABF"
+      ov-l-07: "#EBD2B3"
+      ov-l-08: "#E6CAA8"
+      ov-l-09: "#E0C29C"
+      ov-l-10: "#D9BA91"
+      ov-l-11: "#D4B287"
+      ov-l-12: "#CDAA7D"
+      ov-l-13: "#C7A374"
+      ov-l-14: "#BF9A6B"
+      ov-l-15: "#B89363"
+      ov-d-15: "#A98555"
+      ov-d-14: "#A17D4F"
+      ov-d-13: "#987649"
+      ov-d-12: "#8D6D41"
+      ov-d-11: "#7E6037"
+      ov-d-10: "#745833"
+      ov-d-09: "#694F2D"
+      ov-d-08: "#5C4527"
+      ov-d-07: "#503C21"
+      ov-d-06: "#493820"
+      ov-d-05: "#3F301D"
+      ov-d-04: "#322718"
+      ov-d-03: "#281F14"
+      ov-d-02: "#1F1912"
+      ov-d-01: "#110F0B"
+      y-l-01: "#FFFFF6"
+      y-l-02: "#FBF8E4"
+      y-l-03: "#F7F3D7"
+      y-l-04: "#F4EFC9"
+      y-l-05: "#EFE8BA"
+      y-l-06: "#E8E0AA"
+      y-l-07: "#E2D89B"
+      y-l-08: "#DCD18D"
+      y-l-09: "#D5C97E"
+      y-l-10: "#CEC170"
+      y-l-11: "#C8BA62"
+      y-l-12: "#C1B255"
+      y-l-13: "#BBAB49"
+      y-l-14: "#B3A33B"
+      y-l-15: "#AC9C30"
+      y-d-15: "#9D8D1C"
+      y-d-14: "#968611"
+      y-d-13: "#8E7E09"
+      y-d-12: "#837400"
+      y-d-11: "#756700"
+      y-d-10: "#6C5F00"
+      y-d-09: "#605500"
+      y-d-08: "#554B00"
+      y-d-07: "#4A4100"
+      y-d-06: "#433C04"
+      y-d-05: "#3A3408"
+      y-d-04: "#2F2A09"
+      y-d-03: "#25220A"
+      y-d-02: "#1D1A0C"
+      y-d-01: "#100F09"
+      yv-l-01: "#FFFFF9"
+      yv-l-02: "#F9F8EC"
+      yv-l-03: "#F5F3E1"
+      yv-l-04: "#F1EED7"
+      yv-l-05: "#EBE7CB"
+      yv-l-06: "#E4E0BF"
+      yv-l-07: "#DDD8B3"
+      yv-l-08: "#D7D1A8"
+      yv-l-09: "#D0C99C"
+      yv-l-10: "#C8C191"
+      yv-l-11: "#C2BA87"
+      yv-l-12: "#BAB27D"
+      yv-l-13: "#B4AB74"
+      yv-l-14: "#ACA36A"
+      yv-l-15: "#A59C63"
+      yv-d-15: "#978E55"
+      yv-d-14: "#8F864E"
+      yv-d-13: "#877F49"
+      yv-d-12: "#7D7441"
+      yv-d-11: "#6F6737"
+      yv-d-10: "#665F32"
+      yv-d-09: "#5C552C"
+      yv-d-08: "#514B26"
+      yv-d-07: "#464121"
+      yv-d-06: "#403C20"
+      yv-d-05: "#37341D"
+      yv-d-04: "#2C2A18"
+      yv-d-03: "#242114"
+      yv-d-02: "#1C1A12"
+      yv-d-01: "#100F0B"
+      g-l-01: "#F8FFFB"
+      g-l-02: "#E9FDEF"
+      g-l-03: "#DEFBE7"
+      g-l-04: "#D2F8DE"
+      g-l-05: "#C5F4D4"
+      g-l-06: "#B7EEC9"
+      g-l-07: "#A9E8BE"
+      g-l-08: "#9CE2B4"
+      g-l-09: "#8FDCAA"
+      g-l-10: "#82D5A0"
+      g-l-11: "#76CF97"
+      g-l-12: "#69C78D"
+      g-l-13: "#5EC186"
+      g-l-14: "#52B97D"
+      g-l-15: "#48B275"
+      g-d-15: "#37A467"
+      g-d-14: "#2F9B61"
+      g-d-13: "#29935A"
+      g-d-12: "#218852"
+      g-d-11: "#167947"
+      g-d-10: "#147041"
+      g-d-09: "#10643A"
+      g-d-08: "#0D5933"
+      g-d-07: "#0B4D2B"
+      g-d-06: "#114629"
+      g-d-05: "#123D24"
+      g-d-04: "#10311D"
+      g-d-03: "#0F2718"
+      g-d-02: "#0F1E14"
+      g-d-01: "#0A110C"
+      gv-l-01: "#FBFFFD"
+      gv-l-02: "#EFFBF2"
+      gv-l-03: "#E6F8EB"
+      gv-l-04: "#DDF4E4"
+      gv-l-05: "#D2EFDB"
+      gv-l-06: "#C7E8D1"
+      gv-l-07: "#BCE1C7"
+      gv-l-08: "#B1DBBF"
+      gv-l-09: "#A7D4B5"
+      gv-l-10: "#9CCDAC"
+      gv-l-11: "#93C7A4"
+      gv-l-12: "#89BF9B"
+      gv-l-13: "#80B994"
+      gv-l-14: "#77B18B"
+      gv-l-15: "#6FAA84"
+      gv-d-15: "#619B76"
+      gv-d-14: "#5A936F"
+      gv-d-13: "#548B69"
+      gv-d-12: "#4C8160"
+      gv-d-11: "#417354"
+      gv-d-10: "#3C6A4D"
+      gv-d-09: "#355F45"
+      gv-d-08: "#2E543C"
+      gv-d-07: "#284834"
+      gv-d-06: "#264230"
+      gv-d-05: "#22392A"
+      gv-d-04: "#1C2E22"
+      gv-d-03: "#17251C"
+      gv-d-02: "#141D17"
+      gv-d-01: "#0C100D"
+      c-l-01: "#F8FFFF"
+      c-l-02: "#E9FBFC"
+      c-l-03: "#DEF8FA"
+      c-l-04: "#D2F5F7"
+      c-l-05: "#C5F0F2"
+      c-l-06: "#B7E9EC"
+      c-l-07: "#A9E3E5"
+      c-l-08: "#9CDDE0"
+      c-l-09: "#8ED6D9"
+      c-l-10: "#81CFD3"
+      c-l-11: "#75C8CD"
+      c-l-12: "#68C1C5"
+      c-l-13: "#5DBBBF"
+      c-l-14: "#51B3B8"
+      c-l-15: "#47ACB1"
+      c-d-15: "#369DA2"
+      c-d-14: "#2E959A"
+      c-d-13: "#298D92"
+      c-d-12: "#218287"
+      c-d-11: "#157478"
+      c-d-10: "#136B6F"
+      c-d-09: "#0F6064"
+      c-d-08: "#0C5558"
+      c-d-07: "#0A494C"
+      c-d-06: "#114346"
+      c-d-05: "#113A3C"
+      c-d-04: "#0F2F30"
+      c-d-03: "#0F2526"
+      c-d-02: "#0F1D1E"
+      c-d-01: "#0A1011"
+      cv-l-01: "#FBFFFF"
+      cv-l-02: "#EFFAFA"
+      cv-l-03: "#E6F6F7"
+      cv-l-04: "#DDF2F3"
+      cv-l-05: "#D2ECED"
+      cv-l-06: "#C7E5E7"
+      cv-l-07: "#BBDEE0"
+      cv-l-08: "#B1D8DA"
+      cv-l-09: "#A6D0D3"
+      cv-l-10: "#9CC9CC"
+      cv-l-11: "#92C3C5"
+      cv-l-12: "#88BBBE"
+      cv-l-13: "#80B5B7"
+      cv-l-14: "#77ACAF"
+      cv-l-15: "#6FA5A8"
+      cv-d-15: "#61979A"
+      cv-d-14: "#5A8F92"
+      cv-d-13: "#54878A"
+      cv-d-12: "#4C7D80"
+      cv-d-11: "#416F72"
+      cv-d-10: "#3C6669"
+      cv-d-09: "#355C5E"
+      cv-d-08: "#2E5153"
+      cv-d-07: "#274648"
+      cv-d-06: "#264042"
+      cv-d-05: "#223739"
+      cv-d-04: "#1B2D2E"
+      cv-d-03: "#172424"
+      cv-d-02: "#141C1C"
+      cv-d-01: "#0C1010"
+      b-l-01: "#FAFFFF"
+      b-l-02: "#EDF7FF"
+      b-l-03: "#E4F2FF"
+      b-l-04: "#DAEDFF"
+      b-l-05: "#D0E5FF"
+      b-l-06: "#C4DDFF"
+      b-l-07: "#B9D4FF"
+      b-l-08: "#AFCCFF"
+      b-l-09: "#A4C4FF"
+      b-l-10: "#9ABBFF"
+      b-l-11: "#91B3FF"
+      b-l-12: "#87AAFF"
+      b-l-13: "#7FA3FF"
+      b-l-14: "#769AFF"
+      b-l-15: "#6F93FF"
+      b-d-15: "#6284F0"
+      b-d-14: "#5B7CE6"
+      b-d-13: "#5575DB"
+      b-d-12: "#4D6BCC"
+      b-d-11: "#435EB9"
+      b-d-10: "#3E57AB"
+      b-d-09: "#364D9A"
+      b-d-08: "#2F4489"
+      b-d-07: "#293B77"
+      b-d-06: "#27376B"
+      b-d-05: "#22305B"
+      b-d-04: "#1B2749"
+      b-d-03: "#172039"
+      b-d-02: "#13192A"
+      b-d-01: "#0C0F17"
+      bv-l-01: "#FCFFFF"
+      bv-l-02: "#F1F7FF"
+      bv-l-03: "#E9F2FF"
+      bv-l-04: "#E1EDFF"
+      bv-l-05: "#D8E6FF"
+      bv-l-06: "#CEDEFF"
+      bv-l-07: "#C4D6FF"
+      bv-l-08: "#BBCEFF"
+      bv-l-09: "#B1C6FC"
+      bv-l-10: "#A8BEF7"
+      bv-l-11: "#9FB7F3"
+      bv-l-12: "#96AEED"
+      bv-l-13: "#8FA8E8"
+      bv-l-14: "#869FE1"
+      bv-l-15: "#7F98DA"
+      bv-d-15: "#718ACB"
+      bv-d-14: "#6A82C2"
+      bv-d-13: "#647BB8"
+      bv-d-12: "#5B71AB"
+      bv-d-11: "#50649A"
+      bv-d-10: "#495C8E"
+      bv-d-09: "#415280"
+      bv-d-08: "#394872"
+      bv-d-07: "#313E63"
+      bv-d-06: "#2E3A59"
+      bv-d-05: "#28324C"
+      bv-d-04: "#20283D"
+      bv-d-03: "#1B2130"
+      bv-d-02: "#161A24"
+      bv-d-01: "#0D0F14"
+      m-l-01: "#FFFAFF"
+      m-l-02: "#FFEDFE"
+      m-l-03: "#FFE3FD"
+      m-l-04: "#FFDAFB"
+      m-l-05: "#FFCEF7"
+      m-l-06: "#FFC1F1"
+      m-l-07: "#FFB5EC"
+      m-l-08: "#FFAAE7"
+      m-l-09: "#FF9EE1"
+      m-l-10: "#FF92DA"
+      m-l-11: "#FF88D5"
+      m-l-12: "#FB7CCE"
+      m-l-13: "#F673C8"
+      m-l-14: "#EF68C0"
+      m-l-15: "#E860B9"
+      m-d-15: "#D751AA"
+      m-d-14: "#CE49A2"
+      m-d-13: "#C3449A"
+      m-d-12: "#B53C8E"
+      m-d-11: "#A4317F"
+      m-d-10: "#972D75"
+      m-d-09: "#882769"
+      m-d-08: "#79225D"
+      m-d-07: "#691D51"
+      m-d-06: "#5F1E4A"
+      m-d-05: "#521B3F"
+      m-d-04: "#421733"
+      m-d-03: "#341428"
+      m-d-02: "#27121F"
+      m-d-01: "#150B11"
+      mv-l-01: "#FFFCFF"
+      mv-l-02: "#FFF1FB"
+      mv-l-03: "#FFE9F9"
+      mv-l-04: "#FFE1F5"
+      mv-l-05: "#FFD8F0"
+      mv-l-06: "#FFCDEA"
+      mv-l-07: "#FBC3E3"
+      mv-l-08: "#F7BADE"
+      mv-l-09: "#F2B0D7"
+      mv-l-10: "#EDA6D0"
+      mv-l-11: "#E89DCA"
+      mv-l-12: "#E194C2"
+      mv-l-13: "#DC8CBC"
+      mv-l-14: "#D483B4"
+      mv-l-15: "#CD7BAD"
+      mv-d-15: "#BE6D9F"
+      mv-d-14: "#B56697"
+      mv-d-13: "#AB608F"
+      mv-d-12: "#9F5784"
+      mv-d-11: "#8F4C76"
+      mv-d-10: "#84466D"
+      mv-d-09: "#773E61"
+      mv-d-08: "#693656"
+      mv-d-07: "#5B2E4B"
+      mv-d-06: "#532C44"
+      mv-d-05: "#47273B"
+      mv-d-04: "#391F2F"
+      mv-d-03: "#2D1A26"
+      mv-d-02: "#22161D"
+      mv-d-01: "#130D10"
+
+    color:
+      transparent: "#00000000"
+      base-str-focus: t.palette.n-d-03
+
+      surface-lowest-bg: t.palette.n-l-01
+      surface-lowest-str: t.palette.nv-l-06
+      surface-low-bg: t.palette.n-l-02
+      surface-low-str: t.palette.nv-l-07
+      surface-mid-bg: t.palette.n-l-03
+      surface-mid-str: t.palette.nv-l-07
+      surface-high-bg: t.palette.n-l-04
+      surface-high-str: t.palette.nv-l-08
+      surface-highest-bg: t.palette.n-l-05
+      surface-highest-str: t.palette.nv-l-08
+      surface-fg: t.palette.n-d-03
+      surface-fg-muted: t.palette.nv-d-11
+
+      primary-bg-default: t.palette.p-d-10
+      primary-bg-hover: t.palette.p-d-11
+      primary-bg-focus: t.palette.p-d-10
+      primary-bg-pressed: t.palette.p-d-12
+      primary-bg-disabled: t.palette.n-l-07
+      primary-str-default: t.color.transparent
+      primary-str-hover: t.color.transparent
+      primary-str-focus: t.color.transparent
+      primary-str-pressed: t.color.transparent
+      primary-str-disabled: t.color.transparent
+      primary-fg-default: t.palette.p-l-01
+      primary-fg-disabled: t.palette.nv-d-13
+      primary-fg-muted-default: t.palette.pv-l-06
+      primary-fg-muted-disabled: t.palette.nv-l-15
+
+      primary-outline-bg-default: t.color.transparent
+      primary-outline-bg-hover: color-mix(in srgb, t.palette.p-d-15, transparent 92%)
+      primary-outline-bg-focus: t.color.transparent
+      primary-outline-bg-pressed: color-mix(in srgb, t.palette.p-d-15, transparent 88%)
+      primary-outline-bg-disabled: t.color.transparent
+      primary-outline-str-default: t.palette.p-d-10
+      primary-outline-str-hover: t.palette.p-d-08
+      primary-outline-str-focus: t.palette.p-d-12
+      primary-outline-str-pressed: t.palette.p-d-07
+      primary-outline-str-disabled: t.palette.nv-l-08
+      primary-outline-fg-default: t.palette.p-d-10
+      primary-outline-fg-disabled: t.palette.nv-l-15
+      primary-outline-fg-muted-default: t.palette.pv-d-14
+      primary-outline-fg-muted-disabled: t.palette.nv-l-12
+
+      primary-lighted-bg-default: t.palette.pv-l-07
+      primary-lighted-bg-hover: t.palette.pv-l-09
+      primary-lighted-bg-focus: t.palette.pv-l-07
+      primary-lighted-bg-pressed: t.palette.pv-l-10
+      primary-lighted-bg-disabled: t.palette.n-l-06
+      primary-lighted-str-default: t.color.transparent
+      primary-lighted-str-hover: t.color.transparent
+      primary-lighted-str-focus: t.palette.p-d-12
+      primary-lighted-str-pressed: t.color.transparent
+      primary-lighted-str-disabled: t.color.transparent
+      primary-lighted-fg-default: t.palette.p-d-03
+      primary-lighted-fg-disabled: t.palette.nv-d-14
+      primary-lighted-fg-muted-default: t.palette.pv-d-09
+      primary-lighted-fg-muted-disabled: t.palette.nv-l-14
+
+      primary-lighted-mild-bg-default: t.palette.pv-l-03
+      primary-lighted-mild-bg-hover: t.palette.pv-l-05
+      primary-lighted-mild-bg-focus: t.palette.pv-l-03
+      primary-lighted-mild-bg-pressed: t.palette.pv-l-06
+      primary-lighted-mild-bg-disabled: t.palette.n-l-03
+      primary-lighted-mild-str-default: t.palette.pv-l-08
+      primary-lighted-mild-str-hover: t.palette.pv-l-10
+      primary-lighted-mild-str-focus: t.palette.p-d-12
+      primary-lighted-mild-str-pressed: t.palette.pv-l-11
+      primary-lighted-mild-str-disabled: t.palette.nv-l-07
+      primary-lighted-mild-fg-default: t.palette.p-d-03
+      primary-lighted-mild-fg-disabled: t.palette.nv-d-15
+      primary-lighted-mild-fg-muted-default: t.palette.pv-d-11
+      primary-lighted-mild-fg-muted-disabled: t.palette.nv-l-13
+
+      secondary-bg-default: t.palette.s-d-10
+      secondary-bg-hover: t.palette.s-d-11
+      secondary-bg-focus: t.palette.s-d-10
+      secondary-bg-pressed: t.palette.s-d-12
+      secondary-bg-disabled: t.palette.n-l-07
+      secondary-str-default: t.color.transparent
+      secondary-str-hover: t.color.transparent
+      secondary-str-focus: t.color.transparent
+      secondary-str-pressed: t.color.transparent
+      secondary-str-disabled: t.color.transparent
+      secondary-fg-default: t.palette.s-l-01
+      secondary-fg-disabled: t.palette.nv-d-13
+      secondary-fg-muted-default: t.palette.sv-l-06
+      secondary-fg-muted-disabled: t.palette.nv-l-15
+
+      secondary-lighted-bg-default: t.palette.sv-l-07
+      secondary-lighted-bg-hover: t.palette.sv-l-09
+      secondary-lighted-bg-focus: t.palette.sv-l-07
+      secondary-lighted-bg-pressed: t.palette.sv-l-10
+      secondary-lighted-bg-disabled: t.palette.n-l-06
+      secondary-lighted-str-default: t.color.transparent
+      secondary-lighted-str-hover: t.color.transparent
+      secondary-lighted-str-focus: t.palette.s-d-12
+      secondary-lighted-str-pressed: t.color.transparent
+      secondary-lighted-str-disabled: t.color.transparent
+      secondary-lighted-fg-default: t.palette.s-d-03
+      secondary-lighted-fg-disabled: t.palette.nv-d-14
+      secondary-lighted-fg-muted-default: t.palette.sv-d-09
+      secondary-lighted-fg-muted-disabled: t.palette.nv-l-14
+
+      secondary-lighted-mild-bg-default: t.palette.sv-l-03
+      secondary-lighted-mild-bg-hover: t.palette.sv-l-05
+      secondary-lighted-mild-bg-focus: t.palette.sv-l-03
+      secondary-lighted-mild-bg-pressed: t.palette.sv-l-06
+      secondary-lighted-mild-bg-disabled: t.palette.n-l-03
+      secondary-lighted-mild-str-default: t.palette.sv-l-08
+      secondary-lighted-mild-str-hover: t.palette.sv-l-10
+      secondary-lighted-mild-str-focus: t.palette.s-d-12
+      secondary-lighted-mild-str-pressed: t.palette.sv-l-11
+      secondary-lighted-mild-str-disabled: t.palette.nv-l-07
+      secondary-lighted-mild-fg-default: t.palette.s-d-03
+      secondary-lighted-mild-fg-disabled: t.palette.nv-d-15
+      secondary-lighted-mild-fg-muted-default: t.palette.sv-d-11
+      secondary-lighted-mild-fg-muted-disabled: t.palette.nv-l-13
+
+      error-bg-default: t.palette.r-d-10
+      error-bg-hover: t.palette.r-d-11
+      error-bg-focus: t.palette.r-d-10
+      error-bg-pressed: t.palette.r-d-12
+      error-bg-disabled: t.palette.n-l-07
+      error-str-default: t.color.transparent
+      error-str-hover: t.color.transparent
+      error-str-focus: t.color.transparent
+      error-str-pressed: t.color.transparent
+      error-str-disabled: t.color.transparent
+      error-fg-default: t.palette.r-l-01
+      error-fg-disabled: t.palette.nv-d-13
+      error-fg-muted-default: t.palette.rv-l-06
+      error-fg-muted-disabled: t.palette.nv-l-15
+
+      error-outline-bg-default: t.color.transparent
+      error-outline-bg-hover: color-mix(in srgb, t.palette.r-d-15, transparent 92%)
+      error-outline-bg-focus: t.color.transparent
+      error-outline-bg-pressed: color-mix(in srgb, t.palette.r-d-15, transparent 88%)
+      error-outline-bg-disabled: t.color.transparent
+      error-outline-str-default: t.palette.r-d-10
+      error-outline-str-hover: t.palette.r-d-08
+      error-outline-str-focus: t.palette.r-d-12
+      error-outline-str-pressed: t.palette.r-d-07
+      error-outline-str-disabled: t.palette.nv-l-08
+      error-outline-fg-default: t.palette.r-d-10
+      error-outline-fg-disabled: t.palette.nv-l-15
+      error-outline-fg-muted-default: t.palette.rv-d-14
+      error-outline-fg-muted-disabled: t.palette.nv-l-12
+
+      error-lighted-bg-default: t.palette.rv-l-07
+      error-lighted-bg-hover: t.palette.rv-l-09
+      error-lighted-bg-focus: t.palette.rv-l-07
+      error-lighted-bg-pressed: t.palette.rv-l-10
+      error-lighted-bg-disabled: t.palette.n-l-06
+      error-lighted-str-default: t.color.transparent
+      error-lighted-str-hover: t.color.transparent
+      error-lighted-str-focus: t.palette.r-d-12
+      error-lighted-str-pressed: t.color.transparent
+      error-lighted-str-disabled: t.color.transparent
+      error-lighted-fg-default: t.palette.r-d-03
+      error-lighted-fg-disabled: t.palette.nv-d-14
+      error-lighted-fg-muted-default: t.palette.rv-d-09
+      error-lighted-fg-muted-disabled: t.palette.nv-l-14
+
+      error-lighted-mild-bg-default: t.palette.rv-l-03
+      error-lighted-mild-bg-hover: t.palette.rv-l-05
+      error-lighted-mild-bg-focus: t.palette.rv-l-03
+      error-lighted-mild-bg-pressed: t.palette.rv-l-06
+      error-lighted-mild-bg-disabled: t.palette.n-l-03
+      error-lighted-mild-str-default: t.palette.rv-l-08
+      error-lighted-mild-str-hover: t.palette.rv-l-10
+      error-lighted-mild-str-focus: t.palette.r-d-12
+      error-lighted-mild-str-pressed: t.palette.rv-l-11
+      error-lighted-mild-str-disabled: t.palette.nv-l-07
+      error-lighted-mild-fg-default: t.palette.r-d-03
+      error-lighted-mild-fg-disabled: t.palette.nv-d-15
+      error-lighted-mild-fg-muted-default: t.palette.rv-d-11
+      error-lighted-mild-fg-muted-disabled: t.palette.nv-l-13
+
+      neutral-lowest-bg-default: t.palette.n-l-01
+      neutral-lowest-bg-hover: t.palette.nv-l-03
+      neutral-lowest-bg-focus: t.palette.n-l-01
+      neutral-lowest-bg-pressed: t.palette.nv-l-04
+      neutral-lowest-bg-disabled: t.palette.n-l-02
+      neutral-lowest-str-default: t.palette.nv-l-08
+      neutral-lowest-str-hover: t.palette.nv-l-10
+      neutral-lowest-str-focus: t.palette.p-d-12
+      neutral-lowest-str-pressed: t.palette.nv-l-11
+      neutral-lowest-str-disabled: t.palette.nv-l-07
+      neutral-lowest-fg-default: t.palette.n-d-03
+      neutral-lowest-fg-disabled: t.palette.nv-d-15
+      neutral-lowest-fg-muted-default: t.palette.nv-d-11
+      neutral-lowest-fg-muted-disabled: t.palette.nv-l-13
+
+      neutral-low-bg-default: t.palette.n-l-02
+      neutral-low-bg-hover: t.palette.nv-l-04
+      neutral-low-bg-focus: t.palette.n-l-02
+      neutral-low-bg-pressed: t.palette.nv-l-05
+      neutral-low-bg-disabled: t.palette.n-l-03
+      neutral-low-str-default: t.palette.nv-l-08
+      neutral-low-str-hover: t.palette.nv-l-10
+      neutral-low-str-focus: t.palette.p-d-12
+      neutral-low-str-pressed: t.palette.nv-l-11
+      neutral-low-str-disabled: t.palette.nv-l-07
+      neutral-low-fg-default: t.palette.n-d-03
+      neutral-low-fg-disabled: t.palette.nv-d-15
+      neutral-low-fg-muted-default: t.palette.nv-d-11
+      neutral-low-fg-muted-disabled: t.palette.nv-l-13
+
+      neutral-mid-bg-default: t.palette.n-l-03
+      neutral-mid-bg-hover: t.palette.nv-l-05
+      neutral-mid-bg-focus: t.palette.n-l-03
+      neutral-mid-bg-pressed: t.palette.nv-l-06
+      neutral-mid-bg-disabled: t.palette.n-l-02
+      neutral-mid-str-default: t.palette.nv-l-08
+      neutral-mid-str-hover: t.palette.nv-l-10
+      neutral-mid-str-focus: t.palette.p-d-12
+      neutral-mid-str-pressed: t.palette.nv-l-11
+      neutral-mid-str-disabled: t.palette.nv-l-07
+      neutral-mid-fg-default: t.palette.n-d-03
+      neutral-mid-fg-disabled: t.palette.nv-d-15
+      neutral-mid-fg-muted-default: t.palette.nv-d-11
+      neutral-mid-fg-muted-disabled: t.palette.nv-l-13
+
+      neutral-high-bg-default: t.palette.n-l-04
+      neutral-high-bg-hover: t.palette.nv-l-06
+      neutral-high-bg-focus: t.palette.n-l-04
+      neutral-high-bg-pressed: t.palette.nv-l-07
+      neutral-high-bg-disabled: t.palette.n-l-03
+      neutral-high-str-default: t.palette.nv-l-08
+      neutral-high-str-hover: t.palette.nv-l-10
+      neutral-high-str-focus: t.palette.p-d-12
+      neutral-high-str-pressed: t.palette.nv-l-11
+      neutral-high-str-disabled: t.palette.nv-l-07
+      neutral-high-fg-default: t.palette.n-d-03
+      neutral-high-fg-disabled: t.palette.nv-d-15
+      neutral-high-fg-muted-default: t.palette.nv-d-11
+      neutral-high-fg-muted-disabled: t.palette.nv-l-13
+
+      neutral-highest-bg-default: t.palette.n-l-05
+      neutral-highest-bg-hover: t.palette.nv-l-07
+      neutral-highest-bg-focus: t.palette.n-l-05
+      neutral-highest-bg-pressed: t.palette.nv-l-08
+      neutral-highest-bg-disabled: t.palette.n-l-04
+      neutral-highest-str-default: t.palette.nv-l-08
+      neutral-highest-str-hover: t.palette.nv-l-10
+      neutral-highest-str-focus: t.palette.p-d-12
+      neutral-highest-str-pressed: t.palette.nv-l-11
+      neutral-highest-str-disabled: t.palette.nv-l-07
+      neutral-highest-fg-default: t.palette.n-d-03
+      neutral-highest-fg-disabled: t.palette.nv-d-15
+      neutral-highest-fg-muted-default: t.palette.nv-d-11
+      neutral-highest-fg-muted-disabled: t.palette.nv-l-13
+
+      # univeral color tokens for components
+      uv-bg-default: t.palette.n-l-01
+      uv-bg-hover: t.palette.nv-l-03
+      uv-bg-focus: t.palette.n-l-01
+      uv-bg-pressed: t.palette.nv-l-04
+      uv-bg-disabled: t.palette.n-l-02
+      uv-str-default: t.palette.nv-l-08
+      uv-str-hover: t.palette.nv-l-10
+      uv-str-focus: t.palette.p-d-12
+      uv-str-pressed: t.palette.nv-l-11
+      uv-str-disabled: t.palette.nv-l-07
+      uv-fg-default: t.palette.n-d-03
+      uv-fg-disabled: t.palette.nv-d-15
+      uv-fg-muted-default: t.palette.nv-d-11
+      uv-fg-muted-disabled: t.palette.nv-l-13
+
+    gradient:
+      linear:
+        type: linear
+        deg: 45
+        repeat: false
+        stops:
+          - color: "#FFFFFF"
+            offset: 0%
+          - color: "#000000"
+            offset: 100%
+      radial:
+        type: radial
+        width: 100%
+        height: 80%
+        position: bottom center
+        repeat: false
+        stops:
+          - color: "#FFFFFF"
+            offset: 0%
+          - color: "#000000"
+            offset: 100%
+      angular:
+        type: angular
+        deg: 0
+        position: center
+        repeat: false
+        stops:
+          - color: "#FFFFFF"
+            offset: 0%
+          - color: "#000000"
+            offset: 50%
+          - color: "#FFFFFF"
+            offset: 100%
+
+    typography:
+      display-lg:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 57
+        line-height: 64
+        letter-spacing: -0.25
+      display-md:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 45
+        line-height: 52
+        letter-spacing: 0
+      display-sm:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 36
+        line-height: 44
+        letter-spacing: 0
+      headline-lg:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 32
+        line-height: 40
+        letter-spacing: 0
+      headline-md:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 28
+        line-height: 36
+        letter-spacing: 0
+      headline-sm:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 24
+        line-height: 32
+        letter-spacing: 0
+      title-lg:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 20
+        line-height: 28
+        letter-spacing: 0
+      title-md:
+        family: '"Inter", sans-serif'
+        weight: 500
+        size: 16
+        line-height: 24
+        #letter-spacing: 0.15
+      title-sm:
+        family: '"Inter", sans-serif'
+        weight: 500
+        size: 14
+        line-height: 20
+        #letter-spacing: 0.1
+      body-lg:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 16
+        line-height: 24
+        letter-spacing: 0
+      body-md:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 14
+        line-height: 20
+        #letter-spacing: 0.25
+      body-sm:
+        family: '"Inter", sans-serif'
+        weight: 400
+        size: 12
+        line-height: 16
+        #letter-spacing: 0.4
+      label-lg:
+        family: '"Inter", sans-serif'
+        weight: 500
+        size: 14
+        line-height: 20
+        # letter-spacing: 0.1
+      label-md:
+        family: '"Inter", sans-serif'
+        weight: 500
+        size: 12
+        line-height: 16
+        # letter-spacing: 0.5
+      label-sm:
+        family: '"Inter", sans-serif'
+        weight: 500
+        size: 11
+        line-height: 16
+        # letter-spacing: 0.5
+
+    radius:
+      xs: calc(t.radius.sm - t.spacing.100) # 2px
+      sm: calc(t.radius.md - t.spacing.100) # 6px
+      md: 10 # 10px
+      lg: calc(t.radius.md + t.spacing.100) # 14
+      xl: calc(t.radius.lg + t.spacing.100) # 18
+      2xl: calc(t.radius.xl + t.spacing.100) # 22
+      3xl: calc(t.radius.2xl + t.spacing.100) # 26
+      full: 9999
+
+    sizing:
+      base: 4
+      icon-xs: calc(t.sizing.base * 3) # 12px
+      icon-sm: calc(t.sizing.base * 4) # 16px
+      icon-md: calc(t.sizing.base * 5) # 20px
+      icon-lg: calc(t.sizing.base * 6) # 24px
+      icon-str-xs: calc(t.sizing.icon-str-lg * 2)
+      icon-str-sm: calc(t.sizing.icon-str-lg * 1.5)
+      icon-str-md: calc(t.sizing.icon-str-lg * 1.2)
+      icon-str-lg: 1.45 # Base icons stroke weight
+
+    spacing:
+      base: 4
+      25: calc(t.spacing.base * 0.25) # 1px
+      50: calc(t.spacing.base * 0.5) # 2px
+      75: calc(t.spacing.base * 0.75) # 3px
+      100: t.spacing.base # 4px
+      150: calc(t.spacing.base * 1.5) # 6px
+      200: calc(t.spacing.base * 2) # 8px
+      250: calc(t.spacing.base * 2.5) # 10px
+      300: calc(t.spacing.base * 3) # 12px
+      400: calc(t.spacing.base * 4) # 16px
+      450: calc(t.spacing.base * 4.5) # 18px
+      500: calc(t.spacing.base * 5) # 20px
+      600: calc(t.spacing.base * 6) # 24px
+      650: calc(t.spacing.base * 6.5) # 26px
+      700: calc(t.spacing.base * 7) # 28px
+      800: calc(t.spacing.base * 8) # 32px
+      900: calc(t.spacing.base * 9) # 36px
+      1000: calc(t.spacing.base * 10) # 40px
+      1200: calc(t.spacing.base * 12) # 48px
+      1500: calc(t.spacing.base * 15) # 60px
+      1600: calc(t.spacing.base * 16) # 64px
+      2000: calc(t.spacing.base * 20) # 80px
+      2400: calc(t.spacing.base * 24) # 96px
+      3200: calc(t.spacing.base * 32) # 128px
+      depend-radius: calc(t.radius.md * 0.2)
+      ios-top: env(safe-area-inset-top)
+      ios-right: env(safe-area-inset-right)
+      ios-bottom: env(safe-area-inset-bottom)
+      ios-left: env(safe-area-inset-left)
+
+    opacity:
+      overlay: 25
+
+    shadow:
+      elevation-low:
+        - x: 0
+          y: 1
+          blur: 1
+          spread: 0
+          position: outside
+          color: "#00000019"
+        - x: 0
+          y: 0
+          blur: 1
+          spread: 0
+          position: outside
+          color: "#00000024"
+      elevation-mid:
+        - x: 0
+          y: 17
+          blur: 7
+          spread: 0
+          position: outside
+          color: "#00000003"
+        - x: 0
+          y: 9
+          blur: 6
+          spread: 0
+          position: outside
+          color: "#0000000A"
+        - x: 0
+          y: 4
+          blur: 4
+          spread: 0
+          position: outside
+          color: "#00000012"
+        - x: 0
+          y: 1
+          blur: 2
+          spread: 0
+          position: outside
+          color: "#00000014"
+      elevation-high:
+        - x: 0
+          y: 35
+          blur: 14
+          spread: 0
+          position: outside
+          color: "#00000003"
+        - x: 0
+          y: 20
+          blur: 12
+          spread: 0
+          position: outside
+          color: "#0000000D"
+        - x: 0
+          y: 9
+          blur: 9
+          spread: 0
+          position: outside
+          color: "#00000017"
+        - x: 0
+          y: 2
+          blur: 5
+          spread: 0
+          position: outside
+          color: "#00000019"
+
+    blur:
+      glass: 16
+
+    easing:
+      bounce: 0.68, -0.55, 0.265, 1.55
+      snap: 0.25, 0.1, 0.25, 1
+      elastic: 0.68, -0.55, 0.265, 1.55
+
+  dark:
+    color:
+      base-str-focus: t.palette.n-l-03
+
+      surface-lowest-bg: t.palette.n-d-01
+      surface-lowest-str: t.palette.nv-d-06
+      surface-low-bg: t.palette.n-d-02
+      surface-low-str: t.palette.nv-d-07
+      surface-mid-bg: t.palette.n-d-03
+      surface-mid-str: t.palette.nv-d-07
+      surface-high-bg: t.palette.n-d-04
+      surface-high-str: t.palette.nv-d-08
+      surface-highest-bg: t.palette.n-d-05
+      surface-highest-str: t.palette.nv-d-08
+      surface-fg: t.palette.n-l-03
+      surface-fg-muted: t.palette.nv-l-11
+
+      primary-bg-default: t.palette.p-l-10
+      primary-bg-hover: t.palette.p-l-11
+      primary-bg-focus: t.palette.p-l-10
+      primary-bg-pressed: t.palette.p-l-12
+      primary-bg-disabled: t.palette.n-d-07
+      primary-str-default: t.color.transparent
+      primary-str-hover: t.color.transparent
+      primary-str-focus: t.color.transparent
+      primary-str-pressed: t.color.transparent
+      primary-str-disabled: t.color.transparent
+      primary-fg-default: t.palette.p-d-01
+      primary-fg-disabled: t.palette.nv-l-13
+      primary-fg-muted-default: t.palette.pv-d-06
+      primary-fg-muted-disabled: t.palette.nv-d-15
+
+      primary-outline-bg-default: t.color.transparent
+      primary-outline-bg-hover: color-mix(in srgb, t.palette.p-l-15, transparent 84%)
+      primary-outline-bg-focus: t.color.transparent
+      primary-outline-bg-pressed: color-mix(in srgb, t.palette.p-l-15, transparent 76%)
+      primary-outline-bg-disabled: t.color.transparent
+      primary-outline-str-default: t.palette.p-l-10
+      primary-outline-str-hover: t.palette.p-l-08
+      primary-outline-str-focus: t.palette.p-l-12
+      primary-outline-str-pressed: t.palette.p-l-07
+      primary-outline-str-disabled: t.palette.nv-d-08
+      primary-outline-fg-default: t.palette.p-l-10
+      primary-outline-fg-disabled: t.palette.nv-d-15
+      primary-outline-fg-muted-default: t.palette.pv-l-14
+      primary-outline-fg-muted-disabled: t.palette.nv-d-12
+
+      primary-lighted-bg-default: t.palette.pv-d-07
+      primary-lighted-bg-hover: t.palette.pv-d-09
+      primary-lighted-bg-focus: t.palette.pv-d-07
+      primary-lighted-bg-pressed: t.palette.pv-d-10
+      primary-lighted-bg-disabled: t.palette.n-d-06
+      primary-lighted-str-default: t.color.transparent
+      primary-lighted-str-hover: t.color.transparent
+      primary-lighted-str-focus: t.palette.p-l-12
+      primary-lighted-str-pressed: t.color.transparent
+      primary-lighted-str-disabled: t.color.transparent
+      primary-lighted-fg-default: t.palette.p-l-03
+      primary-lighted-fg-disabled: t.palette.nv-l-14
+      primary-lighted-fg-muted-default: t.palette.pv-l-09
+      primary-lighted-fg-muted-disabled: t.palette.nv-d-14
+
+      primary-lighted-mild-bg-default: t.palette.pv-d-03
+      primary-lighted-mild-bg-hover: t.palette.pv-d-05
+      primary-lighted-mild-bg-focus: t.palette.pv-d-03
+      primary-lighted-mild-bg-pressed: t.palette.pv-d-06
+      primary-lighted-mild-bg-disabled: t.palette.n-d-03
+      primary-lighted-mild-str-default: t.palette.pv-d-08
+      primary-lighted-mild-str-hover: t.palette.pv-d-10
+      primary-lighted-mild-str-focus: t.palette.p-l-12
+      primary-lighted-mild-str-pressed: t.palette.pv-d-11
+      primary-lighted-mild-str-disabled: t.palette.nv-d-07
+      primary-lighted-mild-fg-default: t.palette.p-l-03
+      primary-lighted-mild-fg-disabled: t.palette.nv-l-15
+      primary-lighted-mild-fg-muted-default: t.palette.pv-l-11
+      primary-lighted-mild-fg-muted-disabled: t.palette.nv-d-13
+
+      secondary-bg-default: t.palette.s-l-10
+      secondary-bg-hover: t.palette.s-l-11
+      secondary-bg-focus: t.palette.s-l-10
+      secondary-bg-pressed: t.palette.s-l-12
+      secondary-bg-disabled: t.palette.n-d-07
+      secondary-str-default: t.color.transparent
+      secondary-str-hover: t.color.transparent
+      secondary-str-focus: t.color.transparent
+      secondary-str-pressed: t.color.transparent
+      secondary-str-disabled: t.color.transparent
+      secondary-fg-default: t.palette.s-d-01
+      secondary-fg-disabled: t.palette.nv-l-13
+      secondary-fg-muted-default: t.palette.sv-d-06
+      secondary-fg-muted-disabled: t.palette.nv-d-15
+
+      secondary-lighted-bg-default: t.palette.sv-d-07
+      secondary-lighted-bg-hover: t.palette.sv-d-09
+      secondary-lighted-bg-focus: t.palette.sv-d-07
+      secondary-lighted-bg-pressed: t.palette.sv-d-10
+      secondary-lighted-bg-disabled: t.palette.n-d-06
+      secondary-lighted-str-default: t.color.transparent
+      secondary-lighted-str-hover: t.color.transparent
+      secondary-lighted-str-focus: t.palette.s-l-12
+      secondary-lighted-str-pressed: t.color.transparent
+      secondary-lighted-str-disabled: t.color.transparent
+      secondary-lighted-fg-default: t.palette.s-l-03
+      secondary-lighted-fg-disabled: t.palette.nv-l-14
+      secondary-lighted-fg-muted-default: t.palette.sv-l-09
+      secondary-lighted-fg-muted-disabled: t.palette.nv-d-14
+
+      secondary-lighted-mild-bg-default: t.palette.sv-d-03
+      secondary-lighted-mild-bg-hover: t.palette.sv-d-05
+      secondary-lighted-mild-bg-focus: t.palette.sv-d-03
+      secondary-lighted-mild-bg-pressed: t.palette.sv-d-06
+      secondary-lighted-mild-bg-disabled: t.palette.n-d-03
+      secondary-lighted-mild-str-default: t.palette.sv-d-08
+      secondary-lighted-mild-str-hover: t.palette.sv-d-10
+      secondary-lighted-mild-str-focus: t.palette.s-l-12
+      secondary-lighted-mild-str-pressed: t.palette.sv-d-11
+      secondary-lighted-mild-str-disabled: t.palette.nv-d-07
+      secondary-lighted-mild-fg-default: t.palette.s-l-03
+      secondary-lighted-mild-fg-disabled: t.palette.nv-l-15
+      secondary-lighted-mild-fg-muted-default: t.palette.sv-l-11
+      secondary-lighted-mild-fg-muted-disabled: t.palette.nv-d-13
+
+      error-bg-default: t.palette.r-l-10
+      error-bg-hover: t.palette.r-l-11
+      error-bg-focus: t.palette.r-l-10
+      error-bg-pressed: t.palette.r-l-12
+      error-bg-disabled: t.palette.n-d-07
+      error-str-default: t.color.transparent
+      error-str-hover: t.color.transparent
+      error-str-focus: t.color.transparent
+      error-str-pressed: t.color.transparent
+      error-str-disabled: t.color.transparent
+      error-fg-default: t.palette.r-d-01
+      error-fg-disabled: t.palette.nv-l-13
+      error-fg-muted-default: t.palette.rv-d-06
+      error-fg-muted-disabled: t.palette.nv-d-15
+
+      error-outline-bg-default: t.color.transparent
+      error-outline-bg-hover: color-mix(in srgb, t.palette.r-l-15, transparent 84%)
+      error-outline-bg-focus: t.color.transparent
+      error-outline-bg-pressed: color-mix(in srgb, t.palette.r-l-15, transparent 76%)
+      error-outline-bg-disabled: t.color.transparent
+      error-outline-str-default: t.palette.r-l-10
+      error-outline-str-hover: t.palette.r-l-08
+      error-outline-str-focus: t.palette.r-l-12
+      error-outline-str-pressed: t.palette.r-l-07
+      error-outline-str-disabled: t.palette.nv-d-08
+      error-outline-fg-default: t.palette.r-l-10
+      error-outline-fg-disabled: t.palette.nv-d-15
+      error-outline-fg-muted-default: t.palette.rv-l-14
+      error-outline-fg-muted-disabled: t.palette.nv-d-12
+
+      error-lighted-bg-default: t.palette.rv-d-07
+      error-lighted-bg-hover: t.palette.rv-d-09
+      error-lighted-bg-focus: t.palette.rv-d-07
+      error-lighted-bg-pressed: t.palette.rv-d-10
+      error-lighted-bg-disabled: t.palette.n-d-06
+      error-lighted-str-default: t.color.transparent
+      error-lighted-str-hover: t.color.transparent
+      error-lighted-str-focus: t.palette.r-l-12
+      error-lighted-str-pressed: t.color.transparent
+      error-lighted-str-disabled: t.color.transparent
+      error-lighted-fg-default: t.palette.r-l-03
+      error-lighted-fg-disabled: t.palette.nv-l-14
+      error-lighted-fg-muted-default: t.palette.rv-l-09
+      error-lighted-fg-muted-disabled: t.palette.nv-d-14
+
+      error-lighted-mild-bg-default: t.palette.rv-d-03
+      error-lighted-mild-bg-hover: t.palette.rv-d-05
+      error-lighted-mild-bg-focus: t.palette.rv-d-03
+      error-lighted-mild-bg-pressed: t.palette.rv-d-06
+      error-lighted-mild-bg-disabled: t.palette.n-d-03
+      error-lighted-mild-str-default: t.palette.rv-d-08
+      error-lighted-mild-str-hover: t.palette.rv-d-10
+      error-lighted-mild-str-focus: t.palette.r-l-12
+      error-lighted-mild-str-pressed: t.palette.rv-d-11
+      error-lighted-mild-str-disabled: t.palette.nv-d-07
+      error-lighted-mild-fg-default: t.palette.r-l-03
+      error-lighted-mild-fg-disabled: t.palette.nv-l-15
+      error-lighted-mild-fg-muted-default: t.palette.rv-l-11
+      error-lighted-mild-fg-muted-disabled: t.palette.nv-d-13
+
+      neutral-lowest-bg-default: t.palette.n-d-01
+      neutral-lowest-bg-hover: t.palette.nv-d-03
+      neutral-lowest-bg-focus: t.palette.n-d-01
+      neutral-lowest-bg-pressed: t.palette.nv-d-04
+      neutral-lowest-bg-disabled: t.palette.n-d-02
+      neutral-lowest-str-default: t.palette.nv-d-08
+      neutral-lowest-str-hover: t.palette.nv-d-10
+      neutral-lowest-str-focus: t.palette.p-l-12
+      neutral-lowest-str-pressed: t.palette.nv-d-11
+      neutral-lowest-str-disabled: t.palette.nv-d-07
+      neutral-lowest-fg-default: t.palette.n-l-03
+      neutral-lowest-fg-disabled: t.palette.nv-l-15
+      neutral-lowest-fg-muted-default: t.palette.nv-l-11
+      neutral-lowest-fg-muted-disabled: t.palette.nv-d-13
+
+      neutral-low-bg-default: t.palette.n-d-02
+      neutral-low-bg-hover: t.palette.nv-d-04
+      neutral-low-bg-focus: t.palette.n-d-02
+      neutral-low-bg-pressed: t.palette.nv-d-05
+      neutral-low-bg-disabled: t.palette.n-d-03
+      neutral-low-str-default: t.palette.nv-d-08
+      neutral-low-str-hover: t.palette.nv-d-10
+      neutral-low-str-focus: t.palette.p-l-12
+      neutral-low-str-pressed: t.palette.nv-d-11
+      neutral-low-str-disabled: t.palette.nv-d-07
+      neutral-low-fg-default: t.palette.n-l-03
+      neutral-low-fg-disabled: t.palette.nv-l-15
+      neutral-low-fg-muted-default: t.palette.nv-l-11
+      neutral-low-fg-muted-disabled: t.palette.nv-d-13
+
+      neutral-mid-bg-default: t.palette.n-d-03
+      neutral-mid-bg-hover: t.palette.nv-d-05
+      neutral-mid-bg-focus: t.palette.n-d-03
+      neutral-mid-bg-pressed: t.palette.nv-d-06
+      neutral-mid-bg-disabled: t.palette.n-d-02
+      neutral-mid-str-default: t.palette.nv-d-08
+      neutral-mid-str-hover: t.palette.nv-d-10
+      neutral-mid-str-focus: t.palette.p-l-12
+      neutral-mid-str-pressed: t.palette.nv-d-11
+      neutral-mid-str-disabled: t.palette.nv-d-07
+      neutral-mid-fg-default: t.palette.n-l-03
+      neutral-mid-fg-disabled: t.palette.nv-l-15
+      neutral-mid-fg-muted-default: t.palette.nv-l-11
+      neutral-mid-fg-muted-disabled: t.palette.nv-d-13
+
+      neutral-high-bg-default: t.palette.n-d-04
+      neutral-high-bg-hover: t.palette.nv-d-06
+      neutral-high-bg-focus: t.palette.n-d-04
+      neutral-high-bg-pressed: t.palette.nv-d-07
+      neutral-high-bg-disabled: t.palette.n-d-03
+      neutral-high-str-default: t.palette.nv-d-08
+      neutral-high-str-hover: t.palette.nv-d-10
+      neutral-high-str-focus: t.palette.p-l-12
+      neutral-high-str-pressed: t.palette.nv-d-11
+      neutral-high-str-disabled: t.palette.nv-d-07
+      neutral-high-fg-default: t.palette.n-l-03
+      neutral-high-fg-disabled: t.palette.nv-l-15
+      neutral-high-fg-muted-default: t.palette.nv-l-11
+      neutral-high-fg-muted-disabled: t.palette.nv-d-13
+
+      neutral-highest-bg-default: t.palette.n-d-05
+      neutral-highest-bg-hover: t.palette.nv-d-07
+      neutral-highest-bg-focus: t.palette.n-d-05
+      neutral-highest-bg-pressed: t.palette.nv-d-08
+      neutral-highest-bg-disabled: t.palette.n-d-04
+      neutral-highest-str-default: t.palette.nv-d-08
+      neutral-highest-str-hover: t.palette.nv-d-10
+      neutral-highest-str-focus: t.palette.p-l-12
+      neutral-highest-str-pressed: t.palette.nv-d-11
+      neutral-highest-str-disabled: t.palette.nv-d-07
+      neutral-highest-fg-default: t.palette.n-l-03
+      neutral-highest-fg-disabled: t.palette.nv-l-15
+      neutral-highest-fg-muted-default: t.palette.nv-l-11
+      neutral-highest-fg-muted-disabled: t.palette.nv-d-13
+
+      # univeral color tokens for components
+      uv-bg-default: t.palette.n-d-01
+      uv-bg-hover: t.palette.nv-d-03
+      uv-bg-focus: t.palette.n-d-01
+      uv-bg-pressed: t.palette.nv-d-04
+      uv-bg-disabled: t.palette.n-d-02
+      uv-str-default: t.palette.nv-d-08
+      uv-str-hover: t.palette.nv-d-10
+      uv-str-focus: t.palette.p-l-12
+      uv-str-pressed: t.palette.nv-d-11
+      uv-str-disabled: t.palette.nv-d-07
+      uv-fg-default: t.palette.n-l-03
+      uv-fg-disabled: t.palette.nv-l-15
+      uv-fg-muted-default: t.palette.nv-l-11
+      uv-fg-muted-disabled: t.palette.nv-d-13
+
+  uv-primary:
+    color:
+      uv-bg-default: t.color.primary-bg-default
+      uv-bg-hover: t.color.primary-bg-hover
+      uv-bg-focus: t.color.primary-bg-focus
+      uv-bg-pressed: t.color.primary-bg-pressed
+      uv-bg-disabled: t.color.primary-bg-disabled
+      uv-str-default: t.color.primary-str-default
+      uv-str-hover: t.color.primary-str-hover
+      uv-str-focus: t.color.primary-str-focus
+      uv-str-pressed: t.color.primary-str-pressed
+      uv-str-disabled: t.color.primary-str-disabled
+      uv-fg-default: t.color.primary-fg-default
+      uv-fg-disabled: t.color.primary-fg-disabled
+      uv-fg-muted-default: t.color.primary-fg-muted-default
+      uv-fg-muted-disabled: t.color.primary-fg-muted-disabled
+
+  uv-primary-outline:
+    color:
+      uv-bg-default: t.color.primary-outline-bg-default
+      uv-bg-hover: t.color.primary-outline-bg-hover
+      uv-bg-focus: t.color.primary-outline-bg-focus
+      uv-bg-pressed: t.color.primary-outline-bg-pressed
+      uv-bg-disabled: t.color.primary-outline-bg-disabled
+      uv-str-default: t.color.primary-outline-str-default
+      uv-str-hover: t.color.primary-outline-str-hover
+      uv-str-focus: t.color.primary-outline-str-focus
+      uv-str-pressed: t.color.primary-outline-str-pressed
+      uv-str-disabled: t.color.primary-outline-str-disabled
+      uv-fg-default: t.color.primary-outline-fg-default
+      uv-fg-disabled: t.color.primary-outline-fg-disabled
+      uv-fg-muted-default: t.color.primary-outline-fg-muted-default
+      uv-fg-muted-disabled: t.color.primary-outline-fg-muted-disabled
+
+  uv-primary-lighted:
+    color:
+      uv-bg-default: t.color.primary-lighted-bg-default
+      uv-bg-hover: t.color.primary-lighted-bg-hover
+      uv-bg-focus: t.color.primary-lighted-bg-focus
+      uv-bg-pressed: t.color.primary-lighted-bg-pressed
+      uv-bg-disabled: t.color.primary-lighted-bg-disabled
+      uv-str-default: t.color.primary-lighted-str-default
+      uv-str-hover: t.color.primary-lighted-str-hover
+      uv-str-focus: t.color.primary-lighted-str-focus
+      uv-str-pressed: t.color.primary-lighted-str-pressed
+      uv-str-disabled: t.color.primary-lighted-str-disabled
+      uv-fg-default: t.color.primary-lighted-fg-default
+      uv-fg-disabled: t.color.primary-lighted-fg-disabled
+      uv-fg-muted-default: t.color.primary-lighted-fg-muted-default
+      uv-fg-muted-disabled: t.color.primary-lighted-fg-muted-disabled
+
+  uv-primary-lighted-mild:
+    color:
+      uv-bg-default: t.color.primary-lighted-mild-bg-default
+      uv-bg-hover: t.color.primary-lighted-mild-bg-hover
+      uv-bg-focus: t.color.primary-lighted-mild-bg-focus
+      uv-bg-pressed: t.color.primary-lighted-mild-bg-pressed
+      uv-bg-disabled: t.color.primary-lighted-mild-bg-disabled
+      uv-str-default: t.color.primary-lighted-mild-str-default
+      uv-str-hover: t.color.primary-lighted-mild-str-hover
+      uv-str-focus: t.color.primary-lighted-mild-str-focus
+      uv-str-pressed: t.color.primary-lighted-mild-str-pressed
+      uv-str-disabled: t.color.primary-lighted-mild-str-disabled
+      uv-fg-default: t.color.primary-lighted-mild-fg-default
+      uv-fg-disabled: t.color.primary-lighted-mild-fg-disabled
+      uv-fg-muted-default: t.color.primary-lighted-mild-fg-muted-default
+      uv-fg-muted-disabled: t.color.primary-lighted-mild-fg-muted-disabled
+
+  uv-secondary:
+    color:
+      uv-bg-default: t.color.secondary-bg-default
+      uv-bg-hover: t.color.secondary-bg-hover
+      uv-bg-focus: t.color.secondary-bg-focus
+      uv-bg-pressed: t.color.secondary-bg-pressed
+      uv-bg-disabled: t.color.secondary-bg-disabled
+      uv-str-default: t.color.secondary-str-default
+      uv-str-hover: t.color.secondary-str-hover
+      uv-str-focus: t.color.secondary-str-focus
+      uv-str-pressed: t.color.secondary-str-pressed
+      uv-str-disabled: t.color.secondary-str-disabled
+      uv-fg-default: t.color.secondary-fg-default
+      uv-fg-disabled: t.color.secondary-fg-disabled
+      uv-fg-muted-default: t.color.secondary-fg-muted-default
+      uv-fg-muted-disabled: t.color.secondary-fg-muted-disabled
+
+  uv-secondary-lighted:
+    color:
+      uv-bg-default: t.color.secondary-lighted-bg-default
+      uv-bg-hover: t.color.secondary-lighted-bg-hover
+      uv-bg-focus: t.color.secondary-lighted-bg-focus
+      uv-bg-pressed: t.color.secondary-lighted-bg-pressed
+      uv-bg-disabled: t.color.secondary-lighted-bg-disabled
+      uv-str-default: t.color.secondary-lighted-str-default
+      uv-str-hover: t.color.secondary-lighted-str-hover
+      uv-str-focus: t.color.secondary-lighted-str-focus
+      uv-str-pressed: t.color.secondary-lighted-str-pressed
+      uv-str-disabled: t.color.secondary-lighted-str-disabled
+      uv-fg-default: t.color.secondary-lighted-fg-default
+      uv-fg-disabled: t.color.secondary-lighted-fg-disabled
+      uv-fg-muted-default: t.color.secondary-lighted-fg-muted-default
+      uv-fg-muted-disabled: t.color.secondary-lighted-fg-muted-disabled
+
+  uv-secondary-lighted-mild:
+    color:
+      uv-bg-default: t.color.secondary-lighted-mild-bg-default
+      uv-bg-hover: t.color.secondary-lighted-mild-bg-hover
+      uv-bg-focus: t.color.secondary-lighted-mild-bg-focus
+      uv-bg-pressed: t.color.secondary-lighted-mild-bg-pressed
+      uv-bg-disabled: t.color.secondary-lighted-mild-bg-disabled
+      uv-str-default: t.color.secondary-lighted-mild-str-default
+      uv-str-hover: t.color.secondary-lighted-mild-str-hover
+      uv-str-focus: t.color.secondary-lighted-mild-str-focus
+      uv-str-pressed: t.color.secondary-lighted-mild-str-pressed
+      uv-str-disabled: t.color.secondary-lighted-mild-str-disabled
+      uv-fg-default: t.color.secondary-lighted-mild-fg-default
+      uv-fg-disabled: t.color.secondary-lighted-mild-fg-disabled
+      uv-fg-muted-default: t.color.secondary-lighted-mild-fg-muted-default
+      uv-fg-muted-disabled: t.color.secondary-lighted-mild-fg-muted-disabled
+
+  uv-error:
+    color:
+      uv-bg-default: t.color.error-bg-default
+      uv-bg-hover: t.color.error-bg-hover
+      uv-bg-focus: t.color.error-bg-focus
+      uv-bg-pressed: t.color.error-bg-pressed
+      uv-bg-disabled: t.color.error-bg-disabled
+      uv-str-default: t.color.error-str-default
+      uv-str-hover: t.color.error-str-hover
+      uv-str-focus: t.color.error-str-focus
+      uv-str-pressed: t.color.error-str-pressed
+      uv-str-disabled: t.color.error-str-disabled
+      uv-fg-default: t.color.error-fg-default
+      uv-fg-disabled: t.color.error-fg-disabled
+      uv-fg-muted-default: t.color.error-fg-muted-default
+      uv-fg-muted-disabled: t.color.error-fg-muted-disabled
+
+  uv-error-outline:
+    color:
+      uv-bg-default: t.color.error-outline-bg-default
+      uv-bg-hover: t.color.error-outline-bg-hover
+      uv-bg-focus: t.color.error-outline-bg-focus
+      uv-bg-pressed: t.color.error-outline-bg-pressed
+      uv-bg-disabled: t.color.error-outline-bg-disabled
+      uv-str-default: t.color.error-outline-str-default
+      uv-str-hover: t.color.error-outline-str-hover
+      uv-str-focus: t.color.error-outline-str-focus
+      uv-str-pressed: t.color.error-outline-str-pressed
+      uv-str-disabled: t.color.error-outline-str-disabled
+      uv-fg-default: t.color.error-outline-fg-default
+      uv-fg-disabled: t.color.error-outline-fg-disabled
+      uv-fg-muted-default: t.color.error-outline-fg-muted-default
+      uv-fg-muted-disabled: t.color.error-outline-fg-muted-disabled
+
+  uv-error-lighted:
+    color:
+      uv-bg-default: t.color.error-lighted-bg-default
+      uv-bg-hover: t.color.error-lighted-bg-hover
+      uv-bg-focus: t.color.error-lighted-bg-focus
+      uv-bg-pressed: t.color.error-lighted-bg-pressed
+      uv-bg-disabled: t.color.error-lighted-bg-disabled
+      uv-str-default: t.color.error-lighted-str-default
+      uv-str-hover: t.color.error-lighted-str-hover
+      uv-str-focus: t.color.error-lighted-str-focus
+      uv-str-pressed: t.color.error-lighted-str-pressed
+      uv-str-disabled: t.color.error-lighted-str-disabled
+      uv-fg-default: t.color.error-lighted-fg-default
+      uv-fg-disabled: t.color.error-lighted-fg-disabled
+      uv-fg-muted-default: t.color.error-lighted-fg-muted-default
+      uv-fg-muted-disabled: t.color.error-lighted-fg-muted-disabled
+
+  uv-error-lighted-mild:
+    color:
+      uv-bg-default: t.color.error-lighted-mild-bg-default
+      uv-bg-hover: t.color.error-lighted-mild-bg-hover
+      uv-bg-focus: t.color.error-lighted-mild-bg-focus
+      uv-bg-pressed: t.color.error-lighted-mild-bg-pressed
+      uv-bg-disabled: t.color.error-lighted-mild-bg-disabled
+      uv-str-default: t.color.error-lighted-mild-str-default
+      uv-str-hover: t.color.error-lighted-mild-str-hover
+      uv-str-focus: t.color.error-lighted-mild-str-focus
+      uv-str-pressed: t.color.error-lighted-mild-str-pressed
+      uv-str-disabled: t.color.error-lighted-mild-str-disabled
+      uv-fg-default: t.color.error-lighted-mild-fg-default
+      uv-fg-disabled: t.color.error-lighted-mild-fg-disabled
+      uv-fg-muted-default: t.color.error-lighted-mild-fg-muted-default
+      uv-fg-muted-disabled: t.color.error-lighted-mild-fg-muted-disabled
+
+  uv-neutral-lowest:
+    color:
+      uv-bg-default: t.color.neutral-lowest-bg-default
+      uv-bg-hover: t.color.neutral-lowest-bg-hover
+      uv-bg-focus: t.color.neutral-lowest-bg-focus
+      uv-bg-pressed: t.color.neutral-lowest-bg-pressed
+      uv-bg-disabled: t.color.neutral-lowest-bg-disabled
+      uv-str-default: t.color.transparent
+      uv-str-hover: t.color.transparent
+      uv-str-focus: t.color.neutral-lowest-str-focus
+      uv-str-pressed: t.color.transparent
+      uv-str-disabled: t.color.transparent
+      uv-fg-default: t.color.neutral-lowest-fg-default
+      uv-fg-disabled: t.color.neutral-lowest-fg-disabled
+      uv-fg-muted-default: t.color.neutral-lowest-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-lowest-fg-muted-disabled
+
+  uv-neutral-low:
+    color:
+      uv-bg-default: t.color.neutral-low-bg-default
+      uv-bg-hover: t.color.neutral-low-bg-hover
+      uv-bg-focus: t.color.neutral-low-bg-focus
+      uv-bg-pressed: t.color.neutral-low-bg-pressed
+      uv-bg-disabled: t.color.neutral-low-bg-disabled
+      uv-str-default: t.color.transparent
+      uv-str-hover: t.color.transparent
+      uv-str-focus: t.color.neutral-low-str-focus
+      uv-str-pressed: t.color.transparent
+      uv-str-disabled: t.color.transparent
+      uv-fg-default: t.color.neutral-low-fg-default
+      uv-fg-disabled: t.color.neutral-low-fg-disabled
+      uv-fg-muted-default: t.color.neutral-low-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-low-fg-muted-disabled
+
+  uv-neutral-mid:
+    color:
+      uv-bg-default: t.color.neutral-mid-bg-default
+      uv-bg-hover: t.color.neutral-mid-bg-hover
+      uv-bg-focus: t.color.neutral-mid-bg-focus
+      uv-bg-pressed: t.color.neutral-mid-bg-pressed
+      uv-bg-disabled: t.color.neutral-mid-bg-disabled
+      uv-str-default: t.color.transparent
+      uv-str-hover: t.color.transparent
+      uv-str-focus: t.color.neutral-mid-str-focus
+      uv-str-pressed: t.color.transparent
+      uv-str-disabled: t.color.transparent
+      uv-fg-default: t.color.neutral-mid-fg-default
+      uv-fg-disabled: t.color.neutral-mid-fg-disabled
+      uv-fg-muted-default: t.color.neutral-mid-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-mid-fg-muted-disabled
+
+  uv-neutral-high:
+    color:
+      uv-bg-default: t.color.neutral-high-bg-default
+      uv-bg-hover: t.color.neutral-high-bg-hover
+      uv-bg-focus: t.color.neutral-high-bg-focus
+      uv-bg-pressed: t.color.neutral-high-bg-pressed
+      uv-bg-disabled: t.color.neutral-high-bg-disabled
+      uv-str-default: t.color.transparent
+      uv-str-hover: t.color.transparent
+      uv-str-focus: t.color.neutral-high-str-focus
+      uv-str-pressed: t.color.transparent
+      uv-str-disabled: t.color.transparent
+      uv-fg-default: t.color.neutral-high-fg-default
+      uv-fg-disabled: t.color.neutral-high-fg-disabled
+      uv-fg-muted-default: t.color.neutral-high-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-high-fg-muted-disabled
+
+  uv-neutral-highest:
+    color:
+      uv-bg-default: t.color.neutral-highest-bg-default
+      uv-bg-hover: t.color.neutral-highest-bg-hover
+      uv-bg-focus: t.color.neutral-highest-bg-focus
+      uv-bg-pressed: t.color.neutral-highest-bg-pressed
+      uv-bg-disabled: t.color.neutral-highest-bg-disabled
+      uv-str-default: t.color.transparent
+      uv-str-hover: t.color.transparent
+      uv-str-focus: t.color.neutral-highest-str-focus
+      uv-str-pressed: t.color.transparent
+      uv-str-disabled: t.color.transparent
+      uv-fg-default: t.color.neutral-highest-fg-default
+      uv-fg-disabled: t.color.neutral-highest-fg-disabled
+      uv-fg-muted-default: t.color.neutral-highest-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-highest-fg-muted-disabled
+
+  uv-neutral-lowest-outline:
+    color:
+      uv-bg-default: t.color.neutral-lowest-bg-default
+      uv-bg-hover: t.color.neutral-lowest-bg-hover
+      uv-bg-focus: t.color.neutral-lowest-bg-focus
+      uv-bg-pressed: t.color.neutral-lowest-bg-pressed
+      uv-bg-disabled: t.color.neutral-lowest-bg-disabled
+      uv-str-default: t.color.neutral-lowest-str-default
+      uv-str-hover: t.color.neutral-lowest-str-hover
+      uv-str-focus: t.color.neutral-lowest-str-focus
+      uv-str-pressed: t.color.neutral-lowest-str-pressed
+      uv-str-disabled: t.color.neutral-lowest-str-disabled
+      uv-fg-default: t.color.neutral-lowest-fg-default
+      uv-fg-disabled: t.color.neutral-lowest-fg-disabled
+      uv-fg-muted-default: t.color.neutral-lowest-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-lowest-fg-muted-disabled
+
+  uv-neutral-low-outline:
+    color:
+      uv-bg-default: t.color.neutral-low-bg-default
+      uv-bg-hover: t.color.neutral-low-bg-hover
+      uv-bg-focus: t.color.neutral-low-bg-focus
+      uv-bg-pressed: t.color.neutral-low-bg-pressed
+      uv-bg-disabled: t.color.neutral-low-bg-disabled
+      uv-str-default: t.color.neutral-low-str-default
+      uv-str-hover: t.color.neutral-low-str-hover
+      uv-str-focus: t.color.neutral-low-str-focus
+      uv-str-pressed: t.color.neutral-low-str-pressed
+      uv-str-disabled: t.color.neutral-low-str-disabled
+      uv-fg-default: t.color.neutral-low-fg-default
+      uv-fg-disabled: t.color.neutral-low-fg-disabled
+      uv-fg-muted-default: t.color.neutral-low-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-low-fg-muted-disabled
+
+  uv-neutral-mid-outline:
+    color:
+      uv-bg-default: t.color.neutral-mid-bg-default
+      uv-bg-hover: t.color.neutral-mid-bg-hover
+      uv-bg-focus: t.color.neutral-mid-bg-focus
+      uv-bg-pressed: t.color.neutral-mid-bg-pressed
+      uv-bg-disabled: t.color.neutral-mid-bg-disabled
+      uv-str-default: t.color.neutral-mid-str-default
+      uv-str-hover: t.color.neutral-mid-str-hover
+      uv-str-focus: t.color.neutral-mid-str-focus
+      uv-str-pressed: t.color.neutral-mid-str-pressed
+      uv-str-disabled: t.color.neutral-mid-str-disabled
+      uv-fg-default: t.color.neutral-mid-fg-default
+      uv-fg-disabled: t.color.neutral-mid-fg-disabled
+      uv-fg-muted-default: t.color.neutral-mid-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-mid-fg-muted-disabled
+
+  uv-neutral-high-outline:
+    color:
+      uv-bg-default: t.color.neutral-high-bg-default
+      uv-bg-hover: t.color.neutral-high-bg-hover
+      uv-bg-focus: t.color.neutral-high-bg-focus
+      uv-bg-pressed: t.color.neutral-high-bg-pressed
+      uv-bg-disabled: t.color.neutral-high-bg-disabled
+      uv-str-default: t.color.neutral-high-str-default
+      uv-str-hover: t.color.neutral-high-str-hover
+      uv-str-focus: t.color.neutral-high-str-focus
+      uv-str-pressed: t.color.neutral-high-str-pressed
+      uv-str-disabled: t.color.neutral-high-str-disabled
+      uv-fg-default: t.color.neutral-high-fg-default
+      uv-fg-disabled: t.color.neutral-high-fg-disabled
+      uv-fg-muted-default: t.color.neutral-high-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-high-fg-muted-disabled
+
+  uv-neutral-highest-outline:
+    color:
+      uv-bg-default: t.color.neutral-highest-bg-default
+      uv-bg-hover: t.color.neutral-highest-bg-hover
+      uv-bg-focus: t.color.neutral-highest-bg-focus
+      uv-bg-pressed: t.color.neutral-highest-bg-pressed
+      uv-bg-disabled: t.color.neutral-highest-bg-disabled
+      uv-str-default: t.color.neutral-highest-str-default
+      uv-str-hover: t.color.neutral-highest-str-hover
+      uv-str-focus: t.color.neutral-highest-str-focus
+      uv-str-pressed: t.color.neutral-highest-str-pressed
+      uv-str-disabled: t.color.neutral-highest-str-disabled
+      uv-fg-default: t.color.neutral-highest-fg-default
+      uv-fg-disabled: t.color.neutral-highest-fg-disabled
+      uv-fg-muted-default: t.color.neutral-highest-fg-muted-default
+      uv-fg-muted-disabled: t.color.neutral-highest-fg-muted-disabled

@@ -1,0 +1,17 @@
+specs-version: 0.1
+lang: en
+meta:
+  title: Specify Starter
+  description: Define your design system and UI → get a production-ready web app, clickable prototypes, or a single source of truth for your team.
+app-label:
+  name: Specify
+  short-name: Specify Starter
+themes:
+  light: default
+  dark: dark
+integrations:
+  appwrite:
+    endpoint: http://localhost/v1
+    projectId: demo
+    anonymousSession: false
+  # ym: 000000000

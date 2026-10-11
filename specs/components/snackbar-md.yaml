@@ -1,0 +1,237 @@
+snackbar-md:
+  props:
+    id: "{{ item.id }}"
+    type: "{{ item.type }}"
+    message: "{{ item.message }}"
+    duration: "{{ item.duration }}"
+
+  stores:
+    - theme
+    - notifications
+    - syncQueue
+
+  theme: "{{ stores.theme.name === 'dark' ? 'uv-neutral-highest' : 'uv-neutral-lowest'}}"
+
+  styles:
+    lay: column
+    lay-gap: t.spacing.200
+    lay-padding: t.spacing.200
+    vis-radius: t.radius.lg
+    fill: t.color.uv-bg-default
+    shadow: t.shadow.elevation-high
+    css:
+      pointer-events: auto
+  layers:
+    - frame:
+        theme: "{{ props.type === 'error' || props.type === 'offline' || props.type === 'server-unavailable' || props.type === 'too-many-requests' ? 'uv-error-outline' : stores.theme.name === 'dark' ? 'uv-neutral-highest' : 'uv-neutral-lowest' }}"
+        styles:
+          lay: row
+          lay-gap: t.spacing.150
+        layers:
+          - frame:
+              styles:
+                lay: row
+                lay-gap: t.spacing.200
+                lay-padding: t.spacing.100
+              layers:
+                - vector:
+                    cond-if: "{{ props.type === 'info' }}"
+                    file: ./assets/vectors/lucide/info.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'error' }}"
+                    file: ./assets/vectors/lucide/circle-x.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'cookie' }}"
+                    file: ./assets/vectors/lucide/cookie.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'success' }}"
+                    file: ./assets/vectors/lucide/circle-check.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'update' }}"
+                    file: ./assets/vectors/lucide/cloud-download.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'online' }}"
+                    file: ./assets/vectors/lucide/globe-check.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'offline' }}"
+                    file: ./assets/vectors/lucide/globe-off.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'server-available' }}"
+                    file: ./assets/vectors/lucide/cloud-check.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'server-unavailable' }}"
+                    file: ./assets/vectors/lucide/cloud-alert.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'too-many-requests' }}"
+                    file: ./assets/vectors/lucide/brick-wall-fire.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                - vector:
+                    cond-if: "{{ props.type === 'sync' }}"
+                    file: ./assets/vectors/lucide/cloud-sync.svg
+                    styles:
+                      lay-width: t.sizing.icon-lg
+                      lay-height: t.sizing.icon-lg
+                      lay-mar-right: calc(t.spacing.depend-radius * -1)
+                      stroke:
+                        color: t.color.uv-fg-default
+                        weight: t.sizing.icon-str-lg
+                    on-mount:
+                      run: "{{!stores.syncQueue.isSyncing && setTimeout(() => stores.notifications.remove(props.id), 1500)}}"
+
+                - text:
+                    content: "{{ props.message }}"
+                    styles:
+                      fill: t.color.uv-fg-default
+                      txt: t.typography.body-lg
+                      lay-pad-h: t.spacing.depend-radius
+
+          - c.button-sm:
+              cond-if: "{{ props.duration === 0 && props.type !== 'cookie' && props.type !== 'update' }}"
+              props:
+                # label: text
+                prefix: false
+                suffix: false
+                leftIcon: ./assets/vectors/lucide/x.svg
+                rightIcon: false
+                iconSize: lg
+                disabled: false
+                tabindex: 0
+                theme: "{{ props.type === 'error' || props.type === 'offline' || props.type === 'server-unavailable' || props.type === 'too-many-requests' ? 'uv-error-outline' : stores.theme.name === 'dark' ? 'uv-neutral-highest' : 'uv-neutral-lowest' }}"
+              on-click:
+                run: "{{ stores.notifications.remove(props.id) }}"
+              styles:
+                lay-mar-left: calc(t.spacing.depend-radius * -1)
+                stroke: t.color.transparent
+                hover:
+                  stroke: t.color.transparent
+                pressed:
+                  stroke: t.color.transparent
+                focus:
+                  stroke: t.color.transparent
+                disabled:
+                  stroke: t.color.transparent
+
+          - c.button-sm:
+              cond-if: "{{ props.type === 'cookie' }}"
+              props:
+                label:
+                  ru: Принять
+                  en: Accept
+                prefix: false
+                suffix: false
+                leftIcon: false
+                rightIcon: false
+                iconSize: md
+                disabled: false
+                tabindex: 0
+                theme: uv-primary
+              on-click:
+                run: "{{ stores.notifications.remove(props.id); localStorage.setItem('cookie-agreement', 'true'); }}"
+    - frame:
+        cond-if: "{{ props.type === 'update' }}"
+        styles:
+          lay: row
+          lay-width: fill-container
+          lay-gap: t.spacing.150
+          lay-align-h: right
+        layers:
+          - c.button-sm:
+              props:
+                label:
+                  ru: Позже
+                  en: Later
+                prefix: false
+                suffix: false
+                leftIcon: false
+                rightIcon: false
+                iconSize: sm
+                disabled: false
+                tabindex: 0
+                theme: uv-primary-outline
+              on-click:
+                run: "{{ stores.notifications.remove(props.id) }}"
+
+          - c.button-sm:
+              props:
+                label:
+                  ru: Обновить сейчас
+                  en: Update now
+                prefix: false
+                suffix: false
+                leftIcon: false
+                rightIcon: false
+                iconSize: sm
+                disabled: false
+                tabindex: 0
+                theme: uv-primary
+              on-click:
+                run: "{{ stores.notifications.remove(props.id); window._pwaUpdate ? window._pwaUpdate(true) : '' }}"

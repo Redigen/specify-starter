@@ -1,0 +1,341 @@
+{
+  "c.button-lg": {
+    "prefix": "c.button-lg",
+    "body": [
+      "c.button-lg:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Text}",
+      "\t\t\tprefix: ${2:false}",
+      "\t\t\tsuffix: ${3:false}",
+      "\t\t\tleftIcon: ${4:false}",
+      "\t\t\trightIcon: ${5:false}",
+      "\t\t\ticonSize: ${6:lg}",
+      "\t\t\tdisabled: ${7:false}",
+      "\t\t\ttabindex: ${8:0}",
+      "\t\t\ttheme: ${9:uv-primary}"
+    ],
+    "description": "Insert a component button-lg"
+  },
+  "c.button-md": {
+    "prefix": "c.button-md",
+    "body": [
+      "c.button-md:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Text}",
+      "\t\t\tprefix: ${2:false}",
+      "\t\t\tsuffix: ${3:false}",
+      "\t\t\tleftIcon: ${4:false}",
+      "\t\t\trightIcon: ${5:false}",
+      "\t\t\ticonSize: ${6:md}",
+      "\t\t\tdisabled: ${7:false}",
+      "\t\t\ttabindex: ${8:0}",
+      "\t\t\ttheme: ${9:uv-primary}"
+    ],
+    "description": "Insert a component button-md"
+  },
+  "c.button-sm": {
+    "prefix": "c.button-sm",
+    "body": [
+      "c.button-sm:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Text}",
+      "\t\t\tprefix: ${2:false}",
+      "\t\t\tsuffix: ${3:false}",
+      "\t\t\tleftIcon: ${4:false}",
+      "\t\t\trightIcon: ${5:false}",
+      "\t\t\ticonSize: ${6:sm}",
+      "\t\t\tdisabled: ${7:false}",
+      "\t\t\ttabindex: ${8:0}",
+      "\t\t\ttheme: ${9:uv-primary}"
+    ],
+    "description": "Insert a component button-sm"
+  },
+  "c.button-xs": {
+    "prefix": "c.button-xs",
+    "body": [
+      "c.button-xs:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Text}",
+      "\t\t\tprefix: ${2:false}",
+      "\t\t\tsuffix: ${3:false}",
+      "\t\t\tleftIcon: ${4:false}",
+      "\t\t\trightIcon: ${5:false}",
+      "\t\t\ticonSize: ${6:xs}",
+      "\t\t\tdisabled: ${7:false}",
+      "\t\t\ttabindex: ${8:0}",
+      "\t\t\ttheme: ${9:uv-primary}"
+    ],
+    "description": "Insert a component button-xs"
+  },
+  "c.field-lg": {
+    "prefix": "c.field-lg",
+    "body": [
+      "c.field-lg:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Title}",
+      "\t\t\t.value: ${2:\"{{ variable \\}\\}\"}",
+      "\t\t\tplaceholder: ${3:Placeholder}",
+      "\t\t\thint: ${4:Help text}",
+      "\t\t\tprefix: ${5:false}",
+      "\t\t\tsuffix: ${6:false}",
+      "\t\t\tleftIcon: ${7:false}",
+      "\t\t\trightIcon: ${8:false}",
+      "\t\t\tinnerButtons: ${9:true}",
+      "\t\t\ttype: ${10:text}",
+      "\t\t\tinputmode: ${11:text}",
+      "\t\t\tdisabled: ${12:false}",
+      "\t\t\trequired: ${13:false}",
+      "\t\t\tmin: ${14:-100}",
+      "\t\t\tmax: ${15:100}",
+      "\t\t\tminlength: ${16:0}",
+      "\t\t\tmaxlength: ${17:250}",
+      "\t\t\tpattern: ${18:}",
+      "\t\t\tmask: ${19:}",
+      "\t\t\tstep: ${20:1}",
+      "\t\t\trows: ${21:3}",
+      "\t\t\tautocomplete: ${22:off}",
+      "\t\t\ttheme: ${23:uv-neutral-lowest-outline}"
+    ],
+    "description": "Insert a component field-lg"
+  },
+  "c.field-md": {
+    "prefix": "c.field-md",
+    "body": [
+      "c.field-md:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Title}",
+      "\t\t\t.value: ${2:\"{{ variable \\}\\}\"}",
+      "\t\t\tplaceholder: ${3:Placeholder}",
+      "\t\t\thint: ${4:Help text}",
+      "\t\t\tprefix: ${5:false}",
+      "\t\t\tsuffix: ${6:false}",
+      "\t\t\tleftIcon: ${7:false}",
+      "\t\t\trightIcon: ${8:false}",
+      "\t\t\tinnerButtons: ${9:true}",
+      "\t\t\ttype: ${10:text}",
+      "\t\t\tinputmode: ${11:text}",
+      "\t\t\tdisabled: ${12:false}",
+      "\t\t\trequired: ${13:false}",
+      "\t\t\tmin: ${14:-100}",
+      "\t\t\tmax: ${15:100}",
+      "\t\t\tminlength: ${16:0}",
+      "\t\t\tmaxlength: ${17:250}",
+      "\t\t\tpattern: ${18:}",
+      "\t\t\tmask: ${19:}",
+      "\t\t\tstep: ${20:1}",
+      "\t\t\trows: ${21:3}",
+      "\t\t\tautocomplete: ${22:off}",
+      "\t\t\ttheme: ${23:uv-neutral-lowest-outline}"
+    ],
+    "description": "Insert a component field-md"
+  },
+  "c.field-sm": {
+    "prefix": "c.field-sm",
+    "body": [
+      "c.field-sm:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Title}",
+      "\t\t\t.value: ${2:\"{{ variable \\}\\}\"}",
+      "\t\t\tplaceholder: ${3:Placeholder}",
+      "\t\t\thint: ${4:Help text}",
+      "\t\t\tprefix: ${5:false}",
+      "\t\t\tsuffix: ${6:false}",
+      "\t\t\tleftIcon: ${7:false}",
+      "\t\t\trightIcon: ${8:false}",
+      "\t\t\tinnerButtons: ${9:true}",
+      "\t\t\ttype: ${10:text}",
+      "\t\t\tinputmode: ${11:text}",
+      "\t\t\tdisabled: ${12:false}",
+      "\t\t\trequired: ${13:false}",
+      "\t\t\tmin: ${14:-100}",
+      "\t\t\tmax: ${15:100}",
+      "\t\t\tminlength: ${16:0}",
+      "\t\t\tmaxlength: ${17:250}",
+      "\t\t\tpattern: ${18:}",
+      "\t\t\tmask: ${19:}",
+      "\t\t\tstep: ${20:1}",
+      "\t\t\trows: ${21:3}",
+      "\t\t\tautocomplete: ${22:off}",
+      "\t\t\ttheme: ${23:uv-neutral-lowest-outline}"
+    ],
+    "description": "Insert a component field-sm"
+  },
+  "c.label-md": {
+    "prefix": "c.label-md",
+    "body": [
+      "c.label-md:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Text}",
+      "\t\t\trequired: ${2:boolean}"
+    ],
+    "description": "Insert a component label-md"
+  },
+  "c.label-sm": {
+    "prefix": "c.label-sm",
+    "body": [
+      "c.label-sm:",
+      "\t\tprops:",
+      "\t\t\tlabel: ${1:Text}",
+      "\t\t\trequired: ${2:boolean}"
+    ],
+    "description": "Insert a component label-sm"
+  },
+  "c.list-item-lg": {
+    "prefix": "c.list-item-lg",
+    "body": [
+      "c.list-item-lg:",
+      "\t\tprops:",
+      "\t\t\tselected: ${1:false}",
+      "\t\t\tlabel: ${2:Text}",
+      "\t\t\tleftIcon: ${3:false}",
+      "\t\t\trightIcon: ${4:false}",
+      "\t\t\ticonSize: ${5:md}",
+      "\t\t\tdisabled: ${6:false}",
+      "\t\t\ttabindex: ${7:0}",
+      "\t\t\ttheme: ${8:uv-neutral-low}",
+      "\t\t\tthemeSelected: ${9:uv-primary-lighted}"
+    ],
+    "description": "Insert a component list-item-lg"
+  },
+  "c.list-item-md": {
+    "prefix": "c.list-item-md",
+    "body": [
+      "c.list-item-md:",
+      "\t\tprops:",
+      "\t\t\tselected: ${1:false}",
+      "\t\t\tlabel: ${2:Text}",
+      "\t\t\tleftIcon: ${3:false}",
+      "\t\t\trightIcon: ${4:false}",
+      "\t\t\ticonSize: ${5:md}",
+      "\t\t\tdisabled: ${6:false}",
+      "\t\t\ttabindex: ${7:0}",
+      "\t\t\ttheme: ${8:uv-neutral-low}",
+      "\t\t\tthemeSelected: ${9:uv-primary-lighted}"
+    ],
+    "description": "Insert a component list-item-md"
+  },
+  "c.list-item-sm": {
+    "prefix": "c.list-item-sm",
+    "body": [
+      "c.list-item-sm:",
+      "\t\tprops:",
+      "\t\t\tselected: ${1:false}",
+      "\t\t\tlabel: ${2:Text}",
+      "\t\t\tleftIcon: ${3:false}",
+      "\t\t\trightIcon: ${4:false}",
+      "\t\t\ticonSize: ${5:sm}",
+      "\t\t\tdisabled: ${6:false}",
+      "\t\t\ttabindex: ${7:0}",
+      "\t\t\ttheme: ${8:uv-neutral-low}",
+      "\t\t\tthemeSelected: ${9:uv-primary-lighted}"
+    ],
+    "description": "Insert a component list-item-sm"
+  },
+  "c.pagination": {
+    "prefix": "c.pagination",
+    "body": [
+      "c.pagination:",
+      "\t\tprops:",
+      "\t\t\tpath: ${1:/}",
+      "\t\t\tcurrentPage: ${2:\"{{ data.VAR.pages \\}\\}\"}",
+      "\t\t\ttotalPages: ${3:\"{{ data.VAR.totalPages \\}\\}\"}"
+    ],
+    "description": "Insert a component pagination"
+  },
+  "c.radio-button-md": {
+    "prefix": "c.radio-button-md",
+    "body": [
+      "c.radio-button-md:",
+      "\t\tprops:",
+      "\t\t\ttheme: ${1:uv-neutral-mid-outline}",
+      "\t\t\tselected: ${2:false}",
+      "\t\t\tdisabled: ${3:false}",
+      "\t\t\tlabel: ${4:Text}"
+    ],
+    "description": "Insert a component radio-button-md"
+  },
+  "c.slider-md": {
+    "prefix": "c.slider-md",
+    "body": [
+      "c.slider-md:",
+      "\t\tprops:",
+      "\t\t\t.value: ${1:\"{{ variable \\}\\}\"}",
+      "\t\t\tmin: ${2:0}",
+      "\t\t\tmax: ${3:100}",
+      "\t\t\tstep: ${4:1}",
+      "\t\t\ttheme: ${5:uv-neutral-mid-outline}",
+      "\t\t\tprefix: ${6:0%}",
+      "\t\t\tsuffix: ${7:100%}"
+    ],
+    "description": "Insert a component slider-md"
+  },
+  "c.snackbar-list": {
+    "prefix": "c.snackbar-list",
+    "body": [
+      "c.snackbar-list:",
+      "\t\tprops:",
+      "\t\t\tnotifications:"
+    ],
+    "description": "Insert a component snackbar-list"
+  },
+  "c.snackbar-md": {
+    "prefix": "c.snackbar-md",
+    "body": [
+      "c.snackbar-md:",
+      "\t\tprops:",
+      "\t\t\tid: ${1:\"{{ item.id \\}\\}\"}",
+      "\t\t\ttype: ${2:\"{{ item.type \\}\\}\"}",
+      "\t\t\tmessage: ${3:\"{{ item.message \\}\\}\"}",
+      "\t\t\tduration: ${4:\"{{ item.duration \\}\\}\"}"
+    ],
+    "description": "Insert a component snackbar-md"
+  },
+  "c.spin-button-sm": {
+    "prefix": "c.spin-button-sm",
+    "body": [
+      "c.spin-button-sm:",
+      "\t\tprops:",
+      "\t\t\t.value: ${1:\"{{ .value \\}\\}\"}",
+      "\t\t\tfield: ${2:\"{{ field \\}\\}\"}",
+      "\t\t\tmin: ${3:\"{{ props.min \\}\\}\"}",
+      "\t\t\tmax: ${4:\"{{ props.max \\}\\}\"}",
+      "\t\t\tstep: ${5:\"{{ props.step \\}\\}\"}",
+      "\t\t\tdisabled: ${6:\"{{ props.disabled \\}\\}\"}",
+      "\t\t\ttheme: ${7:\"{{ props.theme \\}\\}\"}"
+    ],
+    "description": "Insert a component spin-button-sm"
+  },
+  "c.spin-button-xs": {
+    "prefix": "c.spin-button-xs",
+    "body": [
+      "c.spin-button-xs:",
+      "\t\tprops:",
+      "\t\t\t.value: ${1:\"{{ .value \\}\\}\"}",
+      "\t\t\tfield: ${2:\"{{ field \\}\\}\"}",
+      "\t\t\tmin: ${3:\"{{ props.min \\}\\}\"}",
+      "\t\t\tmax: ${4:\"{{ props.max \\}\\}\"}",
+      "\t\t\tstep: ${5:\"{{ props.step \\}\\}\"}",
+      "\t\t\tdisabled: ${6:\"{{ props.disabled \\}\\}\"}",
+      "\t\t\ttheme: ${7:\"{{ props.theme \\}\\}\"}"
+    ],
+    "description": "Insert a component spin-button-xs"
+  },
+  "c.spinner-lg": {
+    "prefix": "c.spinner-lg",
+    "body": [
+      "c.spinner-lg:",
+      "\t\tprops:"
+    ],
+    "description": "Insert a component spinner-lg"
+  },
+  "c.theme-switch-md": {
+    "prefix": "c.theme-switch-md",
+    "body": [
+      "c.theme-switch-md:",
+      "\t\tprops:",
+      "\t\t\tselected: ${1:true}",
+      "\t\t\ttheme: ${2:uv-neutral-low-outline}"
+    ],
+    "description": "Insert a component theme-switch-md"
+  }
+}

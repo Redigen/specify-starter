@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "screen.schema.json",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/screen"
+  },
+  "$defs": {
+    "screen": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array"
+            }
+          ]
+        },
+        "meta": {
+          "$ref": "base.schema.json#/$defs/metaProps"
+        },
+        "state": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z_][a-zA-Z0-9_]*$"
+          },
+          "additionalProperties": true
+        },
+        "data": {
+          "$ref": "base.schema.json#/$defs/dataProps"
+        },
+        "stores": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z_][a-zA-Z0-9_]*$" }
+        },
+        "logic": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z_][a-zA-Z0-9_]*$" }
+        },
+        "on-keydown": { "$ref": "base.schema.json#/$defs/on-keydown" },
+        "theme": {
+          "anyOf": [
+            { "$ref": "base.schema.json#/$defs/themes" },
+            { "type": "string" }
+          ]
+        },
+        "styles": {
+          "$ref": "base.schema.json#/$defs/screenStylesProps"
+        },
+        "layers": {
+          "$ref": "base.schema.json#/$defs/layersProps"
+        }
+      },
+      "required": ["path"]
+    }
+  }
+}

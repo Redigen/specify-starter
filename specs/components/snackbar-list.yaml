@@ -1,0 +1,71 @@
+snackbar-list:
+  props:
+    notifications: []
+
+  styles:
+    pos: fixed
+    pos-left: 0
+    pos-right: 0
+    pos-bottom: calc(t.spacing.2000 + t.spacing.ios-bottom)
+    pos-elevation: 10
+    lay: column
+    lay-align-h: center
+    lay-align-v: bottom
+    lay-pad-h: t.spacing.400
+    css:
+      pointer-events: none
+
+  layers:
+    - frame:
+        for: item in props.notifications
+        key: item.id
+        styles:
+          lay: row
+        layers:
+          - c.snackbar-md:
+              cond-if: "{{ item.show }}"
+              props:
+                id: "{{ item.id }}"
+                type: "{{ item.type }}"
+                message: "{{ item.message }}"
+                duration: "{{ item.duration }}"
+              styles:
+                pos: offset
+                pos-top: 0
+                lay-mar-top: t.spacing.300
+                vis-opacity: 100
+                transitions:
+                  - property: all
+                    duration: 200
+                    easing: ease-in-out
+                  - property: vis-opacity
+                    duration: 100
+                    easing: linear
+                in:
+                  pos-top: t.spacing.1200
+                  lay-mar-top: calc(t.spacing.1200 * -1)
+                  vis-opacity: 0
+                out:
+                  lay-mar-top: calc(t.spacing.1200 * -1)
+                  vis-opacity: 0
+                  blur-layer: 32
+                  shadow:
+                    - x: 0
+                      y: 1
+                      blur: 1
+                      spread: 0
+                      position: outside
+                      color: "#00000000"
+                  transitions:
+                    - property: lay-margin
+                      duration: 200
+                      easing: ease-in-out
+                    - property: shadow
+                      duration: 200
+                      easing: linear
+                    - property: vis-opacity
+                      duration: 500
+                      easing: linear
+                    - property: blur-layer
+                      duration: 500
+                      easing: linear

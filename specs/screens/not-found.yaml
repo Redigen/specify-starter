@@ -1,0 +1,67 @@
+not-found:
+  path: /404
+
+  meta:
+    title:
+      en: 404 — Page not found
+      ru: 404 — Страница не найдена
+    description:
+      en: Please check the URL. The page may have been deleted.
+      ru: Проверьте правильность адреса. Возможно, страница была удалена.
+
+  styles:
+    lay: column
+    lay-padding: t.spacing.500
+    lay-gap: t.spacing.100
+    lay-align-h: center
+    lay-align-v: center
+
+  layers:
+    - vector:
+        file: ./assets/vectors/lucide/file-x-corner.svg
+        styles:
+          lay-width: 144
+          lay-height: 144
+          stroke:
+            color: t.color.surface-fg-muted
+            weight: 0.75
+    - text:
+        content:
+          en: Page not found
+          ru: Страница не найдена
+        html-tag: h1
+        styles:
+          txt: t.typography.headline-lg
+          txt-weight: 500
+          fill: t.color.surface-fg
+    - text:
+        content:
+          en: |
+            Please check the URL.
+            The page may have been deleted.
+          ru: |
+            Проверьте правильность адреса.
+            Возможно, страница была удалена.
+        html-tag: p
+        styles:
+          txt: t.typography.body-lg
+          txt-align: center
+          fill: t.color.surface-fg-muted
+    - c.button-md:
+        props:
+          label:
+            ru: На главную
+            en: Home
+          prefix: false
+          suffix: false
+          leftIcon: false
+          rightIcon: false
+          iconSize: md
+          disabled: false
+          tabindex: 0
+          theme: uv-primary
+        on-click:
+          navigate-to:
+            link: /
+        styles:
+          lay-mar-v: t.spacing.300

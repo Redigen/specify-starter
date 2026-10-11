@@ -1,0 +1,217 @@
+button-sm:
+  props:
+    label: Text
+    prefix: false
+    suffix: false
+    leftIcon: false
+    rightIcon: false
+    iconSize: sm
+    disabled: false
+    tabindex: 0
+    theme: uv-primary
+
+  html-tag: button
+  theme: "{{ props.theme }}"
+  disabled: "{{ props.disabled }}"
+  tabindex: "{{ props.tabindex || 0 }}"
+
+  styles:
+    pos: offset
+    pos-top: 0
+    lay: row
+    lay-min-width: 32
+    lay-pad-v: t.spacing.150
+    lay-pad-h: calc(t.spacing.150 + t.spacing.depend-radius)
+    lay-gap: t.spacing.depend-radius
+    lay-align-h: center
+    lay-align-v: center
+    vis-radius: t.radius.sm
+    txt: t.typography.body-md
+    cursor-type: pointer
+
+    fill: t.color.uv-bg-default
+    stroke: t.color.uv-str-default
+    hover:
+      fill: t.color.uv-bg-hover
+      stroke: t.color.uv-str-hover
+    focus:
+      fill: t.color.uv-bg-focus
+      stroke: t.color.uv-str-focus
+      css:
+        outline: 0.125rem solid t.color.base-str-focus
+        outline-offset: 0.125rem
+    pressed:
+      pos-top: 2
+      fill: t.color.uv-bg-pressed
+      stroke: t.color.uv-str-pressed
+    disabled:
+      pos-top: 0
+      fill: t.color.uv-bg-disabled
+      stroke: t.color.uv-str-disabled
+      cursor-type: default
+    transitions:
+      - property: pos-top
+        duration: 100
+        easing: ease-in
+
+  layers:
+    # Left Icon
+    - frame:
+        cond-if: "{{props.leftIcon}}"
+        styles:
+          lay: row
+          lay-align-h: center
+          lay-align-v: center
+          lay-width: t.sizing.icon-md
+          lay-height: t.sizing.icon-md
+          lay-mar-h: calc(t.spacing.depend-radius * -1)
+        layers:
+          - vector:
+              cond-if: "{{props.iconSize === 'xs'}}"
+              file: "{{props.leftIcon}}"
+              styles:
+                lay-width: t.sizing.icon-xs
+                lay-height: t.sizing.icon-xs
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-xs
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-xs
+          - vector:
+              cond-if: "{{props.iconSize === 'sm' || !props.iconSize}}"
+              file: "{{props.leftIcon}}"
+              styles:
+                lay-width: t.sizing.icon-sm
+                lay-height: t.sizing.icon-sm
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-sm
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-sm
+          - vector:
+              cond-if: "{{props.iconSize === 'md'}}"
+              file: "{{props.leftIcon}}"
+              styles:
+                lay-width: t.sizing.icon-md
+                lay-height: t.sizing.icon-md
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-md
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-md
+          - vector:
+              cond-if: "{{props.iconSize === 'lg'}}"
+              file: "{{props.leftIcon}}"
+              styles:
+                lay-width: t.sizing.icon-lg
+                lay-height: t.sizing.icon-lg
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-lg
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-lg
+
+    - frame:
+        cond-if: "{{props.label}}"
+        styles:
+          lay: row
+          lay-pad-h: t.spacing.50
+        layers:
+          - text:
+              content: "{{props.prefix}}"
+              cond-if: "{{props.prefix}}"
+              styles:
+                fill: t.color.uv-fg-muted-default
+                txt-wrap: no-wrap
+                disabled:
+                  fill: t.color.uv-fg-muted-disabled
+
+          - text:
+              content: "{{props.label}}"
+              styles:
+                txt-truncate: true
+                txt-lines: 1
+                fill: t.color.uv-fg-default
+                disabled:
+                  fill: t.color.uv-fg-disabled
+
+          - text:
+              content: "{{props.suffix}}"
+              cond-if: "{{props.suffix}}"
+              styles:
+                fill: t.color.uv-fg-muted-default
+                txt-wrap: no-wrap
+                disabled:
+                  fill: t.color.uv-fg-muted-disabled
+
+    # Right Icon
+    - frame:
+        cond-if: "{{props.rightIcon}}"
+        styles:
+          lay: row
+          lay-align-h: center
+          lay-align-v: center
+          lay-width: t.sizing.icon-md
+          lay-height: t.sizing.icon-md
+          lay-mar-h: calc(t.spacing.depend-radius * -1)
+        layers:
+          - vector:
+              cond-if: "{{props.iconSize === 'xs'}}"
+              file: "{{props.rightIcon}}"
+              styles:
+                lay-width: t.sizing.icon-xs
+                lay-height: t.sizing.icon-xs
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-xs
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-xs
+          - vector:
+              cond-if: "{{props.iconSize === 'sm' || !props.iconSize}}"
+              file: "{{props.rightIcon}}"
+              styles:
+                lay-width: t.sizing.icon-sm
+                lay-height: t.sizing.icon-sm
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-sm
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-sm
+          - vector:
+              cond-if: "{{props.iconSize === 'md'}}"
+              file: "{{props.rightIcon}}"
+              styles:
+                lay-width: t.sizing.icon-md
+                lay-height: t.sizing.icon-md
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-md
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-md
+          - vector:
+              cond-if: "{{props.iconSize === 'lg'}}"
+              file: "{{props.rightIcon}}"
+              styles:
+                lay-width: t.sizing.icon-lg
+                lay-height: t.sizing.icon-lg
+                stroke:
+                  color: t.color.uv-fg-default
+                  weight: t.sizing.icon-str-lg
+                disabled:
+                  stroke:
+                    color: t.color.uv-fg-disabled
+                    weight: t.sizing.icon-str-lg

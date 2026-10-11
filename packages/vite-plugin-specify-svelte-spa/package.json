@@ -1,0 +1,14 @@
+{
+  "name": "vite-plugin-specify-svelte-spa",
+  "type": "module",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^15.4.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  },
+  "dependencies": {
+    "yaml": "^2.9.0"
+  }
+}

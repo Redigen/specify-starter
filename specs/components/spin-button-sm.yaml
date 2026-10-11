@@ -1,0 +1,96 @@
+spin-button-sm:
+  props:
+    .value: "{{ .value }}"
+    field: "{{ field }}"
+    min: "{{ props.min }}"
+    max: "{{ props.max }}"
+    step: "{{ props.step }}"
+    disabled: "{{ props.disabled }}"
+    theme: "{{ props.theme }}"
+
+  styles:
+    pos: offset
+    lay-width: 24
+    lay-height: 32
+    
+  layers:
+    - frame:
+        styles:
+          pos: absolute
+          pos-top: t.spacing.100
+          pos-bottom: t.spacing.100
+          pos-left: 0
+          pos-right: 0
+          lay: column
+          lay-align-v: center
+          lay-padding: t.spacing.50
+          vis-radius: calc(t.radius.sm + t.spacing.50)
+          fill: t.color.uv-bg-default
+          transitions:
+            - property: pos-top
+              duration: 200
+              easing: ease-out
+            - property: pos-bottom
+              duration: 200
+              easing: ease-out
+            - property: pos-left
+              duration: 200
+              easing: ease-out
+            - property: pos-right
+              duration: 200
+              easing: ease-out
+            - property: shadow
+              duration: 200
+              easing: ease-out
+          hover:
+            pos-elevation: 1
+            pos-top: calc(t.spacing.100 * -1)
+            pos-bottom: calc(t.spacing.100 * -1)
+            pos-left: calc(t.spacing.100 * -1)
+            pos-right: calc(t.spacing.100 * -1)
+            shadow: t.shadow.elevation-mid
+          disabled:
+            pos-top: 0
+            pos-bottom: 0
+            pos-left: 0
+            pos-right: 0
+            fill: t.color.uv-bg-disabled
+        layers:
+          - c.button-sm:
+              props:
+                leftIcon: ./assets/vectors/lucide/chevron-up.svg
+                iconSize: sm
+                disabled: "{{props.disabled || .value >= props.max}}"
+                tabindex: -1
+                theme: "{{props.theme.startsWith('uv-neutral') ? props.theme.replace('-outline', '') : props.theme}}"
+              on-click:
+                set-props:
+                  .value: "{{.value + (props.step || 1)}}"
+                run: "{{props.field?.focus()}}"
+              styles:
+                lay-width: fill-container
+                lay-min-width: 0
+                lay-height: 50%
+                lay-padding: 0
+                fill: t.color.transparent
+                disabled:
+                  fill: t.color.transparent
+          - c.button-sm:
+              props:
+                leftIcon: ./assets/vectors/lucide/chevron-down.svg
+                iconSize: sm
+                disabled: "{{props.disabled || .value <= props.min}}"
+                tabindex: -1
+                theme: "{{props.theme.startsWith('uv-neutral') ? props.theme.replace('-outline', '') : props.theme}}"
+              on-click:
+                set-props:
+                  .value: "{{.value - (props.step || 1)}}"
+                run: "{{props.field?.focus()}}"
+              styles:
+                lay-width: fill-container
+                lay-min-width: 0
+                lay-height: 50%
+                lay-padding: 0
+                fill: t.color.transparent
+                disabled:
+                  fill: t.color.transparent

@@ -1,0 +1,14 @@
+{
+  "name": "specify",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:sync": "tsx packages/specify-sync/index.ts",
+    "dev:svelte": "cd apps/specify-svelte-spa && npm run dev",
+    "dev": "npm run dev:sync & npm run dev:svelte"
+  }
+}

@@ -1,0 +1,101 @@
+theme-switch-md:
+  props:
+    selected: true
+    theme: uv-neutral-low-outline
+
+  theme: "{{ props.theme }}"
+  selected: "{{ props.selected }}"
+
+  html-tag: button
+
+  styles:
+    pos: offset
+    lay: row
+    lay-width: 56
+    lay-height: 40
+    vis-radius: t.radius.md
+    cursor-type: pointer
+
+    fill: t.color.uv-str-default
+    shadow:
+      - x: 0
+        y: 1
+        blur: 1
+        spread: 0
+        position: inside
+        color: "#00000019"
+      - x: 0
+        y: 0
+        blur: 1
+        spread: 0
+        position: inside
+        color: "#00000024"
+    stroke:
+      - color: t.color.uv-str-default
+        weight: 0.25
+        position: outside
+
+    focus:
+      stroke: t.color.uv-str-focus
+      css:
+        outline: 0.125rem solid t.color.base-str-focus
+        outline-offset: 0.125rem
+
+    disabled:
+      fill: t.color.uv-bg-disabled
+      stroke: t.color.uv-str-disabled
+
+  layers:
+    - frame:
+        styles:
+          lay: column
+          lay-align-h: center
+          lay-align-v: center
+          lay-width: 38
+          lay-height: 38
+          lay-mar-v: 1
+          lay-mar-left: 1
+          fill: t.color.uv-bg-default
+          vis-radius: calc(t.radius.md - 0.0625rem)
+          shadow: t.shadow.elevation-low
+
+          hover:
+            fill: t.color.uv-bg-hover
+          pressed:
+            fill: t.color.uv-bg-pressed
+          disabled:
+            fill: t.color.uv-bg-disabled
+
+          selected:
+            lay-mar-left: 17
+
+          transitions:
+            - property: lay-margin
+              duration: 200
+              easing: ease-in-out
+
+        layers:
+          - vector:
+              cond-if: "{{ !props.selected }}"
+              file: ./assets/vectors/lucide/sun.svg
+              styles:
+                lay-width: t.sizing.icon-lg
+                lay-height: t.sizing.icon-lg
+                stroke:
+                  color: t.color.uv-fg-muted-default
+                  weight: t.sizing.icon-str-lg
+                hover:
+                  stroke:
+                    color: t.color.uv-fg-default
+          - vector:
+              cond-if: "{{ props.selected }}"
+              file: ./assets/vectors/lucide/moon.svg
+              styles:
+                lay-width: t.sizing.icon-md
+                lay-height: t.sizing.icon-md
+                stroke:
+                  color: t.color.uv-fg-muted-default
+                  weight: t.sizing.icon-str-md
+                hover:
+                  stroke:
+                    color: t.color.uv-fg-default

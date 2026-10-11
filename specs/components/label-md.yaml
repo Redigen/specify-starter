@@ -1,0 +1,29 @@
+label-md:
+  props:
+    label: Text
+    required: boolean
+
+  styles:
+    lay: row
+    lay-pad-h: t.spacing.depend-radius
+    lay-gap: t.spacing.25
+
+  layers:
+    - text:
+        content: "{{props.label}}"
+        styles:
+          txt: t.typography.label-lg
+          txt-truncate: true
+          txt-lines: 1
+          txt-weight: 560
+          fill: t.color.surface-fg
+
+    - vector:
+        file: ./assets/vectors/lucide/asterisk.svg
+        cond-if: "{{props.required}}"
+        styles:
+          lay-width: t.sizing.icon-sm
+          lay-height: t.sizing.icon-md
+          stroke:
+            color: t.color.error-outline-fg-default
+            weight: t.sizing.icon-str-sm
