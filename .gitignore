@@ -1,5 +1,4 @@
-node_modules
-apps/specify-svelte-spa/src/generated/appConfig.ts
-apps/specify-svelte-spa/src/generated/components/
-apps/specify-svelte-spa/src/generated/screens/
 .DS_Store
+node_modules
+apps/specify-svelte-spa/src/generated
+apps/specify-svelte-spa/dist
