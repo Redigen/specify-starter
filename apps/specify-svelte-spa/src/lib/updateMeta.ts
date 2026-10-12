@@ -74,7 +74,7 @@ function sendGtmPageView(cleanUrl: string, title: string): void {
 function sendYandexHit(url: string): void {
   if (typeof window.ym !== 'function') return;
 
-  window.ym(appConfig.integrations?.ym, 'hit', url);
+  window.ym(appConfig?.integrations?.ym, 'hit', url);
 }
 
 /**

@@ -4,8 +4,8 @@ import { networkState } from "../stores/networkState.svelte";
 import { loadingState } from "../stores/loadingState.svelte";
 import { getAccount } from "./getAccount";
 
-const endpoint = appConfig.integrations?.appwrite?.endpoint || null;
-const projectId = appConfig.integrations?.appwrite?.projectId || null;
+const endpoint = appConfig?.integrations?.appwrite?.endpoint || null;
+const projectId = appConfig?.integrations?.appwrite?.projectId || null;
 
 import { Client, TablesDB, Teams, Query, Realtime, Storage } from "appwrite";
 

@@ -2,7 +2,7 @@ import { appConfig } from '../generated/appConfig';
 import { syncQueue } from './syncQueue.svelte';
 import { notifications } from './notifications.svelte';
 
-const appwriteEndpoint = appConfig.integrations.appwrite.endpoint || null;
+const appwriteEndpoint = appConfig?.integrations?.appwrite?.endpoint || null;
 const RETRY_INTERVAL = 30000; // Интервал проверки, если сервер упал (30 сек)
 const REQUEST_TIMEOUT = 5000; // Таймаут на сам запрос (5 сек)
 
@@ -22,7 +22,7 @@ class NetworkState {
   private offlineHandler = () => {
     this.isOnline = false;
     this.isBackendAvailable = false;
-    notifications.add({type: "offline", message: { "ru": "Нет интернета, изменения сохранятся позже", "en": "No internet, changes will be saved later" }, duration: 4000});
+    if (appConfig?.notifications?.offline) notifications.add({ type: "offline", message: appConfig.notifications.offline, duration: 4000 });
   };
 
   init(): void {
@@ -90,15 +90,13 @@ class NetworkState {
 
   markBackendUnavailable(): void {
     console.error("Network error — server down");
-    if (this.isBackendAvailable) notifications.add({type: "server-unavailable", message: { "ru": "Сервер недоступен, изменения сохранятся позже", "en": "Server unavailable, changes will be saved later" }, duration: 4000});
+    if (this.isBackendAvailable && appConfig?.notifications?.["server-unavailable"]) notifications.add({ type: "server-unavailable", message: appConfig.notifications["server-unavailable"], duration: 4000 });
     this.isBackendAvailable = false;
   }
 
   markRateLimited(interval: number): void {
     console.error("Too many requests");
-    // if (!this.isRateLimited) {
-      notifications.add({ type: "too-many-requests", message: { "ru": "Слишком частые обращения к серверу. Подождите немного", "en": "Too many attempts. Please wait a moment" }, duration: 4000 });
-    // }
+    if (appConfig?.notifications?.["too-many-requests"]) notifications.add({ type: "too-many-requests", message: appConfig.notifications["too-many-requests"], duration: 4000 });
 
     this.isRateLimited = true;
 

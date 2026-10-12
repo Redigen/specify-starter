@@ -1,26 +1,34 @@
 <script lang="ts">
-  import Router from './lib/Router.svelte';
-  import { theme } from './stores/theme.svelte';
-  import { initImageFormat } from './lib/supportedImageFormat';
+  import Router from "./lib/Router.svelte";
+  import { theme } from "./stores/theme.svelte";
+  import { initImageFormat } from "./lib/supportedImageFormat";
   initImageFormat();
 
-  import { networkState } from './stores/networkState.svelte';
+  import { networkState } from "./stores/networkState.svelte";
   $effect(() => {
     networkState.init();
     return () => networkState.destroy();
   });
 
-  import { syncQueue } from './stores/syncQueue.svelte';
+  import { syncQueue } from "./stores/syncQueue.svelte";
   syncQueue.init();
 
-  import { loadingState } from './stores/loadingState.svelte';
-  import SpinnerLg from './generated/components/SpinnerLg.svelte';
+  import { loadingState } from "./stores/loadingState.svelte";
+  import SpinnerLg from "./generated/components/SpinnerLg.svelte";
 
-  import { notifications } from './stores/notifications.svelte';
-  import SnackbarList from './generated/components/SnackbarList.svelte';
+  import { notifications } from "./stores/notifications.svelte";
+  import SnackbarList from "./generated/components/SnackbarList.svelte";
+  import { appConfig } from "./generated/appConfig";
 
-  if (!localStorage.getItem("cookie-agreement")) {
-    notifications.add({type: "cookie", message: { "ru": "На сайте используются cookie", "en": "This website uses cookies" }, duration: 0});
+  if (
+    !localStorage.getItem("cookie-agreement") &&
+    appConfig?.notifications?.cookie
+  ) {
+    notifications.add({
+      type: "cookie",
+      message: appConfig.notifications.cookie,
+      duration: 0,
+    });
   }
 </script>
 

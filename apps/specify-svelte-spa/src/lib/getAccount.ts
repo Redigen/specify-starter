@@ -7,9 +7,9 @@ import { removeItem, handleSingleResponse } from "./getData.svelte";
 
 import { Client, Teams, Account } from "appwrite";
 
-const endpoint = appConfig.integrations?.appwrite?.endpoint || null;
-const projectId = appConfig.integrations?.appwrite?.projectId || null;
-const anonymousSession = appConfig.integrations?.appwrite?.anonymousSession || null;
+const endpoint = appConfig?.integrations?.appwrite?.endpoint || null;
+const projectId = appConfig?.integrations?.appwrite?.projectId || null;
+const anonymousSession = appConfig?.integrations?.appwrite?.anonymousSession || null;
 
 const client = new Client()
     .setEndpoint(endpoint)

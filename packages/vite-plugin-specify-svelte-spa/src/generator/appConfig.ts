@@ -24,7 +24,8 @@ export interface AppConfig {
   meta: MetaData;
   "app-label": AppLabel;
   themes: AppThemes;
-  integrations: any;
+  integrations?: Record<string, any>;
+  notifications?: Record<string, string | Record<string, string>>;
 }
 
 export interface MetaData {
@@ -57,7 +58,8 @@ export const appConfig: AppConfig = {
     light: ${JSON.stringify(yamlApp.themes.light)},
     dark: ${JSON.stringify(yamlApp.themes.dark)},
   },
-  integrations: ${stringifyTs(yamlApp.integrations, 2)},
+  integrations: ${stringifyTs(yamlApp.integrations, 2)},${yamlApp.notifications ? `
+  notifications: ${stringifyTs(yamlApp.notifications, 2)},` : ''}
 };
 `;
 

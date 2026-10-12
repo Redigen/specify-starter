@@ -4,13 +4,14 @@ import "./app.css";
 import App from "./App.svelte";
 import { registerSW } from 'virtual:pwa-register';
 import { notifications } from "./stores/notifications.svelte";
+import { appConfig } from "./generated/appConfig";
 
 const updateSW = registerSW({
   onNeedRefresh() {
     console.log('SW waiting');
 
     window._pwaUpdate = updateSW;
-    notifications.add({type: "update", message: { "ru": "Доступно обновление, необходимо перезагрузить страницу для установки", "en": "A new version is available. Reload to update" }, duration: 0});
+    if (appConfig?.notifications?.update) notifications.add({ type: "update", message: appConfig.notifications.update, duration: 0 });
   },
 
   onOfflineReady() {

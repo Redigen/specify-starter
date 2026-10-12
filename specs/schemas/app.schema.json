@@ -21,7 +21,10 @@
           "type": "string"
         }
       },
-      "required": ["title", "description"]
+      "required": [
+        "title",
+        "description"
+      ]
     },
     "app-label": {
       "type": "object",
@@ -34,15 +37,25 @@
           "type": "string"
         }
       },
-      "required": ["name", "short-name"]
+      "required": [
+        "name",
+        "short-name"
+      ]
     },
     "themes": {
       "type": "object",
       "properties": {
-        "light": { "$ref": "base.schema.json#/$defs/themes" },
-        "dark": { "$ref": "base.schema.json#/$defs/themes" }
+        "light": {
+          "$ref": "base.schema.json#/$defs/themes"
+        },
+        "dark": {
+          "$ref": "base.schema.json#/$defs/themes"
+        }
       },
-      "required": ["light", "dark"]
+      "required": [
+        "light",
+        "dark"
+      ]
     },
     "integrations": {
       "type": "object",
@@ -61,11 +74,33 @@
               "type": "boolean"
             }
           },
-          "required": ["endpoint", "projectId"]
+          "required": [
+            "endpoint",
+            "projectId"
+          ]
         }
       },
       "additionalProperties": true
+    },
+    "notifications": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "$ref": "base.schema.json#/$defs/lang"
+          }
+        ]
+      }
     }
   },
-  "required": ["specs-version", "lang", "meta", "app-label"]
+  "required": [
+    "specs-version",
+    "lang",
+    "meta",
+    "app-label"
+  ]
 }

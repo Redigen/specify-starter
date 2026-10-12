@@ -15,3 +15,25 @@ integrations:
     projectId: demo
     anonymousSession: false
   # ym: 000000000
+notifications:
+  cookie:
+    en: This website uses cookies
+    ru: На сайте используются cookie
+  update:
+    en: A new version is available. Reload to update
+    ru: Доступно обновление, необходимо перезагрузить страницу для установки
+  offline:
+    en: No internet, changes will be saved later
+    ru: Нет интернета, изменения сохранятся позже
+  sync:
+    en: Syncing…
+    ru: Синхронизация…
+  server-available:
+    en: Server connection restored
+    ru: Подключение к серверу восстановлено
+  server-unavailable:
+    en: Server unavailable, changes will be saved later
+    ru: Сервер недоступен, изменения сохранятся позже
+  too-many-requests:
+    en: Too many attempts. Please wait a moment
+    ru: Слишком частые обращения к серверу. Подождите немного

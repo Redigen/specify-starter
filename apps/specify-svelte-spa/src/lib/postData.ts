@@ -6,8 +6,8 @@ import type { Item } from "./getData.svelte";
 import { syncQueue } from "../stores/syncQueue.svelte";
 import { safeDeleteCurrentSession, cleanUrlParams } from "./getAccount";
 
-const endpoint = appConfig.integrations?.appwrite?.endpoint || null;
-const projectId = appConfig.integrations?.appwrite?.projectId || null;
+const endpoint = appConfig?.integrations?.appwrite?.endpoint || null;
+const projectId = appConfig?.integrations?.appwrite?.projectId || null;
 
 import { Client, TablesDB, Account, OAuthProvider, Teams, ID, Permission, Role, Storage } from "appwrite";
 

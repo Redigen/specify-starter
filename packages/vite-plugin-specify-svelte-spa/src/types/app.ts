@@ -4,7 +4,8 @@ export interface AppConfig {
   meta: MetaData;
   "app-label": AppLabel;
   themes: AppThemes;
-  integrations: any;
+  integrations?: Record<string, any>;
+  notifications?: Record<string, string | Record<string, string>>;
 }
 
 export interface MetaData {

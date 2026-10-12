@@ -3,6 +3,7 @@ import type { PostData } from "../lib/postData";
 import { postData } from "../lib/postData";
 import { runBackendAction } from "../logic/runBackendAction";
 import { notifications } from "./notifications.svelte";
+import { appConfig } from '../generated/appConfig';
 
 export type QueueItemStatus = 'pending' | 'syncing' | 'failed';
 export type QueueItemType = 'data' | 'action';
@@ -59,13 +60,13 @@ class SyncQueue {
 
     const pendingItems = this.items.filter(i => i.status === 'pending' || i.status === 'failed');
     if (pendingItems.length === 0) {
-      notifications.add({type: "server-available", message: { "ru": "Подключение к серверу восстановлено", "en": "Server connection restored" }, duration: 4000});
+      if (appConfig?.notifications?.["server-available"]) notifications.add({ type: "server-available", message: appConfig.notifications["server-available"], duration: 4000 });
       return;
     }
 
     this.isSyncing = true;
 
-    notifications.add({type: "sync", message: { "ru": "Синхронизация…", "en": "Syncing…" }, duration: 0});
+    if (appConfig?.notifications?.sync) notifications.add({ type: "sync", message: appConfig.notifications.sync, duration: 0 });
 
     for (const item of pendingItems) {
       item.status = 'syncing';
