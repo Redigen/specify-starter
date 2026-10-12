@@ -138,10 +138,10 @@ function backgroundImages(layerType: "frame" | "text", styles: Styles, script: S
               !Array.isArray(item.image.file)) {
               const fileData = item.image.file;
               const width = fileData.width
-                ? `(${resolveValue(fileData.width, "text")}) * (window.devicePixelRatio || 1)`
+                ? `(${resolveValue(fileData.width)}) * (window.devicePixelRatio || 1)`
                 : null;
               const height = fileData.height
-                ? `(${resolveValue(fileData.height, "text")}) * (window.devicePixelRatio || 1)`
+                ? `(${resolveValue(fileData.height)}) * (window.devicePixelRatio || 1)`
                 : null;
               const quality = fileData.quality || null;
               const output = fileData.format || '{supportedImageFormat}';
@@ -638,10 +638,10 @@ export function generateHTML(
           !Array.isArray(layer.file)) {
           const fileData = layer.file;
           const width = fileData.width
-            ? `(${resolveValue(fileData.width, "text")}) * (window.devicePixelRatio || 1)`
+            ? `(${resolveValue(fileData.width)}) * (window.devicePixelRatio || 1)`
             : null;
           const height = fileData.height
-            ? `(${resolveValue(fileData.height, "text")}) * (window.devicePixelRatio || 1)`
+            ? `(${resolveValue(fileData.height)}) * (window.devicePixelRatio || 1)`
             : null;
           const quality = fileData.quality || null;
           const output = fileData.format || '{supportedImageFormat}';
