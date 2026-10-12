@@ -138,10 +138,10 @@ function backgroundImages(layerType: "frame" | "text", styles: Styles, script: S
               !Array.isArray(item.image.file)) {
               const fileData = item.image.file;
               const width = fileData.width
-                ? `(${resolveValue(fileData.width)}) * (window.devicePixelRatio || 1)`
+                ? `Math.round((${resolveValue(fileData.width)}) * (window.devicePixelRatio || 1))`
                 : null;
               const height = fileData.height
-                ? `(${resolveValue(fileData.height)}) * (window.devicePixelRatio || 1)`
+                ? `Math.round((${resolveValue(fileData.height)}) * (window.devicePixelRatio || 1))`
                 : null;
               const quality = fileData.quality || null;
               const output = fileData.format || '{supportedImageFormat}';
@@ -152,11 +152,11 @@ function backgroundImages(layerType: "frame" | "text", styles: Styles, script: S
               if (height) queryParts.push(`height={${height}}`);
               if (quality) queryParts.push(`quality=${encodeURIComponent(quality)}`);
               if (output) queryParts.push(`output=${output}`);
-              queryParts.push(`project={appConfig.integrations.appwrite.projectId}`);
+              queryParts.push(`project={appConfig?.integrations?.appwrite?.projectId}`);
 
               const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
 
-              url = `{appConfig.integrations.appwrite.endpoint}/storage/buckets/${resolveValue(fileData["bucket-id"], "text")}/files/${resolveValue(fileData["file-id"], "text")}/preview${queryString}`;
+              url = `{appConfig?.integrations?.appwrite?.endpoint}/storage/buckets/${resolveValue(fileData["bucket-id"], "text")}/files/${resolveValue(fileData["file-id"], "text")}/preview${queryString}`;
               background.push(`url(${url})${position ? ` ${position}` : ""}${position && size ? " /" : ""}${size ? ` ${size}` : ""}${repeat ? ` ${repeat}` : ""}`);
             }
             break;
@@ -614,21 +614,21 @@ export function generateHTML(
     switch (layer?.source) {
       case "assets":
         if (isDynamicValue(layer.file)) {
-          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="{${resolveValue(layer.file ?? "")}}" loading="lazy" ${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}" />${close}`;
+          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="{${resolveValue(layer.file ?? "")}}"${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}" />${close}`;
         } else {
           const imagePath = typeof layer.file === "string" ? layer.file.replace(/^\.\/assets/, '$assets') : "";
           const fileName = imagePath.split('/').pop()!.replace(/\.svg$/, '').replace(/\.webp$/, '').replace(/\.png$/, '').replace(/\.jpg$/, '').replace(/\.jpeg/, '').replace(/\.gif/, '').replace(/\.avif/, '').replace(/\.heic/, '');
           const componentName = 'Image' + pascalCase(fileName);
           script.add(`import ${componentName} from '${imagePath}';`);
-          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="{${componentName}}" loading="lazy" ${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
+          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="{${componentName}}"${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
         }
         break;
       case "web":
         if (isDynamicValue(layer.file)) {
-          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="{${resolveValue(layer.file ?? "")}}" loading="lazy" ${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
+          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="{${resolveValue(layer.file ?? "")}}"${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
         } else {
           const imageSrc = typeof layer.file === "string" ? layer.file : "";
-          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="${imageSrc}" loading="lazy" ${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
+          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="${imageSrc}"${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
         }
         break;
       case "appwrite":
@@ -638,10 +638,10 @@ export function generateHTML(
           !Array.isArray(layer.file)) {
           const fileData = layer.file;
           const width = fileData.width
-            ? `(${resolveValue(fileData.width)}) * (window.devicePixelRatio || 1)`
+            ? `Math.round((${resolveValue(fileData.width)}) * (window.devicePixelRatio || 1))`
             : null;
           const height = fileData.height
-            ? `(${resolveValue(fileData.height)}) * (window.devicePixelRatio || 1)`
+            ? `Math.round((${resolveValue(fileData.height)}) * (window.devicePixelRatio || 1))`
             : null;
           const quality = fileData.quality || null;
           const output = fileData.format || '{supportedImageFormat}';
@@ -652,12 +652,12 @@ export function generateHTML(
           if (height) queryParts.push(`height={${height}}`);
           if (quality) queryParts.push(`quality=${encodeURIComponent(quality)}`);
           if (output) queryParts.push(`output=${output}`);
-          queryParts.push(`project={appConfig.integrations.appwrite.projectId}`);
+          queryParts.push(`project={appConfig?.integrations?.appwrite?.projectId}`);
 
           const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
 
-          const imageSrc = `{appConfig.integrations.appwrite.endpoint}/storage/buckets/${resolveValue(fileData["bucket-id"], "text")}/files/${resolveValue(fileData["file-id"], "text")}/preview${queryString}`;
-          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="${imageSrc}" loading="lazy" ${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
+          const imageSrc = `{appConfig?.integrations?.appwrite?.endpoint}/storage/buckets/${resolveValue(fileData["bucket-id"], "text")}/files/${resolveValue(fileData["file-id"], "text")}/preview${queryString}`;
+          layerHtml = `${open}<img${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}" src="${imageSrc}"${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${transitionSvelte} alt="{localization(${resolveValue(layer?.alt ?? "")})}"${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${tabindexAttr ? ` tabindex="0"` : ""} />${close}`;
         }
         break;
     }
