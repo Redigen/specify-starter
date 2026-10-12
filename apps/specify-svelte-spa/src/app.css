@@ -122,6 +122,10 @@ textarea::placeholder {
   -webkit-text-fill-color: var(--color-surface-fg-muted);
 }
 
+button, a, input, label, select {
+  touch-action: manipulation;
+}
+
 /* Fonts */
 @font-face {
   font-family: "Inter";

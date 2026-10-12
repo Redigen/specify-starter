@@ -59,7 +59,7 @@ self.addEventListener("fetch", (event: FetchEvent) => {
   }
 
   // Белый список
-  // Example /^\/docs\//, /^\/awstats\//, /\.pdf$/i
+  // Example /^\/docs(\/|$)/, /^\/awstats(\/|$)/, /\.pdf$/i
   const skipPaths = [/\.pdf$/i];
   if (skipPaths.some((re) => re.test(url.pathname))) {
     event.respondWith(fetch(event.request)); // просто в сеть, без кеша

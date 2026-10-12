@@ -25,7 +25,7 @@ const POSITION_MAP: Record<string, string> = {
 };
 
 const OVERFLOW_MAP: Record<string, string> = {
-  unclip: "visible", clip: "hidden", scroll: "scroll", "auto-scroll": "auto",
+  unclip: "visible", clip: "clip", scroll: "scroll", "auto-scroll": "auto",
 };
 
 const TXT_DECORATION_MAP: Record<string, string> = {
@@ -385,7 +385,11 @@ export function generateCssFromYaml(
     let val = formatDimension(styles[key] as string | number);
 
     if (val === "hug-contents") {
-      css[cssProp] = "fit-content";
+      if (layerType === "field") {
+        css[cssProp] = "auto"
+      } else {
+        css[cssProp] = "fit-content";
+      }
       if (isWidth) {
         if (!mergedStyles?.lay) {
           css.display = layerType === "text" ? "inline" : "inline-block";
