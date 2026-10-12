@@ -16,9 +16,10 @@ integrations:
     anonymousSession: false
   # ym: 000000000
 notifications:
-  cookie:
-    en: This website uses cookies
-    ru: На сайте используются cookie
+  # Uncomment if you are collecting analytics
+  # cookie:
+  #   en: This website uses cookies
+  #   ru: На сайте используются cookie
   update:
     en: A new version is available. Reload to update
     ru: Доступно обновление, необходимо перезагрузить страницу для установки
