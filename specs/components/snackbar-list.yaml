@@ -6,7 +6,7 @@ snackbar-list:
     pos: fixed
     pos-left: 0
     pos-right: 0
-    pos-bottom: calc(t.spacing.2000 + t.spacing.ios-bottom)
+    pos-bottom: t.spacing.2000
     pos-elevation: 10
     lay: column
     lay-align-h: center
