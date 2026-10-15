@@ -10,8 +10,8 @@ const projectId = appConfig?.integrations?.appwrite?.projectId || null;
 import { Client, TablesDB, Teams, Query, Realtime, Storage } from "appwrite";
 
 const client = new Client()
-    .setEndpoint(endpoint)
-    .setProject(projectId);
+  .setEndpoint(endpoint)
+  .setProject(projectId);
 
 const tablesDB = new TablesDB(client);
 const teams = new Teams(client);
@@ -432,12 +432,12 @@ function matchesRule(
   }
 
   if (isConditionRule(rule)) {
-      return compareValues(
-        item,
-        rule.column,
-        rule.operator as CompareOperator,
-        rule.value
-      );
+    return compareValues(
+      item,
+      rule.column,
+      rule.operator as CompareOperator,
+      rule.value
+    );
   }
 
   throw new Error('Unknown query rule node');
@@ -682,33 +682,6 @@ const calcTotalPages = (total: number = 0, limit: number = 0): number => {
   if (limit <= 0) return 0;
   return Math.ceil(total / limit);
 };
-
-// const hashString = (str: string): string => {
-//   let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
-//   for (let i = 0, ch; i < str.length; i++) {
-//     ch = str.charCodeAt(i);
-//     h1 = Math.imul(h1 ^ ch, 2654435761);
-//     h2 = Math.imul(h2 ^ ch, 1597334677);
-//   }
-//   h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-//   h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-//   return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
-// };
-
-// const getHistoryPageKey = (config: GetData): string => {
-//   let key = `p`;
-
-//   if (config["database-id"]) key += `_d_${config["database-id"]}`;
-//   if (config["table-id"]) key += `_t_${config["table-id"]}`;
-//   if (config["team-id"]) key += `_tm_${config["team-id"]}`;
-//   if (config["bucket-id"]) key += `_b_${config["bucket-id"]}`;
-
-//   if (config.query) {
-//     key += `_q_${hashString(JSON.stringify(config.query))}`;
-//   }
-
-//   return key;
-// };
 
 const cleanupMap = new WeakMap<object, () => void>();
 export function cleanupRealtime(result: object) {
