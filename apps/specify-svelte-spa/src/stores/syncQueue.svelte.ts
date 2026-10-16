@@ -86,9 +86,10 @@ class SyncQueue {
 
         // Если есть код ошибки (например, Appwrite вернул 404 или 400) - это логическая ошибка,
         // повторять нет смысла, удаляем item
-        if (err.code && err.code !== 429) {
+        if (err.code != null && err.code !== 429) {
           this.items = this.items.filter(i => i.id !== item.id);
           this.saveToStorage();
+          if (err.message) notifications.add({ type: "error", message: err.message, duration: 4000 });
         } else {
           // Сетевая ошибка - ставим в очередь и ждем интернета
           item.status = 'failed';
