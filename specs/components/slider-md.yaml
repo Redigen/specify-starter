@@ -1,6 +1,6 @@
 slider-md:
   props:
-    .value: "{{ variable }}"
+    .value: 0
     min: 0
     max: 100
     step: 1
@@ -111,7 +111,7 @@ slider-md:
                         stroke: t.color.uv-str-focus
                         css:
                           outline: 0.125rem solid t.color.base-str-focus
-                          outline-offset: 0.125rem 
+                          outline-offset: 0.125rem
                     on-mount:
                       run: "{{ logic.createSlider({track: track as HTMLElement, progress: progress as HTMLElement, handle: handle as HTMLElement}, { value: .value, min: props.min, max: props.max, step: props.step, onChange: (val) => { .value = val; } }) }}"
 
@@ -134,6 +134,9 @@ slider-md:
                             hover:
                               lay-width: 18
                               lay-height: 18
+                            pressed:
+                              lay-width: 18
+                              lay-height: 18
                             css:
                               pointer-events: none
                           layers:
@@ -153,6 +156,9 @@ slider-md:
                                       duration: 300
                                       easing: ease-out
                                   hover:
+                                    pos-bottom: 23
+                                    vis-opacity: 100
+                                  pressed:
                                     pos-bottom: 23
                                     vis-opacity: 100
                                   css:
