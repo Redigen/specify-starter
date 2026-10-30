@@ -1,7 +1,6 @@
 import { generateShadowCSS } from "../utils/generateShadowCSS.ts";
 import { resolveToken } from "../utils/resolveToken.ts";
 import { formatDimension } from "../utils/formatDimension.ts";
-import type { AppConfig } from "../types/app.ts";
 import type {
   TokensThemes,
   GradientValue,
@@ -27,15 +26,10 @@ function generateGradientCSS(g: GradientValue): string {
   }
 }
 
-export function generateTokensCSS(tokens: TokensThemes, app: AppConfig): string {
+export function generateTokensCSS(tokens: TokensThemes): string {
   const lines: string[] = [];
 
   if (!tokens.themes) return "";
-
-  const themeNames = Object.keys(tokens.themes);
-  // const rootThemeName = themeNames.includes(app.themes.light)
-  //   ? app.themes.light
-  //   : themeNames[0];
 
   for (const [themeName, theme] of Object.entries(tokens.themes)) {
     const selector =

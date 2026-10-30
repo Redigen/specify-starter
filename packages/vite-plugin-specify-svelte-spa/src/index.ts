@@ -120,8 +120,8 @@ export default function specifyPlugin(options: PluginOptions): Plugin {
       const name = id.slice(VIRTUAL_PREFIX.length);
 
       if (name === "tokens.css" || name === "app.css") {
-        const { yamlApp, yamlTokens } = readBaseConfigs();
-        return generateTokensCSS(yamlTokens, yamlApp);
+        const { yamlTokens } = readBaseConfigs();
+        return generateTokensCSS(yamlTokens);
       }
 
       return null;
@@ -168,7 +168,7 @@ export default function specifyPlugin(options: PluginOptions): Plugin {
       const normalizedFile = file.replace(/\\/g, "/");
 
       if (normalizedFile.endsWith("app.yaml")) {
-        const { yamlApp, yamlTokens } = readBaseConfigs();
+        const { yamlApp } = readBaseConfigs();
         generateAppConfig(yamlApp, generatedDir);
         updateWebFiles(yamlApp, appDir);
 

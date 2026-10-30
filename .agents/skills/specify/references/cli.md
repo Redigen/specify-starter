@@ -74,15 +74,21 @@ Validation errors are JSON on stderr:
 }
 ```
 
-Fix the value at `path` and rerun the command. At most 20 AJV errors are
-returned; `truncated` reports how many additional errors were omitted.
+For invalid spec input, fix the value at `path` and rerun the command. At most
+20 AJV errors are returned; `truncated` reports how many additional errors were
+omitted.
+
+Validation errors do not expand the editing scope in `AGENTS.md`. For an
+application task, report schema/mapping/CLI blockers instead of editing
+`specs/schemas/`, `.vscode/settings.json`, or CLI code. Never weaken validation,
+invent schema fields, or bypass validation to complete a write.
 
 Common mistakes:
 
 | Symptom | Fix |
 |---|---|
 | `No schema matched path` | Check `SPECIFY_ROOT`, file path, and `yaml.schemas` glob |
-| Schema file/ref compilation error | Fix the mapping or referenced schema path; do not write without validation |
+| Schema file/ref compilation error | Inspect mapping/refs and report the blocker; fix infrastructure only with explicit scope approval, never bypass validation |
 | Screen `path` missing at `/` | Use `{ "screen-id": { "path": ... } }`, not a bare screen |
 | Invalid nested layers | Check indentation in YAML and one layer type per list item |
 | Unexpected full-file diff | Prefer a YAML patch over JSON `write` for a small change |

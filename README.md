@@ -77,6 +77,9 @@ counter:
 
 The compiler turns this into a Svelte component with reactive state, route `/counter`, conditional rendering, and click handlers — no `.svelte` file written by hand.
 
+Text expressions may evaluate to strings or numbers. Numeric values are rendered
+as text, so counters and other numeric state can be used directly in `content`.
+
 ## 🤖 AI-friendly
 
 `specify-cli` validates existing YAML against the JSON Schemas selected by
@@ -96,12 +99,38 @@ echo '{"counter":{"path":"/x","layers":[]}}' \
   | npx --no-install specify-cli write specs/screens/counter.yaml
 ```
 
-Writes require a matching, successfully compiled schema. On validation failure,
+Writes require a matching, successfully compiled schema; on validation failure,
 the CLI prints structured errors with JSON Pointer paths and exits 1. JSON
 writes rewrite the entire file and do not preserve comments.
 
-AI agents should read `AGENTS.md` and `.agents/skills/specify/SKILL.md`, then
-load only the task-specific reference linked from the skill.
+AI agents should read [`AGENTS.md`](./AGENTS.md) for the required workflow,
+verification levels, and editing boundaries, then load only the task-specific
+references linked from
+[`.agents/skills/specify/SKILL.md`](./.agents/skills/specify/SKILL.md).
+
+## 🔁 Build & discovery
+
+Two independent generators assemble the app; neither needs manual registration:
+
+| Generator | When it runs | What it produces |
+|---|---|---|
+| `vite-plugin-specify-svelte-spa` | Vite dev server or `npm run build -w specify-svelte-spa` | `src/generated/screens/*.svelte`, `src/generated/components/*.svelte`, routing in `src/generated/screens/index.ts`, `appConfig.ts`, tokens CSS, compiler-managed fields in `index.html` and `app.webmanifest` |
+| `packages/specify-sync` (`npm run dev:sync`) | watcher over `assets/`, `specs/tokens.yaml`, `specs/components/` | refreshed asset/token enums in `specs/schemas/base.schema.json` and `.vscode/components.code-snippets` |
+
+Consequences worth knowing:
+
+- **Screens and routes are auto-discovered.** Every `specs/screens/*.yaml` file
+  is compiled into a Svelte screen and registered in
+  `src/generated/screens/index.ts` during dev/build. Creating a new screen file
+  requires no registration.
+- `specify-sync` does **not** compile screens or components; it only refreshes
+  schema enums and editor snippets.
+- `specify-cli` validates and converts YAML/JSON; it never generates
+  application code.
+- Screen generation re-runs on `npm run dev` and
+  `npm run build -w specify-svelte-spa`, so editing a spec is enough to see
+  the result in the app. `npm run check -w specify-svelte-spa` only type-checks
+  the generated code and does not regenerate it.
 
 ## 📂 Project structure
 

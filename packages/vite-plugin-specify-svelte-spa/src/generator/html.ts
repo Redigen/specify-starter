@@ -224,12 +224,12 @@ function buildLifecycleActions(
     return;
   }
 
-  for (const [key, action] of Object.entries(onMountConfig || [])) {
+  for (const [, action] of Object.entries(onMountConfig || [])) {
     if (isDynamicValue(action)) hasReactiveData = true;
   }
 
   if (!hasReactiveData) {
-    for (const [key, action] of Object.entries(unmountActions || [])) {
+    for (const [, action] of Object.entries(unmountActions || [])) {
       if (isDynamicValue(action)) hasReactiveData = true;
     }
   }
@@ -933,7 +933,7 @@ export function generateHTML(
           let hasMatch = false;
 
           // Заменяем найденные пути на переменные прямо в строке value
-          newValue = value.replace(quotedPathRegex, (fullMatch, quote, path) => {
+          newValue = value.replace(quotedPathRegex, (fullMatch, _quote, path) => {
             const result = processAssetPath(path);
             if (result) {
               hasMatch = true;
@@ -973,7 +973,6 @@ export function generateHTML(
     let each: string = "";
     let sentinelName: string = "";
 
-    let tabindexAttr = false as boolean;
     let clickEvent: string[] = [];
     let styleAttr: string[] = [];
 
@@ -987,7 +986,6 @@ export function generateHTML(
     }
 
     if (layer?.["on-click"]) {
-      tabindexAttr = true;
       const actions = processEventActions(layer["on-click"], script, resolveValue);
       actions.forEach(action => clickEvent.push(`${action};`));
     }

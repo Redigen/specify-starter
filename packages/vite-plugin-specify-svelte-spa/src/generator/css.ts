@@ -1782,7 +1782,6 @@ export function generateCSS(
   recursion: boolean = true,
 ): string | undefined {
   const className = getStylesHash(node, parentLay, interactiveParent);
-  const nodeId = `${prefix}${path.length > 0 ? "-" : ""}${path.join("-")}`;
 
   const lines: string[] = [];
   let currentLay = "block";
@@ -2187,7 +2186,7 @@ export function generateCSS(
 
   const componentEntry = Object.entries(node).find(([key]) => key.startsWith('c.'));
   if (componentEntry) {
-    const [key, layer] = componentEntry as [string, ComponentLayer];
+    const [, layer] = componentEntry as [string, ComponentLayer];
     const styles = layer?.styles || {};
     if (Object.keys(styles).length > 0) {
       lines.push(`${spaces}:global(.${className}) {`);

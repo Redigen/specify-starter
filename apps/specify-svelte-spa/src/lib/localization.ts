@@ -74,7 +74,8 @@ function getScript(code: string): string {
   return "unknown";
 }
 
-export function localization(content: string | Record<string, string>): string {
+export function localization(content: string | number | Record<string, string>): string {
+  if (typeof content === "number") return Number.isNaN(content) ? "" : String(content);
   if (!content) return "";
   if (typeof content === "string") return content;
 

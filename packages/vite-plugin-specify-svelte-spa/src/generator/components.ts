@@ -53,7 +53,7 @@ export function generateComponents(
     let props: string[] = [];
 
     if (component?.props) {
-      for (const [key, value] of Object.entries(component.props)) {
+      for (const [key] of Object.entries(component.props)) {
         if (key.startsWith('.')) {
           props.push(`${key.slice(1)} = $bindable()`);
           interfaceProps.push(`  ${key.slice(1)}?: any;`)

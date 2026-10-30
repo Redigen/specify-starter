@@ -24,7 +24,7 @@ export function resolveValue(
     // const refs = escaped.replace(/\{\{(.*?)\}\}/g, (match, innerContent) => {
     //   return `{{${transformRefs(innerContent)}}}`;
     // });
-    const refs = escaped.replace(/\{\{([\s\S]*?)\}\}/g, (match, innerContent) => {
+    const refs = escaped.replace(/\{\{([\s\S]*?)\}\}/g, (_match, innerContent) => {
       return `{{${transformRefs(innerContent)}}}`;
     });
 
