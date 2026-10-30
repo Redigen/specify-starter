@@ -1,8 +1,8 @@
 {
   "yaml.schemas": {
-    "./specs/schemas/app.schema.json": "app.yaml",
-    "./specs/schemas/tokens.schema.json": "tokens.yaml",
-    "./specs/schemas/screen.schema.json": "screens/*.yaml",
-    "./specs/schemas/component.schema.json": "components/*.yaml",
+    "./specs/schemas/app.schema.json": "specs/app.yaml",
+    "./specs/schemas/tokens.schema.json": "specs/tokens.yaml",
+    "./specs/schemas/screen.schema.json": "specs/screens/*.yaml",
+    "./specs/schemas/component.schema.json": "specs/components/*.yaml",
   },
 }

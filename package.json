@@ -1,6 +1,6 @@
 {
   "name": "specify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -9,6 +9,8 @@
   "scripts": {
     "dev:sync": "tsx packages/specify-sync/index.ts",
     "dev:svelte": "cd apps/specify-svelte-spa && npm run dev",
-    "dev": "npm run dev:sync & npm run dev:svelte"
+    "dev": "npm run dev:sync & npm run dev:svelte",
+    "spec:validate": "npx --no-install specify-cli validate --all",
+    "test:cli": "npm test -w specify-cli"
   }
 }

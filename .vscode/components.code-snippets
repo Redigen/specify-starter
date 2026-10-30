@@ -259,7 +259,7 @@
     "body": [
       "c.slider-md:",
       "\t\tprops:",
-      "\t\t\t.value: ${1:\"{{ variable \\}\\}\"}",
+      "\t\t\t.value: ${1:0}",
       "\t\t\tmin: ${2:0}",
       "\t\t\tmax: ${3:100}",
       "\t\t\tstep: ${4:1}",

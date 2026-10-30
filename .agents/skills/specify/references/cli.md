@@ -1,0 +1,103 @@
+# CLI and validation
+
+Run commands from the project root and use `npx --no-install` to require the
+workspace package rather than downloading an unrelated package.
+
+## Choose the smallest workflow
+
+- Localized existing-file edit: patch YAML, then `validate`.
+- Full-file generation or structured transformation: JSON `read`/`write`.
+- CI or final verification: `npm run spec:validate`.
+
+```bash
+# Existing YAML -> JSON; warnings do not prevent reading invalid existing data
+npx --no-install specify-cli read specs/screens/login.yaml
+
+# One-line JSON for machine processing
+npx --no-install specify-cli read specs/screens/login.yaml --compact
+
+# Validate one or more existing YAML files; any failure exits 1
+npx --no-install specify-cli validate specs/screens/login.yaml specs/app.yaml
+
+# Discover and validate every file covered by yaml.schemas
+npx --no-install specify-cli validate --all
+
+# JSON -> validated YAML
+npx --no-install specify-cli write specs/screens/login.yaml < /tmp/login.json
+```
+
+`read` performs soft validation so an agent can inspect an invalid existing
+file. `validate` and `write` are strict. A missing schema match, missing schema
+file, malformed schema, or failed schema compilation is an error. Writes never
+silently skip validation.
+
+`write` rewrites the whole file atomically and does not preserve comments or
+the original YAML layout. Avoid it for localized edits to commented files.
+The destination directory must already exist.
+
+## Schema selection
+
+`.vscode/settings.json` is both the IDE and CLI mapping source:
+
+```jsonc
+{
+  "yaml.schemas": {
+    "./specs/schemas/app.schema.json": "specs/app.yaml",
+    "./specs/schemas/tokens.schema.json": "specs/tokens.yaml",
+    "./specs/schemas/screen.schema.json": "specs/screens/*.yaml",
+    "./specs/schemas/component.schema.json": "specs/components/*.yaml"
+  }
+}
+```
+
+The CLI finds the nearest ancestor containing `.vscode/settings.json`.
+`SPECIFY_ROOT=/absolute/project/path` overrides discovery. Relative spec paths
+are resolved from this root. Local external `$ref` files are loaded recursively;
+remote `$ref` URLs are not supported.
+
+## Errors
+
+Validation errors are JSON on stderr:
+
+```json
+{
+  "valid": false,
+  "schema": "./specs/schemas/screen.schema.json",
+  "file": "specs/screens/login.yaml",
+  "errors": [
+    {
+      "path": "/login",
+      "message": "must have required property 'path'",
+      "params": { "missingProperty": "path" }
+    }
+  ]
+}
+```
+
+Fix the value at `path` and rerun the command. At most 20 AJV errors are
+returned; `truncated` reports how many additional errors were omitted.
+
+Common mistakes:
+
+| Symptom | Fix |
+|---|---|
+| `No schema matched path` | Check `SPECIFY_ROOT`, file path, and `yaml.schemas` glob |
+| Schema file/ref compilation error | Fix the mapping or referenced schema path; do not write without validation |
+| Screen `path` missing at `/` | Use `{ "screen-id": { "path": ... } }`, not a bare screen |
+| Invalid nested layers | Check indentation in YAML and one layer type per list item |
+| Unexpected full-file diff | Prefer a YAML patch over JSON `write` for a small change |
+
+## Programmatic API
+
+```ts
+import { readSpec, validateSpec, writeSpec } from 'specify-cli';
+
+const { data } = await readSpec('specs/screens/login.yaml');
+const validation = await validateSpec('specs/screens/login.yaml');
+if (validation.valid) {
+  await writeSpec('specs/screens/login.yaml', data);
+}
+```
+
+The package entry point has no CLI side effects. `SPECIFY_ROOT` must be set
+before importing it when project-root auto-discovery is not appropriate.
