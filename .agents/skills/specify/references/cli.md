@@ -11,19 +11,19 @@ workspace package rather than downloading an unrelated package.
 
 ```bash
 # Existing YAML -> JSON; warnings do not prevent reading invalid existing data
-npx --no-install specify-cli read specs/screens/login.yaml
+npx --no-install specify-cli read specs/screens/home.yaml
 
 # One-line JSON for machine processing
-npx --no-install specify-cli read specs/screens/login.yaml --compact
+npx --no-install specify-cli read specs/screens/home.yaml --compact
 
 # Validate one or more existing YAML files; any failure exits 1
-npx --no-install specify-cli validate specs/screens/login.yaml specs/app.yaml
+npx --no-install specify-cli validate specs/screens/home.yaml specs/app.yaml
 
 # Discover and validate every file covered by yaml.schemas
 npx --no-install specify-cli validate --all
 
 # JSON -> validated YAML
-npx --no-install specify-cli write specs/screens/login.yaml < /tmp/login.json
+npx --no-install specify-cli write specs/screens/home.yaml < /tmp/home.json
 ```
 
 `read` performs soft validation so an agent can inspect an invalid existing
@@ -63,7 +63,7 @@ Validation errors are JSON on stderr:
 {
   "valid": false,
   "schema": "./specs/schemas/screen.schema.json",
-  "file": "specs/screens/login.yaml",
+  "file": "specs/screens/home.yaml",
   "errors": [
     {
       "path": "/login",
@@ -92,10 +92,10 @@ Common mistakes:
 ```ts
 import { readSpec, validateSpec, writeSpec } from 'specify-cli';
 
-const { data } = await readSpec('specs/screens/login.yaml');
-const validation = await validateSpec('specs/screens/login.yaml');
+const { data } = await readSpec('specs/screens/home.yaml');
+const validation = await validateSpec('specs/screens/home.yaml');
 if (validation.valid) {
-  await writeSpec('specs/screens/login.yaml', data);
+  await writeSpec('specs/screens/home.yaml', data);
 }
 ```
 

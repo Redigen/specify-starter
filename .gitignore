@@ -2,3 +2,4 @@
 node_modules
 apps/specify-svelte-spa/src/generated
 apps/specify-svelte-spa/dist
+packages/specify-cli/dist

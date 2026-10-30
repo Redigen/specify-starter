@@ -64,10 +64,10 @@ writes must never silently skip validation.
 
 ```bash
 # YAML -> JSON (add --compact for one-line output)
-npx --no-install specify-cli read specs/screens/login.yaml > /tmp/login.json
+npx --no-install specify-cli read specs/screens/home.yaml > /tmp/home.json
 
 # JSON -> validated YAML; screen/component files require their top-level ID map
-npx --no-install specify-cli write specs/screens/login.yaml < /tmp/login.json
+npx --no-install specify-cli write specs/screens/home.yaml < /tmp/home.json
 
 # Validate existing YAML without converting it
 npx --no-install specify-cli validate --all
