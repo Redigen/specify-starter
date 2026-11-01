@@ -1747,7 +1747,7 @@ export function generateMediaQueries(
           `${spaces}    ${generateCssFromYaml(layerType, styles, bp.styles as Styles, parentLay)}`,
         );
         lines.push(`${spaces}  }`);
-        if (bp.styles?.fill || bp.styles?.stroke) {
+        if (layerType === "vector" && (bp.styles?.fill || bp.styles?.stroke)) {
           lines.push(`${spaces}  :global(.${className} svg *) {`);
           lines.push(`${spaces}    ${generateSvgCssFromYaml("vector", bp.styles)}`);
           lines.push(`${spaces}  }`);
