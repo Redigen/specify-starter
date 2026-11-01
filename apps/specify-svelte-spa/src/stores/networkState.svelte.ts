@@ -3,8 +3,9 @@ import { syncQueue } from './syncQueue.svelte';
 import { notifications } from './notifications.svelte';
 
 const appwriteEndpoint = appConfig?.integrations?.appwrite?.endpoint || null;
-const RETRY_INTERVAL = 30000; // Интервал проверки, если сервер упал (30 сек)
-const REQUEST_TIMEOUT = 5000; // Таймаут на сам запрос (5 сек)
+const RETRY_BASE_DELAY = 1000;  // Задержка перед первой повторной проверкой (1 сек)
+const RETRY_MAX_DELAY = 30000;  // Потолок экспоненциального backoff (30 сек)
+const REQUEST_TIMEOUT = 5000;   // Таймаут на сам запрос (5 сек)
 
 class NetworkState {
   isOnline = $state(typeof navigator !== 'undefined' ? navigator.onLine : true);
@@ -12,8 +13,10 @@ class NetworkState {
   isRateLimited = $state(false);
   lastSync = $state<Date | null>(null);
 
-  private healthCheckTimer: ReturnType<typeof setInterval> | null = null;
+  private healthCheckTimer: ReturnType<typeof setTimeout> | null = null;
   private rateLimitTimer: ReturnType<typeof setTimeout> | null = null;
+  private retryAttempt = 0;
+  private hasLoggedFailure = false;
 
   private onlineHandler = () => {
     this.isOnline = true;
@@ -44,13 +47,32 @@ class NetworkState {
 
   private startRetry(): void {
     this.stopRetry();
-    this.checkBackendHealth();
-    this.healthCheckTimer = setInterval(() => this.checkBackendHealth(), RETRY_INTERVAL);
+    this.retryAttempt = 0;
+    this.scheduleHealthCheck(RETRY_BASE_DELAY);
+  }
+
+  // Самопланирующаяся цепочка с экспоненциальным backoff:
+  // 1s → 2s → 4s → … → 30s (cap), с джиттером ±25%.
+  // Единственный надёжный способ узнать, что DNS/Wi-Fi/DHCP готовы, — попробовать запрос,
+  // поэтому вместо угадывания задержки проверки повторяются с растущим интервалом.
+  private scheduleHealthCheck(delay: number): void {
+    this.healthCheckTimer = setTimeout(async () => {
+      this.healthCheckTimer = null;
+
+      const ok = await this.checkBackendHealth();
+
+      // После успеха цепочку не продолжаем: $effect остановит ретраи через isBackendAvailable
+      if (ok || !this.isOnline || this.isBackendAvailable) return;
+
+      this.retryAttempt += 1;
+      const next = Math.min(RETRY_BASE_DELAY * 2 ** this.retryAttempt, RETRY_MAX_DELAY);
+      this.scheduleHealthCheck(next * (0.75 + Math.random() * 0.5));
+    }, delay);
   }
 
   private stopRetry(): void {
     if (this.healthCheckTimer) {
-      clearInterval(this.healthCheckTimer);
+      clearTimeout(this.healthCheckTimer);
       this.healthCheckTimer = null;
     }
   }
@@ -61,20 +83,23 @@ class NetworkState {
       return false;
     }
 
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
+    try {
       // Если сервер ответил хоть 404, хоть 500 — значит он жив
       await fetch(appwriteEndpoint, {
         method: 'HEAD',
+        mode: 'no-cors',
         signal: controller.signal
       });
 
-      clearTimeout(timeout);
+      // Пока запрос был в полёте, сеть могла снова пропасть — не считаем бэкенд доступным
+      if (!this.isOnline) return false;
 
       this.isBackendAvailable = true;
       this.lastSync = new Date();
+      this.hasLoggedFailure = false;
 
       if (!this.isRateLimited) {
         syncQueue.sync();
@@ -82,15 +107,26 @@ class NetworkState {
 
       return true;
     } catch (error) {
-      console.error('Backend unavailable:', error);
-      // this.markBackendUnavailable();
+      const isAbort = error instanceof DOMException && error.name === 'AbortError';
+
+      // Таймаут (AbortError) — тихая неудача; сетевые ошибки логируем один раз на серию ретраев
+      if (!isAbort && !this.hasLoggedFailure) {
+        console.warn('Backend unavailable, will retry:', error);
+        this.hasLoggedFailure = true;
+      }
+
+      this.markBackendUnavailable();
       return false;
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
   markBackendUnavailable(): void {
-    console.error("Network error — server down");
-    if (this.isBackendAvailable && appConfig?.notifications?.["server-unavailable"]) notifications.add({ type: "server-unavailable", message: appConfig.notifications["server-unavailable"], duration: 4000 });
+    if (this.isBackendAvailable) {
+      console.error("Network error — server down");
+      if (appConfig?.notifications?.["server-unavailable"]) notifications.add({ type: "server-unavailable", message: appConfig.notifications["server-unavailable"], duration: 4000 });
+    }
     this.isBackendAvailable = false;
   }
 
@@ -115,7 +151,10 @@ class NetworkState {
 
   destroy(): void {
     this.stopRetry();
-    if (this.rateLimitTimer) clearTimeout(this.rateLimitTimer);
+    if (this.rateLimitTimer) {
+      clearTimeout(this.rateLimitTimer);
+      this.rateLimitTimer = null;
+    }
 
     if (typeof window !== 'undefined') {
       window.removeEventListener('online', this.onlineHandler);

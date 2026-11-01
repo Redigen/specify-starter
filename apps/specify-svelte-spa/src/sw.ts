@@ -58,6 +58,10 @@ self.addEventListener("fetch", (event: FetchEvent) => {
     return;
   }
 
+  if (event.request.method !== "GET") {
+    return;
+  }
+
   // Белый список
   // Example /^\/docs(\/|$)/, /^\/awstats(\/|$)/, /\.pdf$/i
   const skipPaths = [/\.pdf$/i];
