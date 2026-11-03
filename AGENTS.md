@@ -76,15 +76,22 @@ Rules for all edits (manual or scripted):
    not only the new screen. Changes within the authorized scope do not require
    an additional approval step when implementation is permitted. This does not
    override plan-only or read-only restrictions.
+   For minor decision forks (a label, a default value, two equivalent
+   approaches), pick a defensible option and note the decision in the final
+   report instead of asking; ask only when an answer changes the direction of
+   what is being built (audience, scope, route).
 2. Make the smallest safe change:
    - For a localized edit, patch YAML directly and preserve its comments/layout.
-   - For full-file generation or structured transformations, use JSON through
-     `specify-cli write`. For a new large screen, generate the complete JSON in
-     `/tmp` and write it once instead of assembling YAML through many appends.
-     After the initial write, prefer direct YAML patches for localized fixes;
-     regenerate for structural corrections when simpler and safer. Before
-     regenerating, incorporate any intervening YAML edits into the input rather
-     than overwriting them with a stale generator.
+   - For a new screen or component, create the complete YAML directly and
+     validate it. Do not create intermediate JSON or a generator solely to
+     satisfy the workflow. If tool payload limits require several bounded
+     edits, validate the complete file afterward.
+   - For a structured transformation of an existing YAML file, use JSON through
+     `specify-cli read` and `specify-cli write`; remember that `write`
+     reformats the file and removes comments. Incorporate any intervening YAML
+     edits into the input rather than overwriting them with stale data.
+   - After the initial write, prefer direct YAML patches for localized fixes.
+     Regenerate for structural corrections only when simpler and safer.
    - For scripted replacements, define the expected match count. If the actual
      count differs, stop and narrow the selector. Inspect the resulting diff
      immediately; indentation alone is not a unique semantic selector.
@@ -128,13 +135,17 @@ Rules for all edits (manual or scripted):
    tooling is available: the target route, narrow and desktop viewports, dark
    theme, and the main interactions. Do not treat an HTTP 200 response as a
    rendering check. If browser verification is unavailable, explicitly report
-   that it was not performed.
+   that it was not performed. When specs use loops, conditions, or anchors,
+   check the expected item counts, initial conditional visibility, and working
+   anchor targets: schema validation does not prove those fields are correctly
+   placed.
 
    Prefer available browser tools and existing project verification scripts.
-   Small temporary scripts without new dependencies are allowed; reuse launch,
-   connection, and teardown helpers instead of copying them into multiple
-   scripts. Do not build custom testing infrastructure for an ordinary UI task.
-   An installed browser alone does not require developing automation.
+   Small temporary scripts without new dependencies are allowed; keep them in
+   one task-scoped file with shared launch, connection, evaluation, screenshot,
+   and teardown helpers instead of duplicating setup across scripts. Do not
+   build custom testing infrastructure for an ordinary UI task. An installed
+   browser alone does not require developing automation.
 
    Before starting a dev server, check for a suitable running instance and reuse
    it when appropriate. Track processes started by the agent and stop only those
@@ -177,5 +188,6 @@ validation error, read `path` and `message`, fix the input, and rerun validation
 
 - App config, screens, layers, expressions, components: `.agents/skills/specify/references/spec-model.md`
 - Styles and tokens: `.agents/skills/specify/references/styles-and-tokens.md`
+- Design quality in specs: `.agents/skills/specify/references/design-quality.md`
 - Data, actions, logic: `.agents/skills/specify/references/data-and-actions.md`
 - CLI and troubleshooting: `.agents/skills/specify/references/cli.md`

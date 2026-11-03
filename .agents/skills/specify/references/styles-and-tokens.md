@@ -100,7 +100,7 @@ are static enums. Grep the relevant `$defs` key in
 | `txt` | Reusable typography token |
 | `txt-font`, `txt-weight`, `txt-size`, `txt-line-height`, `txt-letter-spacing` | Individual typography overrides |
 | `txt-align` | `left`, `center`, `right`, or `justify` |
-| `txt-wrap` | Text wrapping behavior |
+| `txt-wrap` | `wrap`, `no-wrap`, `balance`, `pretty`, or `hyphens` |
 | `txt-break` | Word-breaking behavior |
 | `txt-stroke` | Text outline width |
 | `cursor-type` | Standard CSS cursor enum from the schema |
@@ -247,11 +247,14 @@ styles:
 Start with layout behavior rather than decorative content:
 
 - Prefer `lay-wrap` plus bounded/flexible dimensions over fixed desktop-only
-  rows. Check the narrowest supported viewport.
+  rows. Check the narrowest supported viewport. `lay-wrap` controls children,
+  not the container's own width: a row that should span its parent also needs
+  `lay-width: fill-container`.
 - Use `hug-contents` for intrinsic content and `fill-container` for elements
   that should occupy available space.
-- `txt-wrap: false` keeps text on a single line; `txt-wrap: true` allows
-  wrapping. Choose deliberately instead of compensating with fixed widths.
+- `txt-wrap: no-wrap` keeps text on a single line; `txt-wrap: wrap` allows
+  normal wrapping. Other schema values provide balancing, pretty wrapping, or
+  hyphenation. Choose deliberately instead of compensating with fixed widths.
 - Give page sections `lay-width: fill-container` and a suitable `lay-max-width`.
 - Avoid fixed child widths that exceed the narrowest supported viewport.
 - CSS dimension strings such as `min(340px, 100%)` can cap desktop cards while

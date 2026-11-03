@@ -5,8 +5,11 @@ workspace package rather than downloading an unrelated package.
 
 ## Choose the smallest workflow
 
+- New screen/component: create complete YAML directly, then `validate`; no
+  intermediate JSON or generator is required.
 - Localized existing-file edit: patch YAML, then `validate`.
-- Full-file generation or structured transformation: JSON `read`/`write`.
+- Structured transformation of existing YAML: JSON `read`/`write`, accounting
+  for reformatting and comment loss.
 - CI or final verification: `npm run spec:validate`.
 
 ```bash

@@ -253,6 +253,21 @@ properties inside `styles`, not directly on the layer. `id` is rendered as the
 DOM id of built-in layers and is what `scroll-to.frame-id` targets. A `c.*`
 invocation does not forward `id`; place it on a frame instead.
 
+Identity and behavior fields belong on the layer itself; only visual and layout
+declarations belong in `styles`:
+
+| Location | Fields (as supported by the layer type) |
+|---|---|
+| Layer object | `id`, `for`, `key`, `cond-if`, `html-tag`, `on-click`, `on-change`, `layers` |
+| `styles` | `lay-*`, `pos-*`, `txt-*`, `fill`, `stroke`, interaction states, `transitions`, `breakpoints`, `css` |
+
+Misplacing a loop or condition field may still validate but compile to the
+wrong UI. After structural changes, check rendered item counts, initial
+conditional visibility, and anchor targets rather than relying on schema
+validation alone. A frame with `on-click` and no `html-tag` renders as a button
+(or as a link for navigation); set `txt-align` explicitly on its text children
+when the browser's default button centering is not intended.
+
 ### Frame and text
 
 `frame` groups children and provides layout, positioning, and interactions. It
@@ -352,18 +367,31 @@ Plain JavaScript is allowed inside expressions where needed, for example
 `{{ new Date().toISOString() }}`. Do not embed function or class
 implementations. Expressions and calls to existing logic are allowed.
 
-Localized strings use language maps where the schema supports them:
+Localized strings use language maps where the schema supports them: arbitrary
+BCP-47 language codes, all optional. A plain string is also valid and is shown
+to every locale. Text `content` also localizes maps returned by expressions,
+including values from `data`, `props`, or loop items: store
+`title: { <lang>: ... }` in loop data and render `content: "{{ item.title }}"`;
+do not preselect a language in the expression.
 
 ```yaml
+# example; any language set works, e.g. de/fr instead of en/ru
 content:
-  en: Hello, {{ state.name }}
-  ru: Привет, {{ state.name }}
+  en: "Hello, {{ state.name }}"
+  ru: "Привет, {{ state.name }}"
 ```
+
+Before adding a localized string, check the nearest screens and components for
+the language set already used (e.g. the `meta` in `specs/screens/landing.yaml`)
+and reuse exactly those languages; do not introduce new ones unasked. If no
+localization exists nearby, ask the user which languages to provide, offering
+the language the user is writing in and asking whether to add more.
 
 ## Conditions and loops
 
 `cond-if` renders a layer only when its expression is true. `key` is required
-with `for` and must be stable and unique.
+with `for` and must be stable and unique. These fields belong on the layer
+itself, alongside `id` when an anchor is needed — never inside `styles`.
 
 ```json
 {

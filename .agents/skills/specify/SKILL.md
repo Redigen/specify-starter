@@ -48,6 +48,7 @@ modify infrastructure; report the blocker instead.
 |---|---|
 | App config, screens, components, layers, loops, expressions | `references/spec-model.md` |
 | Layout, visual states, transitions, design tokens | `references/styles-and-tokens.md` |
+| Visual quality: hierarchy, rhythm, interaction states, feedback, anti-slop | `references/design-quality.md` |
 | Fetching, mutations, events, navigation, external logic | `references/data-and-actions.md` |
 | YAML/JSON workflow, schema selection, CLI errors | `references/cli.md` |
 
@@ -146,18 +147,25 @@ The required workflow in the root `AGENTS.md` is the canonical checklist
 skill-specific additions:
 
 1. Identify the task, load only the relevant reference plus the closest existing
-   spec, and choose the editing form: patch YAML for a localized change, or
-   generate complete JSON and write it once through the CLI for a new large
-   file or structured transformation.
-2. Before writing decorative content, define the layout behavior: container
-   widths, wrapping, narrow-screen behavior, and component sizing. Keep changes
-   scoped; verify referenced IDs, props, tokens, assets, and exports. For
-   scripted replacements, verify the expected match count and inspect the diff
-   immediately.
+   spec, and choose the editing form: patch YAML for a localized change, create
+   a new screen/component directly as complete YAML, or use JSON `read`/`write`
+   for a structured transformation of an existing file. Do not create an
+   intermediate JSON file or generator merely to satisfy the workflow.
+2. For a new screen or substantial layout rework, write the short Design Brief
+   and derive its system invariants as described in
+   `references/design-quality.md`. Before writing decorative content, define
+   the layout behavior: container widths, wrapping, narrow-screen behavior, and
+   component sizing. Keep changes scoped; verify referenced IDs, props, tokens,
+   assets, and exports. For scripted replacements, verify the expected match
+   count and inspect the diff immediately.
 3. Validate changed specs while editing, and run the application checks once the
    edits have settled (`build` regenerates `src/generated/`; `check` verifies
    it). On validation failure, read `errors[].path` and `errors[].message`,
    fix the source, and rerun; missing/failed schemas are errors, not skips.
+   If a spec validates but the generated UI is wrong, inspect the generated
+   output read-only and map the behavior back to the source layer. Read
+   compiler code only for a remaining semantic mismatch; never edit generated
+   output or the compiler for an ordinary UI task.
 
    ```bash
    npx --no-install specify-cli validate path/to/changed.yaml
@@ -175,7 +183,10 @@ skill-specific additions:
 |---|---|
 | Bare screen `{ "path": "/x" }` | `{ "x": { "path": "/x" } }` |
 | `{ "frame": { "lay": "row" } }` | `{ "frame": { "styles": { "lay": "row" } } }` |
+| `for`, `key`, `cond-if`, or `id` inside `styles` | Put identity and behavior fields on the layer itself; keep only visual/layout declarations in `styles` |
+| `txt-wrap: true` or `false` | Use schema strings, usually `wrap` or `no-wrap` |
 | `for` without `key` | Provide a stable unique `key` |
+| Wrapped row that stays narrower than its parent | Wrapping does not size the row; set `lay-width: fill-container` when it should span the parent |
 | `component-name: { ... }` in layers | `c.component-name: { ... }` |
 | Invented logic export | Inspect or create the actual external module first |
 | Literal or computed expression passed to `.propName` on a component invocation | Use an assignable target, such as `{{ state.field }}` or a parent's `{{ .propName }}`; see [Component](references/spec-model.md#component) |
@@ -197,6 +208,9 @@ skill-specific additions:
 - References resolve and no unrelated formatting/comments were lost.
 - Relevant application checks/build pass, or any pre-existing failure is
   reported precisely.
+- For structural UI changes, the design-quality review in
+  `references/design-quality.md` used rendered desktop/mobile output and
+  produced concrete findings, or any skipped review is explicitly reported.
 - For structural UI changes, visual verification was performed or explicitly
   reported as not run.
 - Invented business content and contact details are identified as placeholders.
