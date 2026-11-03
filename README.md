@@ -143,14 +143,15 @@ specify-starter/
 │   ├── components/              # Reusable components
 │   └── schemas/                 # JSON Schemas for validation
 ├── apps/
-│   └── specify-svelte-spa/      # Svelte SPA + Vite plugin that compiles specs
+│   └── specify-svelte-spa/      # Svelte SPA generated from the specs
 │       └── src/
 │           ├── generated/       # ⚠️ Auto-generated — do not edit
 │           ├── logic/           # TS functions (fallback for complex logic)
 │           └── stores/          # TS reactive stores (fallback)
 ├── packages/
+│   ├── vite-plugin-specify-svelte-spa/  # Vite plugin: compiles YAML specs into Svelte code
 │   ├── specify-cli/             # Spec validation + optional YAML↔JSON bridge
-│   └── specify-sync/            # Spec-to-code synchronizer
+│   └── specify-sync/            # Refreshes JSON schema enums/snippets for IDE (tokens, assets)
 ├── .agents/skills/specify/      # AI skill + task-specific references
 ├── .vscode/settings.json        # yaml.schemas mapping (used by CLI + IDE)
 ├── AGENTS.md                    # Project guidelines for AI agents
