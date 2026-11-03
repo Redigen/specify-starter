@@ -210,9 +210,10 @@ localized task.
 ## Review workflow
 
 1. Read the changed spec(s), the Design Brief, and the nearest existing
-   screen/component of the same kind. Then review the rendered screen on
-   desktop and mobile (and dark theme when relevant). Reading YAML alone is not
-   a visual design review.
+   screen/component of the same kind. At the rendered-verification stage of the
+   root `AGENTS.md` workflow, review the screen on desktop and mobile (and dark
+   theme when relevant). `specify-cli preview shot` can provide the screenshots;
+   see `cli.md` for syntax. Reading YAML alone is not a visual design review.
 2. Review the risks relevant to the change before fixing; skip categories it
    cannot affect. For structural work this normally means hierarchy, rhythm,
    states, content, and anti-slop, plus any accessibility risks introduced by
@@ -224,9 +225,14 @@ localized task.
    quality issues within scope; separate optional aesthetic recommendations.
    For judgment calls, pick a defensible default and note it for the user. A
    statement that review was performed is not a substitute for its findings.
+   A visual complaint is first checked against the design tokens and existing
+   screens. If the value comes from the shared system and matches other
+   artifacts, it is a system decision, not a finding. A finding is stated as a
+   measured discrepancy (for example, a contrast ratio against its requirement),
+   never as a claim about how the implementation produces the value.
 4. Re-check high-risk interactions after fixes: contrast versus emphasis,
    focus indicators versus adjacent content, and spacing changes versus narrow
    layouts. Do not introduce a second problem while fixing the first.
-5. Validate with `specify-cli validate` as usual; this review does not replace
-   the schema check, rendered verification, or interaction testing, and vice
-   versa.
+5. Return to the root `AGENTS.md` workflow for the final aggregate check. This
+   review does not replace schema validation, automated rendered checks, or
+   interaction testing, and vice versa.

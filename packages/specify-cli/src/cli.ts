@@ -3,6 +3,9 @@ import { readFileSync } from 'node:fs';
 import { readSpec } from './read.js';
 import { writeSpec } from './write.js';
 import { validateSpec } from './validate.js';
+import { runPreviewShot } from './preview/shot.js';
+import { runPreviewCheck } from './preview/check.js';
+import { runPreviewSteps } from './preview/steps.js';
 import {
   ensureInitialized,
   listValidatableFiles,
@@ -31,17 +34,33 @@ USAGE
       Read JSON from stdin, require a matching schema, validate, then write YAML.
       This rewrites the whole file and does not preserve YAML comments.
 
+  specify-cli preview shot --path <route> [--widths 390,1440] [--height 1000]
+      [--theme dark] [--full-page] [--selector '#formats'] [--wait 1500] [--out file.png|dir]
+      Capture screenshots of a rendered route with headless Chrome.
+  specify-cli preview check --path <route> [--widths 390,1440] [--theme dark]
+      [--overflow] [--anchors --spec specs/screens/x.yaml] [--assert 'selector:N']
+      [--screenshots dir] [--json [file]]
+      Check horizontal overflow, scroll anchors and element counts. Exit 1 on failure.
+  specify-cli preview run <scenario.yaml>
+      Run a declarative interaction scenario (click/fill/wait/assert/screenshot).
+
   specify-cli --help
   specify-cli --version
 
 ENVIRONMENT
-  SPECIFY_ROOT   Override the project root (default: nearest ancestor with .vscode/settings.json)
+  SPECIFY_ROOT         Override the project root (default: nearest ancestor with .vscode/settings.json)
+  SPECIFY_CHROME_PATH  Chrome/Chromium executable used by preview commands
+  SPECIFY_PREVIEW_URL  Existing dev server URL reused by preview commands
+  SPECIFY_PREVIEW_PORT Port for a dev server started by preview commands (default 5199)
 
 EXAMPLES
   specify-cli validate --all
   specify-cli read specs/screens/login.yaml > /tmp/login.json
   specify-cli write specs/screens/login.yaml < /tmp/login.json
   echo '{"new":{"path":"/new","layers":[]}}' | specify-cli write specs/screens/new.yaml
+  specify-cli preview shot --path /landing --widths 390,1440 --full-page --out /tmp/landing
+  specify-cli preview check --path /landing --overflow --anchors --spec specs/screens/landing.yaml
+  specify-cli preview run /tmp/landing.steps.yaml
 `;
   (exitCode === 0 ? process.stdout : process.stderr).write(output);
   process.exit(exitCode);
@@ -72,12 +91,21 @@ async function main(): Promise<void> {
     process.stdout.write(`specify-cli v${VERSION}\n`);
     return;
   }
-  if (cmd !== 'read' && cmd !== 'write' && cmd !== 'validate') {
+  if (cmd !== 'read' && cmd !== 'write' && cmd !== 'validate' && cmd !== 'preview') {
     process.stderr.write(`Unknown command: ${cmd}\n\n`);
     usage();
   }
 
   await ensureInitialized();
+
+  if (cmd === 'preview') {
+    const [subcommand, ...subRest] = rest;
+    if (subcommand === 'shot') return runPreviewShot(subRest);
+    if (subcommand === 'check') return runPreviewCheck(subRest);
+    if (subcommand === 'run') return runPreviewSteps(subRest);
+    process.stderr.write(`Unknown preview subcommand: ${subcommand ?? '(none)'}\n\n`);
+    usage();
+  }
 
   if (cmd === 'read') {
     const compact = rest.includes('--compact');

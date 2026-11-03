@@ -142,9 +142,9 @@ Before reusing `c.button-md`, verify its props in the current project.
 
 ## Execution workflow
 
-The required workflow in the root `AGENTS.md` is the canonical checklist
-(scope, validation, diff inspection, verification levels). Summary with the
-skill-specific additions:
+Follow the required workflow in the root `AGENTS.md`; it is the single source
+of truth for step order, verification levels, and final checks. This section
+adds only skill-specific guidance:
 
 1. Identify the task, load only the relevant reference plus the closest existing
    spec, and choose the editing form: patch YAML for a localized change, create
@@ -158,24 +158,26 @@ skill-specific additions:
    component sizing. Keep changes scoped; verify referenced IDs, props, tokens,
    assets, and exports. For scripted replacements, verify the expected match
    count and inspect the diff immediately.
-3. Validate changed specs while editing, and run the application checks once the
-   edits have settled (`build` regenerates `src/generated/`; `check` verifies
-   it). On validation failure, read `errors[].path` and `errors[].message`,
-   fix the source, and rerun; missing/failed schemas are errors, not skips.
-   If a spec validates but the generated UI is wrong, inspect the generated
-   output read-only and map the behavior back to the source layer. Read
-   compiler code only for a remaining semantic mismatch; never edit generated
-   output or the compiler for an ordinary UI task.
-
-   ```bash
-   npx --no-install specify-cli validate path/to/changed.yaml
-   npm run spec:validate
-   npm run build -w specify-svelte-spa
-   npm run check -w specify-svelte-spa
-   ```
-
-4. For structural UI work, perform browser verification when tooling is
-   available. Otherwise state explicitly that visual verification was not run.
+3. Use `references/cli.md` for command syntax and troubleshooting. On validation
+   failure, read `errors[].path` and `errors[].message`, fix the source, and
+   rerun; missing/failed schemas are errors, not skips. If a spec validates but
+   the generated UI is wrong, inspect the generated output read-only and map the
+   behavior back to the source layer. Never edit generated output or the
+   compiler for an ordinary UI task.
+   Diagnostics outside the working area starts only from a reproducible
+   symptom: a failing check, incorrect DOM, or a measured mismatch between the
+   result and the spec. Subjective impressions ("it looks wrong"), not
+   understanding someone else's code, and hypotheses about how it "could break"
+   are not symptoms. No symptom means no diagnostics — return to the task.
+   An investigation ends in exactly one of three ways: the symptom is
+   reproduced and localized inside your editing area → fix it; the symptom is
+   reproduced outside your editing area → describe it and stop; the symptom is
+   not reproduced → it does not exist, return to the task. Continuing after any
+   of these outcomes is a violation. Decide the step budget for a hypothesis
+   before starting and state it to yourself.
+4. For structural UI work, use the rendered output required by `AGENTS.md` for
+   both rendered checks and the design-quality review. Return to the canonical
+   workflow for the final aggregate check after all review fixes.
 
 ## Common mistakes
 
@@ -196,7 +198,8 @@ skill-specific additions:
 | `lay-gap: auto` in a content-width row | Give the row free space, usually with `lay-width: fill-container` |
 | Assuming `c.field-*` or `c.slider-md` fills a column form | Set `styles.lay-width: fill-container` on the invocation |
 | Reading entire token/component files for a small lookup | Query only the required group, props, and root styles |
-| Rebuilding after every cosmetic YAML edit | Validate during editing; run the final build/check after the edits settle |
+| Rebuilding after every cosmetic YAML edit | Validate during editing; follow `AGENTS.md` for intermediate build/check and the final `verify` |
+| Concluding "there is a bug in the implementation" from reading its code | Follow the order of evidence in `AGENTS.md`: compare with working artifacts, measure at runtime, and only then read the implementation — and only with a reproducible symptom |
 
 ## Definition of done
 
@@ -206,11 +209,12 @@ skill-specific additions:
 - No generated files were manually edited; normal generation side effects are
   inspected and reported separately.
 - References resolve and no unrelated formatting/comments were lost.
-- Relevant application checks/build pass, or any pre-existing failure is
-  reported precisely.
+- The final `npm run verify` required by `AGENTS.md` passes, or any pre-existing
+  failure is reported precisely.
+- For structural UI changes, rendered checks cover the applicable routes,
+  viewports, themes, and interactions, or skipped checks are explicitly
+  reported.
 - For structural UI changes, the design-quality review in
-  `references/design-quality.md` used rendered desktop/mobile output and
-  produced concrete findings, or any skipped review is explicitly reported.
-- For structural UI changes, visual verification was performed or explicitly
-  reported as not run.
+  `references/design-quality.md` uses rendered desktop/mobile output and
+  produces concrete findings, or any skipped review is explicitly reported.
 - Invented business content and contact details are identified as placeholders.

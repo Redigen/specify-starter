@@ -63,6 +63,24 @@ Rules for all edits (manual or scripted):
 7. Verify that referenced components, props, tokens, assets, routes, and
    logic/store exports actually exist. Schema validation does not replace these
    semantic checks.
+8. **Order of evidence.** Claims about system behavior are proven in a strict
+   order: first compare with existing working artifacts of the same kind, then
+   measure the actual result at runtime (DOM, computed styles, variable values,
+   check output), and only when these two disagree read the implementation.
+   A conclusion drawn from reading the implementation while skipping this order
+   is invalid. Reading the implementation never overrides measured behavior:
+   if the code "should" break but the system works, your reading of the code is
+   wrong, not the system.
+9. **System behavior is the norm.** When existing project artifacts behave the
+   same way, that behavior is the norm, not a defect — regardless of your
+   expectations and of how it is implemented. You do not redefine the norm.
+   Disagreement with the norm is a question to the user ("this is how it works,
+   do you want it changed?"), not a bug report and not a reason to investigate.
+10. **No diagnosis outside your scope.** You may state an observation outside
+    your editing area, but you may not diagnose it. "In file X, Y happens" is
+    acceptable. "In file X there is a bug because Z" is not acceptable without a
+    reproducible symptom and a user assignment. Other people's code does not
+    have to match your idea of correctness.
 
 ## Required workflow
 
@@ -116,19 +134,14 @@ Rules for all edits (manual or scripted):
    editing table above; list files produced by standard generation separately.
    Inspect new untracked source files explicitly: `git diff` and
    `git diff --check` do not review their contents.
-5. Check the generated application after structural spec changes (`build`
-   regenerates `src/generated/`; `check` verifies it and does not regenerate):
+5. After structural spec changes, build and check the generated application
+   before browser verification (`build` regenerates `src/generated/`; `check`
+   verifies it and does not regenerate). These are intermediate checks, not the
+   final verification when later review may change the specs:
 
    ```bash
    npm run build -w specify-svelte-spa
    npm run check -w specify-svelte-spa
-   ```
-
-   After CLI changes also run:
-
-   ```bash
-   npm run test:cli
-   npm run typecheck -w specify-cli
    ```
 
 6. For structural UI changes, verify the rendered application when browser
@@ -141,6 +154,25 @@ Rules for all edits (manual or scripted):
    placed.
 
    Prefer available browser tools and existing project verification scripts.
+   The preferred tool is `specify-cli preview`. Choose only the commands needed
+   for the required result; they are not a mandatory sequence:
+
+   ```bash
+   # Screenshots for visual review; add --theme dark for the dark-theme pass.
+   npx --no-install specify-cli preview shot --path /route --widths 390,1440 --out /tmp/route
+
+   # Baseline rendered check. Add --anchors --spec specs/screens/route.yaml
+   # only when the screen uses scroll-to; add --assert for expected item counts.
+   npx --no-install specify-cli preview check --path /route --overflow
+
+   # Only for interactions that need a scenario; create the temporary YAML
+   # scenario described in the CLI reference first.
+   npx --no-install specify-cli preview run /tmp/route.steps.yaml
+   ```
+
+   `preview` reuses a running dev server (or starts Vite itself) and stops only
+   the processes it started. Command syntax, flags, scenario format, and
+   troubleshooting are in `.agents/skills/specify/references/cli.md`.
    Small temporary scripts without new dependencies are allowed; keep them in
    one task-scoped file with shared launch, connection, evaluation, screenshot,
    and teardown helpers instead of duplicating setup across scripts. Do not
@@ -150,7 +182,27 @@ Rules for all edits (manual or scripted):
    Before starting a dev server, check for a suitable running instance and reuse
    it when appropriate. Track processes started by the agent and stop only those
    processes after verification, including when verification fails.
-7. Before the final report, recheck `git status --short` and the final diff.
+
+   For structural UI changes, also perform the design-quality review in
+   `.agents/skills/specify/references/design-quality.md` using the rendered
+   output. Fix concrete findings within scope and repeat the affected rendered
+   checks after fixes. Automated `preview` checks do not replace that review.
+7. Once all edits and review fixes have settled, run the final aggregate check.
+   `verify` runs `spec:validate`, `build`, and `check` in sequence and catches
+   Svelte-template errors that a valid spec can still produce:
+
+   ```bash
+   npm run verify
+   ```
+
+   After CLI changes also run:
+
+   ```bash
+   npm run test:cli
+   npm run typecheck -w specify-cli
+   ```
+
+8. Before the final report, recheck `git status --short` and the final diff.
    Distinguish source changes from generated artifacts, report checks performed
    on the final state, and state any verification limitations.
 

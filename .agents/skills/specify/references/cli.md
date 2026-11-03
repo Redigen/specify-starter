@@ -10,7 +10,9 @@ workspace package rather than downloading an unrelated package.
 - Localized existing-file edit: patch YAML, then `validate`.
 - Structured transformation of existing YAML: JSON `read`/`write`, accounting
   for reformatting and comment loss.
-- CI or final verification: `npm run spec:validate`.
+- Repository-wide spec validation: `npm run spec:validate`.
+- Final application verification after all edits and review fixes:
+  `npm run verify` (see the root `AGENTS.md` workflow).
 
 ```bash
 # Existing YAML -> JSON; warnings do not prevent reading invalid existing data
@@ -37,6 +39,71 @@ silently skip validation.
 `write` rewrites the whole file atomically and does not preserve comments or
 the original YAML layout. Avoid it for localized edits to commented files.
 The destination directory must already exist.
+
+## Rendered verification: `preview`
+
+`preview` commands render the SPA in an installed headless Chrome/Chromium
+through `playwright-core`; no Playwright browser download is required. They
+reuse a running dev server (ports 5173/5199/4173, or `SPECIFY_PREVIEW_URL`),
+start `vite` only when none responds, and stop only the processes they started.
+Use `shot` for visual-review screenshots, `check` for rendered assertions, and
+`run` for interaction scenarios. Choose only the commands required by the task;
+they are not a mandatory sequence.
+
+```bash
+# Screenshots at several viewports, optionally full page or a section
+npx --no-install specify-cli preview shot --path /landing --widths 390,1440 --full-page --out /tmp/landing
+
+# Dark-theme screenshots
+npx --no-install specify-cli preview shot --path /landing --widths 390,1440 --theme dark --out /tmp/landing-dark
+
+# Baseline overflow and console-error check
+npx --no-install specify-cli preview check --path /landing --widths 390,1440 --overflow
+
+# Add anchor and element-count assertions only when the screen requires them
+npx --no-install specify-cli preview check --path /landing --widths 390,1440 \
+  --overflow --anchors --spec specs/screens/landing.yaml --assert '#faq button:5'
+
+# Declarative interaction scenario
+npx --no-install specify-cli preview run /tmp/landing.steps.yaml
+```
+
+- `--widths 390,1440` and `--width 1440` are aliases of the same flag.
+- `--overflow` enables the horizontal-overflow check. `check` also fails when
+  the page logs `console.error` messages or throws uncaught exceptions.
+- `--anchors` requires `--spec <screen.yaml>`: it reads `scroll-to.frame-id`
+  targets, verifies each exists in the DOM, clicks the trigger whose label
+  matches the spec text, and asserts the target scrolled into view.
+- `--assert 'selector:count'` splits on the last `:`; do not pass selectors
+  that contain a comma, because the list itself is comma-separated.
+- Scenario steps: `goto`, `viewport`, `theme`, `click`, `fill`, `wait`,
+  `wait-for` (wait until a selector is visible — prefer it over fixed `wait`s),
+  `assert`, `assert-text`, `screenshot`; the command exits 1 on the first
+  failing step.
+
+Create interaction scenarios as temporary YAML files outside the repository:
+
+```yaml
+path: /landing
+viewport: { width: 390, height: 844 }
+theme: dark
+steps:
+  - assert-text: Book a demo
+  - click: '#faq button'
+  - wait-for: '#faq-answer'
+  - assert: { selector: 'h1', count: 1 }
+  - screenshot: /tmp/landing-after.png
+```
+
+`assert-text` searches for literal text in `document.body.innerText`. `assert`
+counts matching elements and defaults to `count: 1`. See
+`packages/specify-cli/README.md` for additional step examples.
+
+Environment: `SPECIFY_CHROME_PATH` (Chrome/Chromium executable, standard
+locations are probed otherwise), `SPECIFY_PREVIEW_URL` (existing server to
+reuse), `SPECIFY_PREVIEW_PORT` (port for a self-started dev server; default
+5199). Without a Chrome executable the commands fail with an explicit message
+rather than reporting a false pass.
 
 ## Schema selection
 

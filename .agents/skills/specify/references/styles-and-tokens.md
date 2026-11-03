@@ -452,12 +452,17 @@ component theme props rather than as page-level semantic colors.
 
    JSON write reformats the whole file and removes comments.
 4. Reference the token as `t.<group>.<name>` in specs.
-5. Verify both default and relevant alternate themes, then run:
+5. Validate the changed file while editing, then verify both default and
+   relevant alternate themes using the rendered-verification workflow in the
+   root `AGENTS.md`:
 
    ```bash
    npx --no-install specify-cli validate specs/tokens.yaml
-   npm run check -w specify-svelte-spa
    ```
+
+   Return to that workflow for the final aggregate check after all edits and
+   review fixes. Do not substitute `check` alone: it does not regenerate the
+   application after token changes.
 
 `base.schema.json` is generated from `base.template.json` by `specify-sync`,
 which also injects current name enums: themes (`$defs/themes`) and valid token

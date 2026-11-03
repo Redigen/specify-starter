@@ -76,6 +76,72 @@ the entire file, normalizes formatting, expands references, and does **not**
 preserve YAML comments. Prefer a YAML patch followed by `validate` for a small
 edit to a commented file.
 
+## Preview: rendered verification with headless Chrome
+
+`preview` commands render the SPA in an installed headless Chrome/Chromium
+through `playwright-core`. No Playwright browser download is required. They
+reuse a running dev server when one responds (or start `vite` themselves), and
+always stop only the processes they started.
+
+```bash
+# Screenshots: several viewports, full page; --widths and --width are aliases
+npx --no-install specify-cli preview shot --path /landing --widths 390,1440 --full-page --out /tmp/landing
+
+# One viewport + dark theme; with a single width a ".png" --out is a file
+npx --no-install specify-cli preview shot --path /landing --width 1440 --theme dark --out /tmp/landing-dark.png
+
+# Crop to a section instead of the whole page
+npx --no-install specify-cli preview shot --path /landing --width 390 --selector '#formats' --out /tmp/formats.png
+
+# Checks: horizontal overflow, anchors, element counts, console errors; exit 1 on failure.
+# --overflow enables the overflow check.
+npx --no-install specify-cli preview check --path /landing --widths 390,1440 \
+  --overflow --anchors --spec specs/screens/landing.yaml \
+  --assert '#faq button:5' --screenshots /tmp/landing-check --json /tmp/landing-check.json
+
+# Declarative interaction scenario (accordion, forms, navigation)
+npx --no-install specify-cli preview run /tmp/landing.steps.yaml
+```
+
+`--anchors` reads `scroll-to.frame-id` targets from the spec, checks that every
+target exists in the DOM and clicks the trigger whose label matches the spec
+text, then asserts that the target scrolled into view. Triggers whose labels are
+dynamic expressions are reported as `withoutTrigger` instead of being silently
+skipped.
+
+A scenario is a YAML file with a route and steps. `assert-text` searches for a
+literal text string in `document.body.innerText`; `assert` counts elements
+matching a selector (default count is 1):
+
+```yaml
+path: /landing
+viewport: { width: 390, height: 844 }
+theme: light
+steps:
+  - assert-text: Book a demo          # body text must contain this string
+  - assert: { selector: 'h1', count: 1 }
+  - click: '#faq button'              # or { selector: '#faq button', index: 1 }
+  - wait-for: '#faq-answer'            # wait until the selector exists (replaces fixed waits)
+  - fill: { selector: 'form input', value: Clinic name }
+  - screenshot: /tmp/landing-after.png
+```
+
+Supported steps: `goto`, `viewport`, `theme`, `click`, `fill`, `wait`, `wait-for`,
+`assert`, `assert-text`, `screenshot`. `wait-for` waits for a visible selector;
+clicks and fills use Playwright's actionability checks. Steps log PASS/FAIL and
+the command exits 1 on the first failure.
+
+Environment:
+
+- `SPECIFY_CHROME_PATH` — Chrome/Chromium executable (otherwise standard
+  macOS/Linux/Windows locations are probed);
+- `SPECIFY_PREVIEW_URL` — existing server to reuse instead of starting `vite`;
+- `SPECIFY_PREVIEW_PORT` — port for a dev server started by the command.
+
+Without a Chrome executable the commands fail with an explicit message instead
+of reporting a false pass. Integration tests skip in that case.
+
+
 ## Schema discovery and `$ref` handling
 
 ```jsonc

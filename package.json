@@ -11,6 +11,7 @@
     "dev:svelte": "cd apps/specify-svelte-spa && npm run dev",
     "dev": "npm run dev:sync & npm run dev:svelte",
     "spec:validate": "npx --no-install specify-cli validate --all",
-    "test:cli": "npm test -w specify-cli"
+    "test:cli": "npm test -w specify-cli",
+    "verify": "npm run spec:validate && npm run build -w specify-svelte-spa && npm run check -w specify-svelte-spa"
   }
 }
