@@ -68,14 +68,33 @@ Rules for all edits (manual or scripted):
 
 1. Read `.agents/skills/specify/SKILL.md`, then only the references relevant to
    the task. Read the nearest existing screen/component before creating a new one.
+   After discovery and before editing a UI, briefly describe the intended change,
+   proportional to its scope. For new screens or structural changes, cover the
+   target route, layout, interactions, responsive behavior, and affected shared
+   components or navigation. For localized edits, describe only the affected
+   behavior or layout. Keep shared changes minimal and verify affected layouts,
+   not only the new screen. Changes within the authorized scope do not require
+   an additional approval step when implementation is permitted. This does not
+   override plan-only or read-only restrictions.
 2. Make the smallest safe change:
    - For a localized edit, patch YAML directly and preserve its comments/layout.
    - For full-file generation or structured transformations, use JSON through
      `specify-cli write`. For a new large screen, generate the complete JSON in
      `/tmp` and write it once instead of assembling YAML through many appends.
+     After the initial write, prefer direct YAML patches for localized fixes;
+     regenerate for structural corrections when simpler and safer. Before
+     regenerating, incorporate any intervening YAML edits into the input rather
+     than overwriting them with a stale generator.
    - For scripted replacements, define the expected match count. If the actual
      count differs, stop and narrow the selector. Inspect the resulting diff
      immediately; indentation alone is not a unique semantic selector.
+   - Use tools available in the current environment. Temporary scripts for
+     generation and verification are allowed; keep them small and task-scoped.
+     Keep these scripts in `/tmp`; adding scripts to the repository follows the
+     same editing boundaries as other source changes. Do not repeat a failed
+     command unchanged unless there is evidence of a transient failure. For
+     transport, quoting, heredoc, or payload-size failures, correct the cause;
+     simplify or change the method if the failure persists.
 3. Validate every changed spec. From the repository root:
 
    ```bash
@@ -88,6 +107,8 @@ Rules for all edits (manual or scripted):
    Run `git status --short` (it also lists new untracked files, unlike
    `git diff --name-only`) and confirm every changed source file is inside the
    editing table above; list files produced by standard generation separately.
+   Inspect new untracked source files explicitly: `git diff` and
+   `git diff --check` do not review their contents.
 5. Check the generated application after structural spec changes (`build`
    regenerates `src/generated/`; `check` verifies it and does not regenerate):
 
@@ -108,6 +129,19 @@ Rules for all edits (manual or scripted):
    theme, and the main interactions. Do not treat an HTTP 200 response as a
    rendering check. If browser verification is unavailable, explicitly report
    that it was not performed.
+
+   Prefer available browser tools and existing project verification scripts.
+   Small temporary scripts without new dependencies are allowed; reuse launch,
+   connection, and teardown helpers instead of copying them into multiple
+   scripts. Do not build custom testing infrastructure for an ordinary UI task.
+   An installed browser alone does not require developing automation.
+
+   Before starting a dev server, check for a suitable running instance and reuse
+   it when appropriate. Track processes started by the agent and stop only those
+   processes after verification, including when verification fails.
+7. Before the final report, recheck `git status --short` and the final diff.
+   Distinguish source changes from generated artifacts, report checks performed
+   on the final state, and state any verification limitations.
 
 ## CLI boundary
 

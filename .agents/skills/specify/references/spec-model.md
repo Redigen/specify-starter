@@ -131,8 +131,40 @@ Components support local `props`, `state`, `data`, `stores`, `logic`, `meta`,
 element; it defaults to a generic container. Use the component schema for exact
 availability rather than assuming every field applies everywhere.
 
-Props are inputs and should otherwise be treated as read-only. A prop beginning
-with `.` is bindable. Invoke the component from another layer:
+Props are inputs and should otherwise be treated as read-only. Any prop declared
+with a `.` prefix is bindable; `.value` is only an example, not a special name.
+Inside the component, read it as `{{ .propName }}`, not `props.propName`, and
+update it through `set-props` using the same dot-prefixed key. For example:
+
+```yaml
+toggle-demo:
+  props:
+    .open: false
+  layers:
+    - frame:
+        on-click:
+          set-props:
+            .open: "{{ !.open }}"
+        layers:
+          - text:
+              content: "{{ .open ? 'Open' : 'Closed' }}"
+```
+
+On a component invocation, a dot-prefixed key creates a two-way `bind:` for the
+corresponding bindable prop. For the component above:
+
+```yaml
+toggle-screen:
+  path: /toggle-demo
+  state:
+    isOpen: false
+  layers:
+    - c.toggle-demo:
+        props:
+          .open: "{{ state.isOpen }}"
+```
+
+Invoke other components using their actual prop contracts:
 
 ```json
 {
@@ -148,11 +180,30 @@ with `.` is bindable. Invoke the component from another layer:
 }
 ```
 
-Passing `"{{ state.field }}"` as a bindable value compiles to a two-way `bind:`
-on the component: input fields update the state, and `set-state` updates the
-field. Field components default their `.value` to the undefined placeholder
-`"{{ variable }}"`, so always pass `.value` explicitly when invoking
-`c.field-*`.
+On an invocation, the value of `.propName` must be a valid assignment target,
+such as `"{{ state.field }}"` or a parent component's `"{{ .propName }}"`.
+Literals, computed expressions, and function-call results are not valid binding
+targets. This restriction applies to invocations, not prop declarations.
+For a fixed demo value, initialize local state and bind to it:
+
+```yaml
+# Incorrect: a literal cannot be a two-way binding target.
+- c.field-md:
+    props:
+      .value: demo@example.com
+```
+
+```yaml
+field-demo:
+  path: /field-demo
+  state:
+    email: demo@example.com
+  layers:
+    - c.field-md:
+        props:
+          label: Email
+          .value: "{{ state.email }}"
+```
 
 Before invoking a component, read its definition and match its actual props.
 Follow the naming and sizing conventions of nearby components.

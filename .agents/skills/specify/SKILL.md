@@ -178,6 +178,7 @@ skill-specific additions:
 | `for` without `key` | Provide a stable unique `key` |
 | `component-name: { ... }` in layers | `c.component-name: { ... }` |
 | Invented logic export | Inspect or create the actual external module first |
+| Literal or computed expression passed to `.propName` on a component invocation | Use an assignable target, such as `{{ state.field }}` or a parent's `{{ .propName }}`; see [Component](references/spec-model.md#component) |
 | JSON write for a tiny commented-file edit | Patch YAML to preserve comments/layout |
 | `lay-aspect-ratio: 1` | Use the schema string value, for example `"1 / 1"` |
 | Fixed-width cards that overflow narrow screens | Use wrapping and responsive dimensions from the start |
