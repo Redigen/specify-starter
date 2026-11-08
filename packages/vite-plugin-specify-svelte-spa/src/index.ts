@@ -3,11 +3,13 @@ import { readFileSync, readdirSync, existsSync, unlinkSync, mkdirSync } from "fs
 import { parse } from "yaml";
 import path from "path";
 import { generateTokensCSS } from "./generator/tokens.ts";
-import { generateScreens, type Screen } from "./generator/screens.ts";
-import { generateComponents, type Component } from "./generator/components.ts";
+import { generateScreens } from "./generator/screens.ts";
+import { generateComponents } from "./generator/components.ts";
 import { generateRouting } from "./generator/routing.ts";
 import { generateAppConfig } from "./generator/appConfig.ts";
 import { updateWebFiles } from "./generator/updateWebFiles.ts";
+import type { Screen } from "./types/screens.ts";
+import type { Component } from "./types/components.ts";
 import type { AppConfig } from "./types/app.ts";
 
 const VIRTUAL_PREFIX = "\0generated/";

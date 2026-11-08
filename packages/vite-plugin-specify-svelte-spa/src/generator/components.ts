@@ -5,41 +5,10 @@ import { kebabCase } from "../utils/kebabCase.ts";
 import { generateHTML } from "./html.ts";
 import { generateCSS } from "./css.ts";
 
-import type { Localization } from "../types/localization.ts";
-import type { Styles } from "../types/styles.ts";
-import type { Layers, OnKeydown } from "../types/layers.ts";
-import type { GetData } from "../types/getdata.ts";
-
-import util from "util";
+import type { Layers } from "../types/layers.ts";
+import type { Component } from "../types/components.ts";
 import type { AppConfig } from "../types/app.ts";
 import type { TokensThemes } from "../types/tokens.ts";
-util.inspect.defaultOptions.depth = null;
-util.inspect.defaultOptions.colors = true;
-
-interface MetaData {
-  title: Localization;
-  description: Localization;
-}
-
-export interface Component {
-  [componentId: string]: {
-    props?: Record<string, any>;
-    state?: Record<string, any>;
-    data?: GetData | Record<string, any>;
-    stores?: string[];
-    logic?: string[];
-    meta: MetaData;
-    "html-tag"?: string;
-    contenteditable?: boolean | "plaintext-only";
-    "on-keydown"?: OnKeydown[];
-    selected?: boolean;
-    disabled?: boolean;
-    tabindex?: number | string;
-    theme?: string;
-    styles?: Styles;
-    layers?: Layers[];
-  };
-}
 
 export function generateComponents(
   raw: Component,

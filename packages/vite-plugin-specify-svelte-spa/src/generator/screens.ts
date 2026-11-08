@@ -8,36 +8,10 @@ import { processEventActions } from "../utils/processEventActions.ts";
 import { resolveValue } from "../utils/resolveValue.ts";
 import { getKeyCondition } from "../utils/getKeyCondition.ts";
 
-import type { Localization } from "../types/localization.ts";
-import type { Styles } from "../types/styles.ts";
-import type { Layers, OnKeydown } from "../types/layers.ts";
-import type { GetData } from "../types/getdata.ts";
-
-import util from "util";
+import type { Layers } from "../types/layers.ts";
+import type { Screen } from "../types/screens.ts";
 import type { AppConfig } from "../types/app.ts";
 import type { TokensThemes } from "../types/tokens.ts";
-util.inspect.defaultOptions.depth = null;
-util.inspect.defaultOptions.colors = true;
-
-interface MetaData {
-  title: Localization;
-  description: Localization;
-}
-
-export interface Screen {
-  [screenId: string]: {
-    path: string | string[];
-    meta?: MetaData;
-    state?: Record<string, any>;
-    data?: GetData | Record<string, any>;
-    stores?: string[];
-    logic?: string[];
-    "on-keydown"?: OnKeydown[];
-    theme?: string;
-    styles?: Styles;
-    layers?: Layers[];
-  };
-}
 
 export function generateScreens(
   raw: Screen,
