@@ -26,7 +26,7 @@ export interface Screen {
 }
 
 export interface GetData {
-  source: "databases" | "user-account" | "teems" | "teem-memberships";
+  source: "databases" | "user-account" | "teams" | "teem-memberships";
   database?: string;
   table?: string;
   team?: string;
