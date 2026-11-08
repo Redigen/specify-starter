@@ -474,7 +474,7 @@ export function generateHTML(
     if (isRootComponentFrame) script.add(`import { stylesIn, stylesOut } from '../../lib/transitions';`);
     const transitionSvelte = isRootComponentFrame ? "" : generateSvelteTransitions(layer?.styles, 'frame', parentLay, script);
 
-    const open = `<${tag}${tag === "button" ? ` title="" type="button" ${isRootComponentFrame && tag === "button" ? '{onclick}' : ''}` : ""}${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}${isRootComponentFrame ? ` {inheritedСlass}` : ""}"${layer?.disabled ? ` class:disabled={${resolveValue(layer?.disabled)}}${tag === "button" ? ` disabled={${resolveValue(layer?.disabled)}}` : ""}` : ""}${layer?.selected ? ` class:selected={${resolveValue(layer?.selected)}}` : ""}${submitEvent.length > 0 ? ` onsubmit={(event) => {event.preventDefault(); ${submitEvent.join(" ")}}}` : ""}${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${theme ? ` data-theme={${theme}}` : ""}${contenteditable !== "" ? ` contenteditable="${contenteditable}"` : ""}${changeEvent.length > 0 ? ` onblur={(event) => {${changeEvent.join(" ")}}}` : ""}${layer?.styles?.pressed ? " use:pressEffect" : ""}${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${keydownAttr}${tabindexAttr ? ` tabindex={${resolveValue(layer.tabindex || 0)}}` : ""}${isRootComponentFrame ? ` in:stylesIn={transitionIn ?? { duration: 0 }} out:stylesOut={transitionOut ?? { duration: 0 }} style={stylesWithImages ?? ""}` : transitionSvelte}>`;
+    const open = `<${tag}${tag === "button" ? ` title="" type="button" ${isRootComponentFrame && tag === "button" ? '{onclick}' : ''}` : ""}${layer?.this ? ` bind:this={${layer.this}}` : ""}${layer?.id ? ` id={${resolveValue(layer.id)}}` : ""} class="${className}${layer.class ? ` ${layer.class}` : ""}${isRootComponentFrame ? ` {inheritedClass}` : ""}"${layer?.disabled ? ` class:disabled={${resolveValue(layer?.disabled)}}${tag === "button" ? ` disabled={${resolveValue(layer?.disabled)}}` : ""}` : ""}${layer?.selected ? ` class:selected={${resolveValue(layer?.selected)}}` : ""}${submitEvent.length > 0 ? ` onsubmit={(event) => {event.preventDefault(); ${submitEvent.join(" ")}}}` : ""}${styleAttr.length > 0 ? ` style="${styleAttr.join(" ")}"` : ""}${theme ? ` data-theme={${theme}}` : ""}${contenteditable !== "" ? ` contenteditable="${contenteditable}"` : ""}${changeEvent.length > 0 ? ` onblur={(event) => {${changeEvent.join(" ")}}}` : ""}${layer?.styles?.pressed ? " use:pressEffect" : ""}${clickEvent.length > 0 ? ` onclick={() => {${clickEvent.join(" ")}}}` : ""}${keydownAttr}${tabindexAttr ? ` tabindex={${resolveValue(layer.tabindex || 0)}}` : ""}${isRootComponentFrame ? ` in:stylesIn={transitionIn ?? { duration: 0 }} out:stylesOut={transitionOut ?? { duration: 0 }} style={stylesWithImages ?? ""}` : transitionSvelte}>`;
     const close = `</${tag}>`;
 
     if (cond) {
@@ -1001,7 +1001,7 @@ export function generateHTML(
     }
 
     if (className) {
-      componentProps.push(`inheritedСlass="${className}"`);
+      componentProps.push(`inheritedClass="${className}"`);
     }
     if (styleAttr.length > 0) {
       componentProps.push(`stylesWithImages="${styleAttr.join(" ")}"`);

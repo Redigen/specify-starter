@@ -97,14 +97,14 @@ import { localization } from '../../lib/localization';
 import { pressEffect } from '../../lib/pressEffect';
 
 interface Props {${interfaceProps.length > 0 ? "\n" + interfaceProps.join("\n") : ''}
-  inheritedСlass?: any;
+  inheritedClass?: any;
   transitionIn?: any;
   transitionOut?: any;
   stylesWithImages?: any;
   onclick?: any;
   [key: string]: any;
 }
-let { ${props.length > 0 ? `${props.join(", ")}, ` : ""}inheritedСlass, transitionIn, transitionOut, stylesWithImages, onclick, ...props }: Props = $props();
+let { ${props.length > 0 ? `${props.join(", ")}, ` : ""}inheritedClass, transitionIn, transitionOut, stylesWithImages, onclick, ...props }: Props = $props();
 ${script.size > 0 ? `\n${Array.from(script).join('\n')}` : ""}
 </script>
 
