@@ -96,7 +96,10 @@ Required: `path`. Optional: `meta`, `state`, `data`, `stores`, `logic`,
   `{{ params.id }}` or `{{ params.page ?? 1 }}`.
 - `meta` overrides screen SEO title/description and supports localization.
 - `state` is local to the screen. `data` contains static values and `get-data`
-  queries. `stores` and `logic` explicitly register external exports.
+  queries. `stores` and `logic` explicitly register external exports. For which
+  declarations re-evaluate when `state`/props change — and the worked
+  filterable-list + accordion example — see `data-and-actions.md`,
+  "Reactivity: what re-evaluates and what does not".
 - `theme` overrides the token theme for the screen. `styles` applies to the
   screen root and supports breakpoints. `layers` is the UI tree.
 - `on-keydown` is an array of entries containing `key` plus event actions:
@@ -316,12 +319,46 @@ Images support local assets, remote URLs, and Appwrite Storage:
 Appwrite images also accept `format`, but it is normally better to omit it and
 let device support determine the best format. Use `alt` for accessibility.
 
-A vector references an SVG asset directly:
+A vector references a static SVG asset path:
 
 ```yaml
 - vector:
     file: ./assets/vectors/lucide/arrow-right.svg
 ```
+
+`vector.file` and `image.file` accept a computed `{{ ... }}` expression, but
+the generator's automatic asset import only runs for static paths. A computed
+value bypasses the import pipeline: for `source: assets` the path will not be
+resolved by Vite, and for `vector` the computed value is emitted as a Svelte
+component tag that nothing imports. To switch an asset by state, render
+separate static-file layers with `cond-if`:
+
+```yaml
+- vector:
+    cond-if: "{{ !state.opened }}"
+    file: ./assets/vectors/lucide/chevron-down.svg
+- vector:
+    cond-if: "{{ state.opened }}"
+    file: ./assets/vectors/lucide/chevron-up.svg
+```
+
+Component props are a separate case: computed asset values are supported when
+every possible path is written literally in the expression. The generator
+imports each path and passes the selected asset to the component:
+
+```yaml
+- c.button-md:
+    props:
+      leftIcon: "{{ state.opened
+        ? './assets/vectors/lucide/chevron-up.svg'
+        : './assets/vectors/lucide/chevron-down.svg' }}"
+```
+
+This works only for component props whose contract accepts an asset. Do not
+construct a path dynamically (for example, by concatenating a directory and a
+state value): the generator must be able to discover each literal asset path.
+Computed `vector.file`/`image.file` get no such literal-path scan, so the
+asset-import problem above still applies to them.
 
 ### Field, iframe, and canvas
 
@@ -356,7 +393,6 @@ Expression contexts:
 - `{{ props.field }}` — component props;
 - `{{ data.products }}` — declared static or fetched data;
 - `{{ loopVar }}` — the active loop variable;
-- `{{ this }}` — the active loop item when iterating an object;
 - `{{ stores.user.name }}` — an explicitly registered store;
 - `{{ logic.formatCurrency(stores.cart.total) }}` — a registered logic call;
 - `{{ params.id }}` — dynamic path parameters of the screen.
@@ -393,28 +429,60 @@ the language the user is writing in and asking whether to add more.
 with `for` and must be stable and unique. These fields belong on the layer
 itself, alongside `id` when an anchor is needed — never inside `styles`.
 
-```json
-{
-  "frame": {
-    "for": "product in data.products",
-    "key": "product.$id",
-    "cond-if": "{{ product.is_active }}",
-    "layers": [{ "text": { "content": "{{ product.name }}" }}]
-  }
-}
+When `for` and `cond-if` are on the same layer, the condition wraps the loop
+and is evaluated **before** it. It cannot reference the loop variable. Use that
+form only for a condition applying to the whole list. To test the current item,
+put `cond-if` on a descendant inside the loop:
+
+```yaml
+- frame:
+    for: product in data.products
+    key: product.$id
+    cond-if: "{{ data.products.length > 0 }}" # Whole-list condition.
+    layers:
+      - frame:
+          cond-if: "{{ product.is_active }}" # Per-item condition.
+          layers:
+            - text:
+                content: "{{ product.name }}"
 ```
 
-Object iteration example:
+The generated structure is equivalent to `{#if ...}{#each ...}...{/each}{/if}`
+for the outer layer. Moving `cond-if` into `styles` does not change this and is
+not valid behavior placement.
 
-```json
-{
-  "frame": {
-    "for": "key in data.translations",
-    "key": "key",
-    "layers": [{ "text": { "content": "{{ key }}: {{ this }}" }}]
-  }
-}
+Iterate arrays directly. The `for` expression accepts a value path, not a
+function call. To iterate an object map, prepare the entry array in `data` from
+**static** data, then use tuple indexes; `{{ this }}` is not a loop-item alias:
+
+```yaml
+data:
+  translations:
+    greeting: Hello
+    farewell: Goodbye
+  entries: "{{ Object.entries(data.translations) }}" # static input; data key declared above
+layers:
+  - frame:
+      for: entry in data.entries
+      key: entry[0]
+      layers:
+        - text:
+            content: "{{ entry[0] }}: {{ entry[1] }}"
 ```
+
+`data` expressions are evaluated **once**, so this conversion is only valid for
+static input. Do not point `data.entries` at `state.translations` expecting a
+live derived list — it will never update, and a forward reference to a later
+`data` key throws at module initialization. For state-dependent lists, filter
+inside the template with `cond-if` (worked example in `data-and-actions.md`,
+"Reactivity: what re-evaluates and what does not").
+
+Do not use `for: key in data.translations` expecting object keys, do not call
+`Object.entries(...)` directly in `for`, and do not reference `this` for the
+current item. `Object.entries` yields `[key, value]` tuples, so no inline
+callback is needed. For reusable or complex transformations, use a small named
+logic helper rather than an inline callback (which can fail `svelte-check`
+typing).
 
 ## Form references
 

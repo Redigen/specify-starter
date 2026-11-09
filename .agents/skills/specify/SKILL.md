@@ -49,7 +49,8 @@ modify infrastructure; report the blocker instead.
 | App config, screens, components, layers, loops, expressions | `references/spec-model.md` |
 | Layout, visual states, transitions, design tokens | `references/styles-and-tokens.md` |
 | Visual quality: hierarchy, rhythm, interaction states, feedback, anti-slop | `references/design-quality.md` |
-| Fetching, mutations, events, navigation, external logic | `references/data-and-actions.md` |
+| Fetching, mutations, events, navigation, external logic; reactivity of `state`/`data`; filter + accordion example | `references/data-and-actions.md` |
+| Which fields actually reach the DOM: forwarded events, bindings, state selectors, inline layout | `references/runtime-contracts.md` |
 | YAML/JSON workflow, schema selection, CLI errors | `references/cli.md` |
 
 Also read the nearest existing spec of the same kind. It is the best source for
@@ -72,10 +73,30 @@ and exact conditional field shapes. Query them instead of copying project lists.
 | Available assets and icon file names | the vector/image enum in `specs/schemas/base.schema.json`, or the file list in `assets/<category>/` |
 | Component props and defaults | `.vscode/components.code-snippets` (generated from `specs/components/*.yaml`) or the component YAML itself |
 
+### Working examples in this starter (read these instead of the compiler)
+
+The starter's screens (`home.yaml`, `not-found.yaml`) are static. When a task
+needs a mechanism they do not show, these components are the working artifacts
+of that kind — read the 20–110 line YAML, not `packages/`:
+
+| Mechanism | Working artifact |
+|---|---|
+| `for` + `key` over `state.*`, per-item `cond-if`, calling a `logic` helper | `specs/components/pagination.yaml` (+ `apps/specify-svelte-spa/src/logic/getPagination.ts`) |
+| `for` over `props.*`, `in`/`out` transitions | `specs/components/snackbar-list.yaml` |
+| `stores` registration and use | `specs/components/snackbar-md.yaml` |
+| Bindable `.value` props, two-way binding | `specs/components/slider-md.yaml`, `specs/components/spin-button-sm.yaml`, `specs/components/field-md.yaml` |
+| Localized content, `navigate-to`, `scroll-to` target | `specs/screens/not-found.yaml` |
+| Full filter + accordion screen with localized loop data | `references/data-and-actions.md`, "Reactivity" worked example |
+
+If none of these matches the task's kind, say so and build the smallest version
+from the reference examples. Do not substitute generator source for a missing
+example.
+
 ### Semantics — read the reference section
 
 | Need | Source |
 |---|---|
+| Does this declaration re-evaluate when `state`/props change? Deriving lists, filtering, accordions | `references/data-and-actions.md`, "Reactivity: what re-evaluates and what does not" — includes a verified filter + accordion example; do **not** read the compiler for this |
 | Detailed DSL semantics and worked examples | The relevant reference above; these files are the self-contained local reference |
 | What a value means and how it compiles | this skill's references first; compiler code only as a last resort |
 | How a new screen is discovered and where routes come from | This skill, "Build and discovery"; no compiler reading needed |
@@ -103,8 +124,9 @@ Read only the data needed for the current decision:
 
 Use targeted lookups rather than reading whole files. Start with the relevant
 reference, then query the live artifact or schema. If sources disagree or do not
-answer the question, validate a minimal example or inspect compiler code as a
-last resort; do not invent syntax or guess.
+answer the question, measure a minimal probe screen (`references/cli.md`,
+"Temporary probe screens"); inspect compiler code only as a last resort, to
+explain a symptom you have already reproduced. Do not invent syntax or guess.
 
 ## Minimal valid screen
 
@@ -188,18 +210,39 @@ adds only skill-specific guidance:
 | `for`, `key`, `cond-if`, or `id` inside `styles` | Put identity and behavior fields on the layer itself; keep only visual/layout declarations in `styles` |
 | `txt-wrap: true` or `false` | Use schema strings, usually `wrap` or `no-wrap` |
 | `for` without `key` | Provide a stable unique `key` |
+| Function call in `for`, such as `item in Object.entries(data.map)` | `for` accepts a value path; prepare an entry array in `data`, then use `entry[0]`/`entry[1]`. `{{ this }}` is not a loop alias; see [Conditions and loops](references/spec-model.md#conditions-and-loops) |
+| `lay`/`lay-gap` on `text`, `image`, `vector`, `field`, `iframe`, or `canvas` | These layers do not declare layout styles; use a `frame`. Check the [DSL surface matrix](references/runtime-contracts.md#dsl-surface-matrix) before choosing fields |
+| `cond-if` using the loop variable on the same layer as `for` | The condition wraps the loop; put item-dependent `cond-if` on a descendant |
+| `{{ ... }}` inside `styles` | Styles compile to CSS; use static values, tokens, and CSS `calc()`/`min()`/`clamp()` |
+| Conditional expression in `vector.file` or `image.file` for `source: assets` | Computed paths bypass the generator's asset-import step, so Vite cannot resolve them. Use separate static-file layers with `cond-if`; computed literal paths are supported in component props |
 | Wrapped row that stays narrower than its parent | Wrapping does not size the row; set `lay-width: fill-container` when it should span the parent |
 | `component-name: { ... }` in layers | `c.component-name: { ... }` |
 | Invented logic export | Inspect or create the actual external module first |
 | Literal or computed expression passed to `.propName` on a component invocation | Use an assignable target, such as `{{ state.field }}` or a parent's `{{ .propName }}`; see [Component](references/spec-model.md#component) |
 | JSON write for a tiny commented-file edit | Patch YAML to preserve comments/layout |
 | `lay-aspect-ratio: 1` | Use the schema string value, for example `"1 / 1"` |
+| `txt-font`, `txt-break`, `txt-stroke`, or `stroke.dash` | These fields do not exist. Use `txt-family`; see [Position, appearance, and typography](references/styles-and-tokens.md#position-appearance-and-typography) and the stroke contract |
+| Bare shadow object or raw CSS shadow shorthand | Use a `t.shadow.*` token or an array of shadow objects; see [Fill, stroke, shadow, and blur](references/styles-and-tokens.md#fill-stroke-shadow-and-blur) |
 | Fixed-width cards that overflow narrow screens | Use wrapping and responsive dimensions from the start |
 | `lay-gap: auto` in a content-width row | Give the row free space, usually with `lay-width: fill-container` |
 | Assuming `c.field-*` or `c.slider-md` fills a column form | Set `styles.lay-width: fill-container` on the invocation |
 | Reading entire token/component files for a small lookup | Query only the required group, props, and root styles |
 | Rebuilding after every cosmetic YAML edit | Validate during editing; follow `AGENTS.md` for intermediate build/check and the final `verify` |
+| `on-change`, `on-submit`, `on-keydown`, `id`, or `theme` on a `c.*` invocation | Only `props`, `cond-if`, `for`/`key`, `styles`, `this`, `on-click`, `on-mount`, `on-unmount` are forwarded; see [Runtime contracts](references/runtime-contracts.md#component-invocation) |
+| `on-click` on a component expecting to identify an internal interaction | The handler is attached to the component root and receives bubbled clicks; use bindable props for typed component output |
+| `selected: ...` on a parent expecting child styles | Declare `styles.selected` on the same node; see [Runtime contracts](references/runtime-contracts.md#interaction-state-selectors) |
+| Reading a component instance in an expression, such as `{{ someList.total }}` | There is no component-instance expression; pass data through bindable props |
+| Untyped inline callback in a handler, such as `items.some(x => ...)` | `svelte-check` fails with implicit `any`; keep filtering out of template expressions |
+| `on-submit` on a node that also carries panel layout styles | Form layout styles are emitted normally; verify the rendered layout instead of assuming a `div`-only CSS rule |
+| Trusting `classname` or another unknown key inside a layer | Layer schemas allow extra keys, so typos validate silently; `class` is the real field |
+| Custom Playwright script or a second dev server for a visual check | `preview shot`, `preview check`, and `preview run` cover screenshots, overflow, console errors, and interactions; reuse a running server |
 | Concluding "there is a bug in the implementation" from reading its code | Follow the order of evidence in `AGENTS.md`: compare with working artifacts, measure at runtime, and only then read the implementation — and only with a reproducible symptom |
+| Reading generator/runtime source (`packages/`, `src/lib/`, `src/generated/`) to confirm documented behavior or to find a pattern | Use the reference sections and the "Working examples in this starter" table. Generator reading is the last step of diagnosing a reproduced symptom, never a discovery step |
+| Deriving a filtered array in `data` from `state`, e.g. `visible: "{{ data.items.filter(...) }}"` | `data` expressions evaluate once. Filter in the template with `cond-if` inside the loop; see `references/data-and-actions.md`, "Reactivity" |
+| `data.b` referencing `data.a` declared below it | Keys compile to `const` in order; a forward reference throws `Cannot access ... before initialization` and blanks the screen. Declare dependencies first |
+| Listing the whole icon/token/component set "to see what exists" | Query the exact enum or file path for the values you actually reference; read only the component props you invoke |
+| Re-reading a reference or token file already loaded in this session | Reuse what you read; open a file again only for a new, specific question |
+| Reading `stores/`/`logic/` modules the task does not reference | Inspect an export only when you are about to call it through `run`/`stores`/`logic` |
 
 ## Definition of done
 

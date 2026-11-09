@@ -57,6 +57,44 @@ export class PreviewClient {
     await this.evaluate(
       `(() => { document.documentElement.setAttribute('data-theme', ${JSON.stringify(theme)}); return true; })()`,
     );
+    // Let the theme change create its transitions before settling them.
+    await this.nextFrame();
+    await this.settleAnimations();
+  }
+
+  /** Wait for a rendering frame without depending on wall-clock animation time. */
+  private async nextFrame(): Promise<void> {
+    await this.evaluate(
+      'new Promise((resolve) => requestAnimationFrame(() => resolve(true)))',
+    );
+  }
+
+  /**
+   * Finish finite animations so screenshots show their final visual state.
+   * Infinite animations are left running and never block preview commands.
+   */
+  async settleAnimations(): Promise<void> {
+    // Finishing one animation can trigger another; settle a bounded cascade.
+    for (let pass = 0; pass < 3; pass += 1) {
+      const finished = await this.evaluate<number>(`(() => {
+        const animations = document.getAnimations({ subtree: true });
+        let count = 0;
+        for (const animation of animations) {
+          if (animation.playState === 'finished') continue;
+          const timing = animation.effect?.getComputedTiming();
+          if (!timing || timing.iterations === Infinity || !Number.isFinite(timing.endTime)) continue;
+          try {
+            animation.finish();
+            count += 1;
+          } catch {
+            // An animation may become inactive between collection and finish().
+          }
+        }
+        return count;
+      })()`);
+      await this.nextFrame();
+      if (finished === 0) break;
+    }
   }
 
   async click(selector: string, index = 0): Promise<void> {
@@ -68,6 +106,7 @@ export class PreviewClient {
   }
 
   async screenshot(options: ScreenshotOptions): Promise<string> {
+    await this.settleAnimations();
     mkdirSync(dirname(options.out), { recursive: true });
     if (options.selector) {
       await this.page.locator(options.selector).first().screenshot({ path: options.out });

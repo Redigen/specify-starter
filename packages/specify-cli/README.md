@@ -131,6 +131,13 @@ Supported steps: `goto`, `viewport`, `theme`, `click`, `fill`, `wait`, `wait-for
 clicks and fills use Playwright's actionability checks. Steps log PASS/FAIL and
 the command exits 1 on the first failure.
 
+Theme changes and screenshots settle finite CSS/Web Animations to their final
+visual state. This prevents a screenshot from capturing an intermediate theme
+transition. Infinite animations are left running and do not block the command.
+`--wait` is an additional page-load/business-logic delay, not a substitute for
+animation settling. `preview check` does not automatically measure color
+contrast or verify that colors match the selected theme.
+
 Environment:
 
 - `SPECIFY_CHROME_PATH` — Chrome/Chromium executable (otherwise standard

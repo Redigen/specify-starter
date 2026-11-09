@@ -80,6 +80,12 @@ npx --no-install specify-cli preview run /tmp/landing.steps.yaml
   `wait-for` (wait until a selector is visible — prefer it over fixed `wait`s),
   `assert`, `assert-text`, `screenshot`; the command exits 1 on the first
   failing step.
+- Theme changes and screenshots finish finite CSS/Web Animations before the
+  result is captured, so a theme transition is shown in its final state.
+  Infinite animations are left running and never block the command. `--wait`
+  remains an additional page-load/business-logic delay; it is not needed to
+  wait out CSS transitions. `preview check` does not measure color contrast or
+  prove that computed colors match the selected theme.
 
 Create interaction scenarios as temporary YAML files outside the repository:
 
@@ -104,6 +110,30 @@ locations are probed otherwise), `SPECIFY_PREVIEW_URL` (existing server to
 reuse), `SPECIFY_PREVIEW_PORT` (port for a self-started dev server; default
 5199). Without a Chrome executable the commands fail with an explicit message
 rather than reporting a false pass.
+
+## Temporary probe screens (validate a minimal example)
+
+When the references do not answer a behavior question, measure a tiny example
+instead of reading the compiler. Schema selection is path-based (see below), so
+a probe must live inside the mapped spec directories — a YAML file in `/tmp`
+gets "No schema matched path" and is never compiled into the app either.
+
+1. Create the smallest possible `specs/screens/__probe__.yaml` (and, only if the
+   question is about component props, `specs/components/__probe__.yaml`). Give
+   the probed nodes explicit `id` values so the scenario can assert them.
+2. Validate it: `npx --no-install specify-cli validate specs/screens/__probe__.yaml`.
+   Note that validation passes even for expressions that fail at runtime.
+3. Write a `/tmp/probe.steps.yaml` scenario with `assert-text` / `assert`
+   (see `preview run` above) and run it. A blank page with a console error such
+   as `ReferenceError: Cannot access ... before initialization` is a valid
+   measurement — it answers the question.
+4. Delete the probe specs when done, then regenerate so the generated probe
+   components disappear: `npm run build -w specify-svelte-spa`. Do not hand-edit
+   or hand-delete files under `src/generated/`.
+5. Reuse a running dev server; `preview` picks it up automatically. If you edit
+   probe specs while a server is running, it regenerates on file watch.
+
+Keep probes out of the final change: `git status --short` must not list them.
 
 ## Schema selection
 

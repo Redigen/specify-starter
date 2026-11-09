@@ -1,7 +1,8 @@
 # Data, actions, and fallback logic
 
-Sections: Event handlers · Data declarations · Fetching with `get-data` ·
-Mutations with `post-data` · Forms · TypeScript fallback.
+Sections: Event handlers · Data declarations · Reactivity: what re-evaluates
+and what does not (incl. the filterable list + accordion example) · Fetching
+with `get-data` · Mutations with `post-data` · Forms · TypeScript fallback.
 
 ## Event handlers
 
@@ -66,12 +67,16 @@ on-click:
 Multiple actions may be placed in one event object. `post-data.success` and
 `post-data.error` accept nested action objects.
 
-Do not rely on YAML key order for action sequencing. The current compiler emits
-actions in its fixed action-handler order, so `set-state` may run before
-`set-notification` even if the notification appears first in YAML. Avoid
-state-dependent messages whose values are cleared by another action in the same
-event. Use separate events or `post-data.success`/`post-data.error` when an
-explicit sequence is required.
+Do not rely on YAML key order for action sequencing. The compiler emits actions
+in this fixed order, independent of their order in YAML:
+
+`navigate-to` → `navigate-back` → `scroll-to` → `set-state` → `set-props` →
+`set-notification` → `run` → `post-data` → `submit` → `reset`.
+
+Consequently, `set-state` runs before `set-notification` even if the
+notification appears first in YAML. Avoid state-dependent messages whose values
+are cleared by another action in the same event. Use separate events or
+`post-data.success`/`post-data.error` when an explicit sequence is required.
 
 Action semantics worth knowing:
 
@@ -92,6 +97,110 @@ Action semantics worth knowing:
 Declare `data` at the screen or component root. Each key becomes available to
 descendant layers as `data.<key>`. Values may be static arrays/objects or a
 `get-data` request:
+
+## Reactivity: what re-evaluates and what does not
+
+This table decides where a computation belongs. Read it before deriving lists
+from `state`, and before putting `{{ ... }}` into `data` or `state`. All rows
+were verified on a rendered probe screen (`preview run`), not inferred from
+schema validation.
+
+| Declaration | Evaluated | Re-evaluates when a referenced `state`/prop changes? |
+|---|---|---|
+| `state.x` initialized from literals/static data | once, as `$state` | n/a — it is the source you mutate with `set-state` |
+| `state.x: "{{ props.y }}"` or `"{{ params.y }}"` | as `$derived` | Yes — follows the prop/route param |
+| `state.x: "{{ state.y ... }}"` | once, at component creation | **No.** It is a snapshot. `snapshot: "{{ state.category }}"` still shows the old value after `set-state: { category: ... }` |
+| `data.x` static (array/object/scalar) | once, as `const` | n/a |
+| `data.x: "{{ <expression> }}"` | once, as `const` | **No.** Never use `data` as a derived/computed view of `state` |
+| `data.x.get-data` (incl. `{{ state.y }}` inside `query.rules`, `query.page`, ids) | `$derived` config + reactive result | **Yes** — the query re-runs and `items`/`total` update |
+| `cond-if`, `for` source, `text.content`, event-handler expressions | in the Svelte template | Yes — they re-read `state`/`data`/loop variables on every render |
+
+Consequences:
+
+- **Filter a static list with `cond-if` inside the loop**, not by pre-computing a
+  filtered array in `data`. The condition reads `state` live on each render;
+  see the worked example below.
+- A `data` key must not reference a key declared **later** in the same `data`
+  block: keys compile to `const` declarations in order, so a forward reference
+  throws `ReferenceError: Cannot access ... before initialization` and the whole
+  screen renders blank. Declare dependencies first, or compute in the template.
+- JavaScript semantics apply inside `{{ ... }}` literally:
+  `Object.entries("all")` yields `[["0","a"],["1","l"],["2","l"]]` (entries of
+  the string's characters), not a translation map. Convert real objects only.
+- For genuinely derived data that must live outside the template (shared by
+  several screens, expensive, or needing typed callbacks), use a small named
+  export in `logic/` or a store — the fallback described at the end of this file.
+
+### Worked example: filterable list + accordion (no TypeScript)
+
+Verified end-to-end with `preview run`: opening/closing an answer, switching
+the audience filter, and rendering localized `question`/`answer` maps.
+
+```yaml
+faq:
+  path: /faq
+  state:
+    openId: ""
+    category: all        # all | patients | doctors
+  data:
+    items:
+      - id: grow
+        audience: patients
+        question: { ru: "Как выращивается зуб?", en: "How is a tooth grown?" }
+        answer: { ru: "Из клеток пациента.", en: "From the patient's cells." }
+      - id: protocol
+        audience: doctors
+        question: { ru: "Какой протокол?", en: "Which protocol?" }
+        answer: { ru: "Зависит от случая.", en: "Depends on the case." }
+  layers:
+    - frame: # category filter
+        html-tag: button
+        on-click:
+          set-state: { category: patients }
+        layers:
+          - text: { content: Patients }
+    - frame:
+        for: item in data.items
+        key: item.id
+        layers:
+          - frame: # whole card is hidden/shown by the filter
+              id: "card-{{ item.id }}"
+              cond-if: "{{ state.category === 'all' || item.audience === state.category }}"
+              layers:
+                - frame:
+                    id: "toggle-{{ item.id }}"
+                    html-tag: button
+                    on-click:
+                      set-state:
+                        openId: "{{ state.openId === item.id ? '' : item.id }}"
+                    layers:
+                      - text:
+                          content: "{{ item.question }}"
+                      - vector: # static asset paths; swap by condition
+                          cond-if: "{{ state.openId !== item.id }}"
+                          file: ./assets/vectors/lucide/chevron-down.svg
+                      - vector:
+                          cond-if: "{{ state.openId === item.id }}"
+                          file: ./assets/vectors/lucide/chevron-up.svg
+                - frame:
+                    id: "answer-{{ item.id }}"
+                    cond-if: "{{ state.openId === item.id }}"
+                    layers:
+                      - text:
+                          content: "{{ item.answer }}"
+```
+
+Notes that are easy to get wrong:
+
+- `cond-if` that depends on the loop variable belongs on a **descendant** of the
+  `for` layer (here the card inside the loop), not next to `for` — see
+  `spec-model.md`, "Conditions and loops".
+- `content: "{{ item.question }}"` renders the localized map; do not preselect a
+  language. `{{ item.question.ru }}` would hard-code Russian and defeat it.
+- The DSL emits no `aria-expanded`/`aria-controls`. If the accordion must expose
+  them, that markup has to be authored outside the DSL (component/runtime work,
+  outside an ordinary spec task) — report the limitation rather than inventing
+  attributes that validate but never reach the DOM.
 
 ```yaml
 data:

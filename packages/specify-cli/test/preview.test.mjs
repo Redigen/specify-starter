@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const CLI = fileURLToPath(new URL('../dist/cli.js', import.meta.url));
 const API = fileURLToPath(new URL('../dist/index.js', import.meta.url));
-const { parseArgs, flagWidthList, flagAssertList, collectAnchors, findChromeExecutable } =
+const { parseArgs, flagWidthList, flagAssertList, collectAnchors, findChromeExecutable, PreviewClient, launchChrome } =
   await import(API);
 
 function runCli(args, env = {}) {
@@ -160,6 +160,73 @@ const FIXTURE_ACTIONABILITY = `<!doctype html><html><body>
   <div style="position:absolute;inset:0;background:white"></div>
 </div>
 </body></html>`;
+
+const FIXTURE_THEME = `<!doctype html><html><head><style>
+:root{--card-bg:#fffffe;--card-fg:#22211e}
+[data-theme="dark"]{--card-bg:#0f0f0e;--card-fg:#f3f2ee}
+body{margin:0;background:var(--card-bg)}
+#card{background:var(--card-bg);color:var(--card-fg);transition:background-color 150ms ease-out;padding:20px}
+#spinner{width:20px;height:20px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style></head><body><div id="card">Theme card</div><div id="spinner"></div>
+<button id="recolor" onclick="document.getElementById('card').style.backgroundColor='rgb(15, 15, 14)'">Recolor</button>
+</body></html>`;
+
+test(
+  'preview settles finite theme and click transitions without waiting for infinite animations',
+  { skip: CHROME_AVAILABLE ? false : 'Chrome/Chromium not found', timeout: 120000 },
+  async (t) => {
+    const root = mkdtempSync(join(tmpdir(), 'specify-preview-transition-'));
+    t.after(() => rmSync(root, { recursive: true, force: true }));
+    const server = createServer((request, response) => {
+      response.setHeader('content-type', 'text/html; charset=utf-8');
+      response.end(FIXTURE_THEME);
+    });
+    await new Promise((resolve) => server.listen(0, resolve));
+    const baseUrl = `http://localhost:${server.address().port}`;
+    t.after(() => {
+      server.closeAllConnections();
+      server.close();
+    });
+
+    const env = { SPECIFY_ROOT: root, SPECIFY_PREVIEW_URL: baseUrl };
+    const shot = await runCliAsync(
+      ['preview', 'shot', '--path', '/theme', '--theme', 'dark', '--out', join(root, 'dark.png')],
+      env,
+    );
+    assert.equal(shot.status, 0, shot.stdout + shot.stderr);
+    assert.ok(existsSync(join(root, 'dark.png')));
+
+    const browser = await launchChrome();
+    try {
+      const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+      const client = new PreviewClient(page);
+      await client.navigate(`${baseUrl}/theme`, 0);
+      await client.setTheme('dark');
+      const themed = await client.evaluate(`(() => ({
+        background: getComputedStyle(document.getElementById('card')).backgroundColor,
+        finiteAnimations: document.getAnimations().filter((animation) =>
+          animation.effect?.getComputedTiming().iterations !== Infinity).length,
+        infiniteAnimations: document.getAnimations().filter((animation) =>
+          animation.effect?.getComputedTiming().iterations === Infinity).length,
+      }))()`);
+      assert.deepEqual(themed, {
+        background: 'rgb(15, 15, 14)',
+        finiteAnimations: 0,
+        infiniteAnimations: 1,
+      });
+
+      await client.click('#recolor');
+      await client.screenshot({ out: join(root, 'after-click.png') });
+      assert.equal(
+        await client.evaluate("getComputedStyle(document.getElementById('card')).backgroundColor"),
+        'rgb(15, 15, 14)',
+      );
+    } finally {
+      await browser.close();
+    }
+  },
+);
 
 test(
   'preview shot/check/run against a static fixture',

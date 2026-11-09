@@ -7,7 +7,26 @@ structure and group reference · Themes and inheritance · Token editing workflo
 
 ## Style namespaces
 
-Styles belong under a node `styles` object.
+Styles belong under a node `styles` object. They compile to CSS, not to a
+JavaScript runtime: `{{ ... }}` expressions are not evaluated inside `styles`.
+Use static numbers/strings, `t.*` tokens, and CSS syntax such as `calc()`,
+`min()`, `max()`, `clamp()`, and `var()`.
+
+```yaml
+# Incorrect: JavaScript cannot run in generated CSS.
+styles:
+  pos-rotation: "{{ state.opened ? 180 : 0 }}"
+  lay-width: "{{ state.columns * 240 }}"
+
+# Correct: static CSS and token calculations.
+styles:
+  lay-pad-h: calc(t.spacing.200 + t.spacing.depend-radius)
+  lay-max-width: min(880px, 100%)
+```
+
+For state-dependent presentation, use separate layers with `cond-if`, component
+props, or the supported interaction states. Do not put JavaScript expressions
+in style values.
 
 | Prefix | Concern | Examples |
 |---|---|---|
@@ -75,7 +94,7 @@ their own meaning: transition `duration`/`delay` are milliseconds,
 | `lay-mar-top/right/bottom/left` | Per-side margin |
 | `lay-clip`, `lay-clip-h`, `lay-clip-v` | `unclip` (default), `clip`, `scroll`, or `auto-scroll` |
 | `lay-grid-cols`, `lay-grid-rows` | Arrays of grid track objects |
-| `lay-grid-flow` | `row`, `column`, or `dense` |
+| `lay-grid-flow` | `row`, `column`, `dense`, `row-dense`, or `column-dense` |
 | `lay-grid-column-span`, `lay-grid-row-span` | Child track spans |
 
 `lay-gap: auto` compiles to space-between behavior, `around` to space-around,
@@ -94,15 +113,16 @@ are static enums. Grep the relevant `$defs` key in
 | `pos` | `normal`, `offset`, `absolute`, `fixed`, or `sticky` |
 | `pos-top/right/bottom/left` | Numeric/token/CSS offsets |
 | `pos-rotation` | Rotation in degrees |
+| `pos-elevation` | Integer `z-index` |
+| `pos-align-h`, `pos-align-v` | Self-alignment within the parent layout |
 | `vis-opacity` | Opacity from 0 to 100 |
 | `vis-radius` | Uniform corner radius |
 | `vis-radius-top-left/top-right/bottom-left/bottom-right` | Per-corner radius |
 | `txt` | Reusable typography token |
-| `txt-font`, `txt-weight`, `txt-size`, `txt-line-height`, `txt-letter-spacing` | Individual typography overrides |
-| `txt-align` | `left`, `center`, `right`, or `justify` |
+| `txt-family`, `txt-weight`, `txt-size`, `txt-line-height`, `txt-letter-spacing` | Individual typography overrides |
+| `txt-align` | `start` (default), `left`, `center`, `right`, `end`, or `justify` |
 | `txt-wrap` | `wrap`, `no-wrap`, `balance`, `pretty`, or `hyphens` |
-| `txt-break` | Word-breaking behavior |
-| `txt-stroke` | Text outline width |
+| `txt-truncate` + `txt-lines` | Line clamping; when truncation is enabled, declare `txt-lines` (use `1` for a single line) |
 | `cursor-type` | Standard CSS cursor enum from the schema |
 | `cursor-file`, `cursor-offset` | Custom cursor asset and horizontal/vertical hotspot |
 
@@ -148,23 +168,26 @@ gradients can use `position`. Stops have `color` and `offset` (relative or
 absolute CSS units). Image fills use an object with `image`, plus optional `fit`
 and `position`. Vector layers do not support image fills.
 
-A stroke can be a weight/color shorthand or an object:
+A stroke can be a color string/token or an array of stroke objects. A single
+stroke object belongs in a one-item array:
 
 ```yaml
 styles:
   stroke:
-    color: t.color.primary
-    weight: 2
-    position: inside
+    - color: t.color.primary
+      weight: 2
+      position: inside
 ```
 
-Stroke objects support `color`, `weight`, `position` (`inside`, `center`,
-`outside`), and `dash` as an array of numbers. An array of stroke objects allows
-multiple strokes. Within an array, `weight` may be one number or per-side values
-(`top`, `right`, `bottom`, `left`). Vector layers do not support stroke arrays
-or `stroke.linejoin`.
+Stroke objects support required `color`, optional `weight`, `position`
+(`inside`, `center`, `outside`), and per-side `weight-top`, `weight-right`,
+`weight-bottom`, `weight-left`. There is no `dash` field. A color string
+produces a 1px inside stroke. Vector layers use a separate shape: a color
+string or an object with `color`, `weight`, and `linejoin` (`miter`, `round`,
+or `bevel`); they do not support stroke arrays.
 
-Shadows accept an object or an array for multiple shadows:
+Shadows accept a `t.shadow.*` token or an array of shadow objects. Put a single
+shadow object in a one-item array:
 
 ```yaml
 styles:
@@ -177,9 +200,10 @@ styles:
       color: "#0000000A"
 ```
 
-`position` is `outside` (default) or `inside`. A CSS shorthand such as
-`0px 4px 10px 0px #0000001A` is also accepted. Use `blur-layer` to blur the
-layer itself and `blur-background` to blur content behind it.
+`position` is `outside` (default) or `inside`; `spread` is optional. Raw CSS
+shadow shorthand strings and a bare shadow object do not validate. Use
+`blur-layer` to blur the layer itself and `blur-background` to blur content
+behind it.
 
 ## Interactive states
 
@@ -307,11 +331,15 @@ styles:
           - width: 1fr
 ```
 
-`orientation` is `landscape` or `portrait`. Entries compile to mobile-first
-`@media (min-width: …)` queries sorted ascending, so later entries override
-earlier ones on wider screens. Exact shape: `frameBreakpointsProps` in
-`base.template.json`. Prefer wrapping and `min()` for simple cases; use
-breakpoints only when the layout genuinely changes.
+`orientation` is `landscape` or `portrait`. Entries are sorted by ascending
+width (or height). Each entry compiles to a mobile-first minimum condition;
+when a later entry uses the same axis, the generator also adds that later value
+as the current entry's maximum. Thus `width: 768` followed by `width: 1024`
+produces ranges `768–1024` and `1024+`, not two overlapping `min-width` queries.
+Do not rely on later declarations overriding every earlier breakpoint. Exact
+shape: `frameBreakpointsProps` in `base.template.json`. Prefer wrapping and
+`min()` for simple cases; use breakpoints only when the layout genuinely
+changes.
 
 ## Custom CSS properties
 

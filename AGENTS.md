@@ -242,4 +242,5 @@ validation error, read `path` and `message`, fix the input, and rerun validation
 - Styles and tokens: `.agents/skills/specify/references/styles-and-tokens.md`
 - Design quality in specs: `.agents/skills/specify/references/design-quality.md`
 - Data, actions, logic: `.agents/skills/specify/references/data-and-actions.md`
+- Which fields reach the DOM (forwarded events, bindings, state selectors): `.agents/skills/specify/references/runtime-contracts.md`
 - CLI and troubleshooting: `.agents/skills/specify/references/cli.md`
