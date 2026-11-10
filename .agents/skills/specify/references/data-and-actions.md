@@ -1,7 +1,7 @@
 # Data, actions, and fallback logic
 
 Sections: Event handlers · Data declarations · Reactivity: what re-evaluates
-and what does not (incl. the filterable list + accordion example) · Fetching
+and what does not (incl. the worked list-filtering example) · Fetching
 with `get-data` · Mutations with `post-data` · Forms · TypeScript fallback.
 
 ## Event handlers
@@ -98,6 +98,25 @@ Declare `data` at the screen or component root. Each key becomes available to
 descendant layers as `data.<key>`. Values may be static arrays/objects or a
 `get-data` request:
 
+```yaml
+data:
+  pricing:
+    - id: 1
+      name: Free
+      price: $0
+    - id: 2
+      name: Pro
+      price: $5
+  blog:
+    get-data:
+      source: databases
+      database-id: main_db
+      table-id: blog
+```
+
+Render arrays with `for` plus a stable `key`, for example
+`for: post in data.blog` and `key: post.$id`.
+
 ## Reactivity: what re-evaluates and what does not
 
 This table decides where a computation belongs. Read it before deriving lists
@@ -131,41 +150,41 @@ Consequences:
   several screens, expensive, or needing typed callbacks), use a small named
   export in `logic/` or a store — the fallback described at the end of this file.
 
-### Worked example: filterable list + accordion (no TypeScript)
+### Worked example: filterable, expandable list (no TypeScript)
 
-Verified end-to-end with `preview run`: opening/closing an answer, switching
-the audience filter, and rendering localized `question`/`answer` maps.
+Verified end-to-end with `preview run`: opening/closing a details block,
+switching the category filter, and rendering localized `title`/`body` maps.
 
 ```yaml
-faq:
-  path: /faq
+list:
+  path: /list
   state:
     openId: ""
-    category: all        # all | patients | doctors
+    category: all        # all | news | tech
   data:
     items:
-      - id: grow
-        audience: patients
-        question: { ru: "Как выращивается зуб?", en: "How is a tooth grown?" }
-        answer: { ru: "Из клеток пациента.", en: "From the patient's cells." }
-      - id: protocol
-        audience: doctors
-        question: { ru: "Какой протокол?", en: "Which protocol?" }
-        answer: { ru: "Зависит от случая.", en: "Depends on the case." }
+      - id: item-1
+        category: news
+        title: { ru: "Первый пункт", en: "First item" }
+        body: { ru: "Подробности первого пункта.", en: "Details of the first item." }
+      - id: item-2
+        category: tech
+        title: { ru: "Второй пункт", en: "Second item" }
+        body: { ru: "Подробности второго пункта.", en: "Details of the second item." }
   layers:
     - frame: # category filter
         html-tag: button
         on-click:
-          set-state: { category: patients }
+          set-state: { category: news }
         layers:
-          - text: { content: Patients }
+          - text: { content: News }
     - frame:
         for: item in data.items
         key: item.id
         layers:
           - frame: # whole card is hidden/shown by the filter
               id: "card-{{ item.id }}"
-              cond-if: "{{ state.category === 'all' || item.audience === state.category }}"
+              cond-if: "{{ state.category === 'all' || item.category === state.category }}"
               layers:
                 - frame:
                     id: "toggle-{{ item.id }}"
@@ -175,7 +194,7 @@ faq:
                         openId: "{{ state.openId === item.id ? '' : item.id }}"
                     layers:
                       - text:
-                          content: "{{ item.question }}"
+                          content: "{{ item.title }}"
                       - vector: # static asset paths; swap by condition
                           cond-if: "{{ state.openId !== item.id }}"
                           file: ./assets/vectors/lucide/chevron-down.svg
@@ -183,11 +202,11 @@ faq:
                           cond-if: "{{ state.openId === item.id }}"
                           file: ./assets/vectors/lucide/chevron-up.svg
                 - frame:
-                    id: "answer-{{ item.id }}"
+                    id: "body-{{ item.id }}"
                     cond-if: "{{ state.openId === item.id }}"
                     layers:
                       - text:
-                          content: "{{ item.answer }}"
+                          content: "{{ item.body }}"
 ```
 
 Notes that are easy to get wrong:
@@ -195,31 +214,13 @@ Notes that are easy to get wrong:
 - `cond-if` that depends on the loop variable belongs on a **descendant** of the
   `for` layer (here the card inside the loop), not next to `for` — see
   `spec-model.md`, "Conditions and loops".
-- `content: "{{ item.question }}"` renders the localized map; do not preselect a
-  language. `{{ item.question.ru }}` would hard-code Russian and defeat it.
-- The DSL emits no `aria-expanded`/`aria-controls`. If the accordion must expose
-  them, that markup has to be authored outside the DSL (component/runtime work,
-  outside an ordinary spec task) — report the limitation rather than inventing
-  attributes that validate but never reach the DOM.
-
-```yaml
-data:
-  pricing:
-    - id: 1
-      name: Free
-      price: $0
-    - id: 2
-      name: Pro
-      price: $5
-  blog:
-    get-data:
-      source: databases
-      database-id: main_db
-      table-id: blog
-```
-
-Render arrays with `for` plus a stable `key`, for example
-`for: post in data.blog` and `key: post.$id`.
+- `content: "{{ item.title }}"` renders the localized map; do not preselect a
+  language. `{{ item.title.ru }}` would hard-code Russian and defeat it.
+- The DSL emits no `aria-expanded`/`aria-controls`. If the expandable region
+  must expose them, that markup has to be authored outside the DSL
+  (component/runtime work, outside an ordinary spec task) — report the
+  limitation rather than inventing attributes that validate but never reach
+  the DOM.
 
 ## Fetching with `get-data`
 

@@ -179,7 +179,7 @@ Practical rules:
 - Not every declaration is reactive: `state` from `props`/`params` is derived,
   `state` from another `state` key and any expression in `data` are one-time
   snapshots, and `get-data` queries re-run when their `state` inputs change. The
-  full matrix, plus a verified filter + accordion example, lives in
+  full matrix, plus a verified worked example, lives in
   `data-and-actions.md`, "Reactivity: what re-evaluates and what does not".
 - A parent binding (`bind:prop={state.x}`) is two-way: a child `set-props` on the
   same prop updates the parent state. Reading it back through a second event does
@@ -228,9 +228,9 @@ Consequences:
    not apply. Prefer declaring hover on the interactive node itself.
 3. `focus` compiles to `:focus-visible`. On `html-tag: button` this follows the
    browser default, so keyboard focus shows the ring and mouse clicks do not.
-4. No `aria-*` attributes are generated. For an accordion, add explicit
-   `aria-expanded` only if the section markup is authored outside the DSL; the
-   DSL itself cannot emit it.
+4. No `aria-*` attributes are generated. For an expand/collapse (disclosure)
+   region, add explicit `aria-expanded` only if the section markup is authored
+   outside the DSL; the DSL itself cannot emit it.
 
 ## Layout context
 

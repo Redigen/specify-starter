@@ -97,8 +97,8 @@ Required: `path`. Optional: `meta`, `state`, `data`, `stores`, `logic`,
 - `meta` overrides screen SEO title/description and supports localization.
 - `state` is local to the screen. `data` contains static values and `get-data`
   queries. `stores` and `logic` explicitly register external exports. For which
-  declarations re-evaluate when `state`/props change — and the worked
-  filterable-list + accordion example — see `data-and-actions.md`,
+  declarations re-evaluate when `state`/props change — including the worked
+  list-filtering example — see `data-and-actions.md`,
   "Reactivity: what re-evaluates and what does not".
 - `theme` overrides the token theme for the screen. `styles` applies to the
   screen root and supports breakpoints. `layers` is the UI tree.

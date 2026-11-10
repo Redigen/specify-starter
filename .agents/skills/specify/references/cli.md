@@ -62,7 +62,7 @@ npx --no-install specify-cli preview check --path /landing --widths 390,1440 --o
 
 # Add anchor and element-count assertions only when the screen requires them
 npx --no-install specify-cli preview check --path /landing --widths 390,1440 \
-  --overflow --anchors --spec specs/screens/landing.yaml --assert '#faq button:5'
+  --overflow --anchors --spec specs/screens/landing.yaml --assert '#items button:5'
 
 # Declarative interaction scenario
 npx --no-install specify-cli preview run /tmp/landing.steps.yaml
@@ -94,9 +94,9 @@ path: /landing
 viewport: { width: 390, height: 844 }
 theme: dark
 steps:
-  - assert-text: Book a demo
-  - click: '#faq button'
-  - wait-for: '#faq-answer'
+  - assert-text: Read the docs
+  - click: '#items button'
+  - wait-for: '#items-body'
   - assert: { selector: 'h1', count: 1 }
   - screenshot: /tmp/landing-after.png
 ```

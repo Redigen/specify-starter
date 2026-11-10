@@ -49,7 +49,7 @@ modify infrastructure; report the blocker instead.
 | App config, screens, components, layers, loops, expressions | `references/spec-model.md` |
 | Layout, visual states, transitions, design tokens | `references/styles-and-tokens.md` |
 | Visual quality: hierarchy, rhythm, interaction states, feedback, anti-slop | `references/design-quality.md` |
-| Fetching, mutations, events, navigation, external logic; reactivity of `state`/`data`; filter + accordion example | `references/data-and-actions.md` |
+| Fetching, mutations, events, navigation, external logic; reactivity of `state`/`data`; worked list-filtering example | `references/data-and-actions.md` |
 | Which fields actually reach the DOM: forwarded events, bindings, state selectors, inline layout | `references/runtime-contracts.md` |
 | YAML/JSON workflow, schema selection, CLI errors | `references/cli.md` |
 
@@ -86,7 +86,6 @@ of that kind — read the 20–110 line YAML, not `packages/`:
 | `stores` registration and use | `specs/components/snackbar-md.yaml` |
 | Bindable `.value` props, two-way binding | `specs/components/slider-md.yaml`, `specs/components/spin-button-sm.yaml`, `specs/components/field-md.yaml` |
 | Localized content, `navigate-to`, `scroll-to` target | `specs/screens/not-found.yaml` |
-| Full filter + accordion screen with localized loop data | `references/data-and-actions.md`, "Reactivity" worked example |
 
 If none of these matches the task's kind, say so and build the smallest version
 from the reference examples. Do not substitute generator source for a missing
@@ -96,7 +95,7 @@ example.
 
 | Need | Source |
 |---|---|
-| Does this declaration re-evaluate when `state`/props change? Deriving lists, filtering, accordions | `references/data-and-actions.md`, "Reactivity: what re-evaluates and what does not" — includes a verified filter + accordion example; do **not** read the compiler for this |
+| Does this declaration re-evaluate when `state`/props change? Deriving lists, filtering, expand/collapse UIs | `references/data-and-actions.md`, "Reactivity: what re-evaluates and what does not" — includes a verified worked example; do **not** read the compiler for this |
 | Detailed DSL semantics and worked examples | The relevant reference above; these files are the self-contained local reference |
 | What a value means and how it compiles | this skill's references first; compiler code only as a last resort |
 | How a new screen is discovered and where routes come from | This skill, "Build and discovery"; no compiler reading needed |

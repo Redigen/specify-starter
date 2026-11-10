@@ -331,15 +331,89 @@ styles:
           - width: 1fr
 ```
 
-`orientation` is `landscape` or `portrait`. Entries are sorted by ascending
-width (or height). Each entry compiles to a mobile-first minimum condition;
-when a later entry uses the same axis, the generator also adds that later value
-as the current entry's maximum. Thus `width: 768` followed by `width: 1024`
-produces ranges `768–1024` and `1024+`, not two overlapping `min-width` queries.
-Do not rely on later declarations overriding every earlier breakpoint. Exact
-shape: `frameBreakpointsProps` in `base.template.json`. Prefer wrapping and
-`min()` for simple cases; use breakpoints only when the layout genuinely
-changes.
+### Breakpoint rules
+
+All statements below were verified on generated CSS with a temporary probe
+screen; exact schema shapes are the `*BreakpointsProps` definitions in
+`base.template.json`.
+
+**Where `breakpoints` is accepted.** The screen root, every built-in layer
+(`frame`, `text`, `image`, `vector`, `field`, `iframe`/`canvas`), `c.*`
+invocations, and the component root. The nested `styles` accept only the style
+groups of that node's own type: `screenBreakpointsProps`,
+`frameBreakpointsProps`, `textBreakpointsProps`, `imageBreakpointsProps`,
+`vectorBreakpointsProps`, `fieldBreakpointsProps`, and
+`otherFrameBreakpointsProps`; `c.*` invocations and the component root use the
+frame shape.
+
+**Conditions.** Each entry has `width`, `height`, and/or `orientation`
+(`landscape` or `portrait`). At least one is required — an entry with none is
+silently dropped and compiles to no media query. Numbers are pixels converted
+to `rem` (`768` → `48rem`); plain `px`/`rem`/`em` strings pass through
+unchanged. Use plain dimensions only: `min()`, `max()`, `%`, and viewport
+units are not parsed as dimensions by the sort/bounds logic and can break the
+ranges. `t.sizing.*` tokens are resolved at build time through the app light
+theme, but only tokens with plain numeric values — a token defined through
+`calc(...)`, such as `t.sizing.icon-lg`, emits an unresolved `t.*` reference
+inside the media condition, which browsers discard together with the whole
+block.
+
+**Nested `styles`.** The same groups as the node's base `styles`, but no
+interaction states (`hover`, `focus`, `pressed`, `disabled`, `selected`,
+`valid`, `invalid`), no `in`/`out`, and no nested `breakpoints`: those keys
+still validate (the object is not closed) but are silently dropped at
+generation. Keep state styling at the node level, not inside breakpoint
+entries.
+
+**Ranges.** Entries are sorted by ascending condition value and compile
+mobile-first. Each entry becomes `@media (min-width: X)` (or `min-height`);
+the upper bound comes from the next entry **on the same axis** — `width: 768`
+followed by `width: 1024` produces `(min-width: 48rem) and (max-width: 64rem)`
+and then `(min-width: 64rem)`, not two overlapping queries. The last entry on
+an axis has no upper bound. At the exact boundary both blocks match; blocks
+are emitted in ascending order, so the wider range wins. Bounds are computed
+per axis: a `height` entry between two `width` entries does not close the
+width range. Mixing axes or `orientation` in one list is fragile — each entry
+fires whenever its own conditions match, regardless of the others — so keep
+one axis (usually `width`) per list and use separate nodes for orientation or
+height overrides.
+
+**Overrides merge with the base `styles`, not with other entries.** Every
+entry compiles against the node's base styles: a property missing from an
+entry falls back to the **base** value, never to the previous (narrower)
+entry. Therefore a property that varies across ranges must be set explicitly
+in **every** entry that needs a non-base value: either keep the mobile
+default in the base `styles` and repeat the property in each entry, or remove
+it from the base and declare it in every entry. The silent failure mode:
+
+```yaml
+# Anti-example: `lay` is overridden at 768 but omitted at 1024 —
+# at >= 1024 the layout silently reverts to the base `column`.
+styles:
+  lay: column # base; also the layout below the first breakpoint
+  breakpoints:
+    - width: 768
+      styles:
+        lay: grid
+        lay-grid-cols:
+          - width: 1fr
+          - width: 1fr
+    - width: 1024
+      styles:
+        # `lay` omitted: the three columns below are emitted but inert,
+        # because the container is back to a plain column.
+        lay-grid-cols:
+          - width: 1fr
+          - width: 1fr
+          - width: 1fr
+```
+
+When an entry changes `lay`, the alignment rules of its descendants are
+re-emitted inside the same media query for the new layout, so children keep
+correct per-layout alignment.
+
+Prefer wrapping and `min()` dimensions for simple cases; use `breakpoints`
+only when the layout genuinely changes.
 
 ## Custom CSS properties
 
