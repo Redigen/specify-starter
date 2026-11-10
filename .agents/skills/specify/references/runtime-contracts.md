@@ -1,8 +1,8 @@
 # Runtime contracts: what the generator actually emits
 
 Sections: When to use · Why this file exists · DSL surface matrix · Frame ·
-Text · Field · Component invocation · Events · Identity fields ·
-Interaction-state selectors · Layout context · Checklist.
+Text · Field · Vector and image · Component invocation · Events · Identity
+fields · Interaction-state selectors · Layout context · Checklist.
 
 ## When to use
 
@@ -151,6 +151,19 @@ validation as proof that an undeclared property reaches the DOM.
   They compile to `color` and `::placeholder`; they are not exclusive to
   `c.field-*`.
 
+## Vector and image
+
+- `file` is a **static literal path**. A computed `{{ ... }}` value validates
+  but breaks the build with an unimported component tag; the fix is one
+  static-file layer per case with `cond-if`, not a different expression shape.
+- `c.*` icon props (`leftIcon`, `rightIcon`) receive an **imported component**,
+  not a path. A path stored in `data` (`leftIcon: "{{ field.icon }}"`) throws
+  `TypeError: props_leftIcon is not a function` at runtime.
+- `lay-width`/`lay-height` on a `vector` are also emitted as raw SVG `width` /
+  `height` attributes. Token references such as `t.sizing.icon-sm` are **not**
+  resolved there and produce an invalid attribute; use numeric pixel values.
+- Per-item icon pattern (wrong/correct): `spec-model.md`, "Image and vector".
+
 ## Component invocation
 
 A `c.name` node forwards a **narrow** set of keys. Everything else is ignored
@@ -255,10 +268,13 @@ Consequences:
    validates and does nothing. Confirm against the Frame table.
 3. Did `svelte-check` run? `check` is the only step that reports TypeScript
    errors in generated templates; `validate` and `build` do not.
-4. Reproduce in the rendered app with `specify-cli preview run` before blaming
+4. Build fails on `import Vector{{ ... }}` / `Unexpected token`, or the page
+   throws `props_leftIcon is not a function`? That is a computed asset path;
+   the fix is static paths plus `cond-if` — see "Vector and image".
+5. Reproduce in the rendered app with `specify-cli preview run` before blaming
    the spec: a state toggle is proven by a `click` step followed by
    `assert-text`/`assert`. Use an existing dev server instead of starting a
    second one, and remember that a server started before the last `build` may
    serve stale modules.
-5. Only when a reproducible symptom remains, read the generator — and say which
+6. Only when a reproducible symptom remains, read the generator — and say which
    symptom you are explaining.

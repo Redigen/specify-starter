@@ -50,7 +50,8 @@ by memory. Match your next action to the row:
 | You are about to… | Read first (section) |
 |---|---|
 | Add/edit a screen, component, `state`, `stores`, `logic`, `c.*` invocation, `{{ ... }}` expression | `references/spec-model.md` — and the "Checklist before writing a `c.*` invocation" in its Component section |
-| Write a `for` loop or `cond-if` | `references/spec-model.md`, "Conditions and loops" — including its pre-write checklist |
+| Write a `for` loop or `cond-if` | `references/spec-model.md`, "Conditions and loops" — including its pre-write checklist and the per-item asset-path rule |
+| Add a `vector`, `image`, or any asset path (including inside loops and `c.*` icon props) | `references/spec-model.md`, "Image and vector" |
 | Put `{{ ... }}` into `data` or `state` | `references/data-and-actions.md`, "Data declarations" checklist + "Reactivity" |
 | Add events, `set-state`, `set-props`, `navigate-to`, `scroll-to`, notifications | `references/data-and-actions.md`, "Event handlers" |
 | Build a form or use `submit`/`reset` | `references/data-and-actions.md`, "Forms" |

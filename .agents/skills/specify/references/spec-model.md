@@ -340,12 +340,11 @@ A vector references a static SVG asset path:
     file: ./assets/vectors/lucide/arrow-right.svg
 ```
 
-`vector.file` and `image.file` accept a computed `{{ ... }}` expression, but
-the generator's automatic asset import only runs for static paths. A computed
-value bypasses the import pipeline: for `source: assets` the path will not be
-resolved by Vite, and for `vector` the computed value is emitted as a Svelte
-component tag that nothing imports. To switch an asset by state, render
-separate static-file layers with `cond-if`:
+`vector.file` and `image.file` **must be static literal paths**. A computed
+`{{ ... }}` value still validates, but the build then fails: the asset import
+only runs for literal paths, so a computed `vector.file` is emitted as a Svelte
+component tag that nothing imports. To switch an asset by state or by loop
+item, render separate static-file layers with `cond-if`:
 
 ```yaml
 - vector:
@@ -354,6 +353,23 @@ separate static-file layers with `cond-if`:
 - vector:
     cond-if: "{{ state.opened }}"
     file: ./assets/vectors/lucide/chevron-up.svg
+```
+
+The same rule applies inside a `for` loop. Do not store the path in the item
+and pass it through — write one layer per item instead:
+
+```yaml
+# Wrong: validates, then fails the build with an unimported component tag.
+- vector:
+    file: "{{ project.icon }}"
+
+# Correct: a literal path per item, selected by cond-if.
+- vector:
+    cond-if: "{{ project.id === 'starter' }}"
+    file: ./assets/vectors/lucide/folder-code.svg
+- vector:
+    cond-if: "{{ project.id === 'design-system' }}"
+    file: ./assets/vectors/lucide/folder-git.svg
 ```
 
 Component props are a separate case: computed asset values are supported when
@@ -370,9 +386,9 @@ imports each path and passes the selected asset to the component:
 
 This works only for component props whose contract accepts an asset. Do not
 construct a path dynamically (for example, by concatenating a directory and a
-state value): the generator must be able to discover each literal asset path.
+state value): every possible path must appear literally in the expression.
 Computed `vector.file`/`image.file` get no such literal-path scan, so the
-asset-import problem above still applies to them.
+static-path rule above still applies to them.
 
 ### Field, iframe, and canvas
 
@@ -502,6 +518,10 @@ Before writing a `for` loop, check yourself against this list — every item
 below is a real error pattern:
 
 - `for` requires `key`; the key must be stable and unique per item.
+- Per-item icons/images: `vector.file`, `image.file`, and `c.*` icon props
+  (`leftIcon`, `rightIcon`) **cannot** take `{{ item.icon }}`. Write one
+  static-file layer per item with `cond-if: "{{ item.id === '…' }}"` — the
+  wrong/correct pattern is in "Image and vector".
 - `cond-if`, `key`, `this`, `id`, and `class` live on the **layer itself**,
   never inside `styles`.
 - `cond-if` on the same layer as `for` wraps the whole loop and cannot
