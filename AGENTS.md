@@ -63,24 +63,10 @@ Rules for all edits (manual or scripted):
 7. Verify that referenced components, props, tokens, assets, routes, and
    logic/store exports actually exist. Schema validation does not replace these
    semantic checks.
-8. **Order of evidence.** Claims about system behavior are proven in a strict
-   order: first compare with existing working artifacts of the same kind, then
-   measure the actual result at runtime (DOM, computed styles, variable values,
-   check output), and only when these two disagree read the implementation.
-   A conclusion drawn from reading the implementation while skipping this order
-   is invalid. Reading the implementation never overrides measured behavior:
-   if the code "should" break but the system works, your reading of the code is
-   wrong, not the system.
-9. **System behavior is the norm.** When existing project artifacts behave the
-   same way, that behavior is the norm, not a defect — regardless of your
-   expectations and of how it is implemented. You do not redefine the norm.
-   Disagreement with the norm is a question to the user ("this is how it works,
-   do you want it changed?"), not a bug report and not a reason to investigate.
-10. **No diagnosis outside your scope.** You may state an observation outside
-    your editing area, but you may not diagnose it. "In file X, Y happens" is
-    acceptable. "In file X there is a bug because Z" is not acceptable without a
-    reproducible symptom and a user assignment. Other people's code does not
-    have to match your idea of correctness.
+8. **Evidence discipline.** Before concluding that something "does not work",
+   before reading compiler/runtime source, and before diagnosing any defect,
+   follow `.agents/skills/specify/references/evidence.md`: order of evidence,
+   the norm is the norm, no symptom — no diagnosis.
 
 ## Required workflow
 
@@ -103,13 +89,27 @@ Rules for all edits (manual or scripted):
    - For a new screen or component, create the complete YAML directly and
      validate it. Do not create intermediate JSON or a generator solely to
      satisfy the workflow. If tool payload limits require several bounded
-     edits, validate the complete file afterward.
+     edits, validate the complete file afterward. Validate the initial skeleton
+     and each substantial structural addition before adding the next one; do not
+     accumulate several unverified hierarchy changes.
    - For a structured transformation of an existing YAML file, use JSON through
      `specify-cli read` and `specify-cli write`; remember that `write`
      reformats the file and removes comments. Incorporate any intervening YAML
      edits into the input rather than overwriting them with stale data.
    - After the initial write, prefer direct YAML patches for localized fixes.
      Regenerate for structural corrections only when simpler and safer.
+   - After changing document hierarchy, inspect both the textual diff and the
+     parsed structure: changed nodes must have the expected type, parent, and
+     fields. Visual indentation alone does not prove structural correctness.
+   - Do not repair hierarchy through repeated line-range indentation shifts.
+     Rebuild the affected node or use a parser-backed structured transformation
+     when more than a small localized patch is required.
+   - Stop a repair loop when repeated attempts do not resolve the error, move it
+     between neighboring nodes, or expand the affected area. Return to the last
+     validated state and change the repair method instead of stacking patches.
+   - Resolve syntax, schema, build, and behavior failures in that order. Do not
+     change behavior while an earlier validation layer still fails. Judge a
+     check by what it actually inspected, not merely by its exit code.
    - For scripted replacements, define the expected match count. If the actual
      count differs, stop and narrow the selector. Inspect the resulting diff
      immediately; indentation alone is not a unique semantic selector.
@@ -243,4 +243,5 @@ validation error, read `path` and `message`, fix the input, and rerun validation
 - Design quality in specs: `.agents/skills/specify/references/design-quality.md`
 - Data, actions, logic: `.agents/skills/specify/references/data-and-actions.md`
 - Which fields reach the DOM (forwarded events, bindings, state selectors): `.agents/skills/specify/references/runtime-contracts.md`
+- Evidence discipline, diagnosis rules, when to read the compiler: `.agents/skills/specify/references/evidence.md`
 - CLI and troubleshooting: `.agents/skills/specify/references/cli.md`

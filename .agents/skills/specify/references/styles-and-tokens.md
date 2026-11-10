@@ -102,6 +102,18 @@ and `evenly` to space-evenly. Distribution needs free space: a content-width row
 has none, so use `lay-width: fill-container` when children should reach opposite
 edges. `lay: grid` enables the grid-specific properties.
 
+Checklist before choosing layout styles on a layer:
+
+- `text`, `image`, `vector`, `field`, `iframe`, and `canvas` layers do not
+  declare layout styles; wrap them in a `frame` and put `lay-*` there. Check
+  the DSL surface matrix in `runtime-contracts.md` before choosing fields.
+- `lay-wrap` does not size the container: a wrapped row that should span its
+  parent still needs `lay-width: fill-container`.
+- Fixed-width cards overflow narrow screens: use wrapping and responsive
+  dimensions from the start, not a fixed `lay-width` number.
+- `{{ ... }}` expressions are not evaluated inside `styles` (they compile to
+  CSS); use static values, tokens, and CSS `calc()`/`min()`/`clamp()`.
+
 Allowed values for alignment, gap, position, overflow, and similar properties
 are static enums. Grep the relevant `$defs` key in
 `specs/schemas/base.template.json` instead of guessing or reading the compiler.
@@ -125,6 +137,15 @@ are static enums. Grep the relevant `$defs` key in
 | `txt-truncate` + `txt-lines` | Line clamping; when truncation is enabled, declare `txt-lines` (use `1` for a single line) |
 | `cursor-type` | Standard CSS cursor enum from the schema |
 | `cursor-file`, `cursor-offset` | Custom cursor asset and horizontal/vertical hotspot |
+
+Checklist before writing `txt-*`/`vis-*`/`pos-*` values:
+
+- These fields do **not** exist: `txt-font`, `txt-break`, `txt-stroke`, and
+  `stroke.dash`. Use `txt-family`; see the stroke contract below.
+- `txt-wrap` takes schema strings (`wrap`, `no-wrap`, `balance`, `pretty`,
+  `hyphens`), never `true`/`false`.
+- `lay-aspect-ratio` takes a quoted ratio string such as `"1 / 1"`, not a
+  number.
 
 ## Fill, stroke, shadow, and blur
 

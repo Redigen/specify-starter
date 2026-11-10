@@ -117,6 +117,17 @@ data:
 Render arrays with `for` plus a stable `key`, for example
 `for: post in data.blog` and `key: post.$id`.
 
+Checklist before writing `{{ ... }}` inside `data` or `state`:
+
+- `data` expressions evaluate **once**: `visible: "{{ data.items.filter(...) }}"`
+  derived from `state` never updates. Filter in the template with `cond-if`
+  inside the loop; see "Reactivity" below.
+- A `data` key referencing a `data` key declared **below** it throws
+  `Cannot access ... before initialization` and blanks the whole screen.
+  Declare dependencies first.
+- For state-dependent lists, filtering, or mapping, compute in the template
+  or in a named `logic` helper — not in `data`.
+
 ## Reactivity: what re-evaluates and what does not
 
 This table decides where a computation belongs. Read it before deriving lists

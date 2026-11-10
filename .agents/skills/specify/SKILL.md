@@ -42,16 +42,24 @@ modify infrastructure; report the blocker instead.
   does not compile screens.
 - `specify-cli` validates and converts YAML/JSON; it does not generate app code.
 
-## Load only what the task needs
+## Load knowledge at the moment of use
 
-| Task | Reference |
+Read a reference **before writing the construct it covers**, not after and not
+by memory. Match your next action to the row:
+
+| You are about to… | Read first (section) |
 |---|---|
-| App config, screens, components, layers, loops, expressions | `references/spec-model.md` |
-| Layout, visual states, transitions, design tokens | `references/styles-and-tokens.md` |
-| Visual quality: hierarchy, rhythm, interaction states, feedback, anti-slop | `references/design-quality.md` |
-| Fetching, mutations, events, navigation, external logic; reactivity of `state`/`data`; worked list-filtering example | `references/data-and-actions.md` |
-| Which fields actually reach the DOM: forwarded events, bindings, state selectors, inline layout | `references/runtime-contracts.md` |
-| YAML/JSON workflow, schema selection, CLI errors | `references/cli.md` |
+| Add/edit a screen, component, `state`, `stores`, `logic`, `c.*` invocation, `{{ ... }}` expression | `references/spec-model.md` — and the "Checklist before writing a `c.*` invocation" in its Component section |
+| Write a `for` loop or `cond-if` | `references/spec-model.md`, "Conditions and loops" — including its pre-write checklist |
+| Put `{{ ... }}` into `data` or `state` | `references/data-and-actions.md`, "Data declarations" checklist + "Reactivity" |
+| Add events, `set-state`, `set-props`, `navigate-to`, `scroll-to`, notifications | `references/data-and-actions.md`, "Event handlers" |
+| Build a form or use `submit`/`reset` | `references/data-and-actions.md`, "Forms" |
+| Write any `styles` value or add tokens | `references/styles-and-tokens.md` — "Layout reference" and "Position, appearance…" checklists |
+| Decide interactive states, hover/focus/selected styling | `references/styles-and-tokens.md`, "Interactive states" + `references/runtime-contracts.md`, "Interaction-state selectors" |
+| Ask "will this field reach the DOM / will this handler fire?" | `references/runtime-contracts.md` (DSL surface matrix), its "Checklist before asking why does it not work?" |
+| Run validate/read/write/preview commands | `references/cli.md` |
+| Conclude something "does not work" or start diagnosing | `references/evidence.md` — before reading any compiler/runtime source |
+| Review rendered visual quality | `references/design-quality.md` |
 
 Also read the nearest existing spec of the same kind. It is the best source for
 project naming, composition, and formatting conventions. Do not load the large
@@ -185,63 +193,42 @@ adds only skill-specific guidance:
    the generated UI is wrong, inspect the generated output read-only and map the
    behavior back to the source layer. Never edit generated output or the
    compiler for an ordinary UI task.
-   Diagnostics outside the working area starts only from a reproducible
-   symptom: a failing check, incorrect DOM, or a measured mismatch between the
-   result and the spec. Subjective impressions ("it looks wrong"), not
-   understanding someone else's code, and hypotheses about how it "could break"
-   are not symptoms. No symptom means no diagnostics — return to the task.
-   An investigation ends in exactly one of three ways: the symptom is
-   reproduced and localized inside your editing area → fix it; the symptom is
-   reproduced outside your editing area → describe it and stop; the symptom is
-   not reproduced → it does not exist, return to the task. Continuing after any
-   of these outcomes is a violation. Decide the step budget for a hypothesis
-   before starting and state it to yourself.
 4. For structural UI work, use the rendered output required by `AGENTS.md` for
    both rendered checks and the design-quality review. Return to the canonical
    workflow for the final aggregate check after all review fixes.
 
-## Common mistakes
+## Known error patterns live next to their constructs
 
-| Incorrect | Correct |
-|---|---|
-| Bare screen `{ "path": "/x" }` | `{ "x": { "path": "/x" } }` |
-| `{ "frame": { "lay": "row" } }` | `{ "frame": { "styles": { "lay": "row" } } }` |
-| `for`, `key`, `cond-if`, or `id` inside `styles` | Put identity and behavior fields on the layer itself; keep only visual/layout declarations in `styles` |
-| `txt-wrap: true` or `false` | Use schema strings, usually `wrap` or `no-wrap` |
-| `for` without `key` | Provide a stable unique `key` |
-| Function call in `for`, such as `item in Object.entries(data.map)` | `for` accepts a value path; prepare an entry array in `data`, then use `entry[0]`/`entry[1]`. `{{ this }}` is not a loop alias; see [Conditions and loops](references/spec-model.md#conditions-and-loops) |
-| `lay`/`lay-gap` on `text`, `image`, `vector`, `field`, `iframe`, or `canvas` | These layers do not declare layout styles; use a `frame`. Check the [DSL surface matrix](references/runtime-contracts.md#dsl-surface-matrix) before choosing fields |
-| `cond-if` using the loop variable on the same layer as `for` | The condition wraps the loop; put item-dependent `cond-if` on a descendant |
-| `{{ ... }}` inside `styles` | Styles compile to CSS; use static values, tokens, and CSS `calc()`/`min()`/`clamp()` |
-| Conditional expression in `vector.file` or `image.file` for `source: assets` | Computed paths bypass the generator's asset-import step, so Vite cannot resolve them. Use separate static-file layers with `cond-if`; computed literal paths are supported in component props |
-| Wrapped row that stays narrower than its parent | Wrapping does not size the row; set `lay-width: fill-container` when it should span the parent |
-| `component-name: { ... }` in layers | `c.component-name: { ... }` |
-| Invented logic export | Inspect or create the actual external module first |
-| Literal or computed expression passed to `.propName` on a component invocation | Use an assignable target, such as `{{ state.field }}` or a parent's `{{ .propName }}`; see [Component](references/spec-model.md#component) |
-| JSON write for a tiny commented-file edit | Patch YAML to preserve comments/layout |
-| `lay-aspect-ratio: 1` | Use the schema string value, for example `"1 / 1"` |
-| `txt-font`, `txt-break`, `txt-stroke`, or `stroke.dash` | These fields do not exist. Use `txt-family`; see [Position, appearance, and typography](references/styles-and-tokens.md#position-appearance-and-typography) and the stroke contract |
-| Bare shadow object or raw CSS shadow shorthand | Use a `t.shadow.*` token or an array of shadow objects; see [Fill, stroke, shadow, and blur](references/styles-and-tokens.md#fill-stroke-shadow-and-blur) |
-| Fixed-width cards that overflow narrow screens | Use wrapping and responsive dimensions from the start |
-| `lay-gap: auto` in a content-width row | Give the row free space, usually with `lay-width: fill-container` |
-| Assuming `c.field-*` or `c.slider-md` fills a column form | Set `styles.lay-width: fill-container` on the invocation |
-| Reading entire token/component files for a small lookup | Query only the required group, props, and root styles |
-| Rebuilding after every cosmetic YAML edit | Validate during editing; follow `AGENTS.md` for intermediate build/check and the final `verify` |
-| `on-change`, `on-submit`, `on-keydown`, `id`, or `theme` on a `c.*` invocation | Only `props`, `cond-if`, `for`/`key`, `styles`, `this`, `on-click`, `on-mount`, `on-unmount` are forwarded; see [Runtime contracts](references/runtime-contracts.md#component-invocation) |
-| `on-click` on a component expecting to identify an internal interaction | The handler is attached to the component root and receives bubbled clicks; use bindable props for typed component output |
-| `selected: ...` on a parent expecting child styles | Declare `styles.selected` on the same node; see [Runtime contracts](references/runtime-contracts.md#interaction-state-selectors) |
-| Reading a component instance in an expression, such as `{{ someList.total }}` | There is no component-instance expression; pass data through bindable props |
-| Untyped inline callback in a handler, such as `items.some(x => ...)` | `svelte-check` fails with implicit `any`; keep filtering out of template expressions |
-| `on-submit` on a node that also carries panel layout styles | Form layout styles are emitted normally; verify the rendered layout instead of assuming a `div`-only CSS rule |
-| Trusting `classname` or another unknown key inside a layer | Layer schemas allow extra keys, so typos validate silently; `class` is the real field |
-| Custom Playwright script or a second dev server for a visual check | `preview shot`, `preview check`, and `preview run` cover screenshots, overflow, console errors, and interactions; reuse a running server |
-| Concluding "there is a bug in the implementation" from reading its code | Follow the order of evidence in `AGENTS.md`: compare with working artifacts, measure at runtime, and only then read the implementation — and only with a reproducible symptom |
-| Reading generator/runtime source (`packages/`, `src/lib/`, `src/generated/`) to confirm documented behavior or to find a pattern | Use the reference sections and the "Working examples in this starter" table. Generator reading is the last step of diagnosing a reproduced symptom, never a discovery step |
-| Deriving a filtered array in `data` from `state`, e.g. `visible: "{{ data.items.filter(...) }}"` | `data` expressions evaluate once. Filter in the template with `cond-if` inside the loop; see `references/data-and-actions.md`, "Reactivity" |
-| `data.b` referencing `data.a` declared below it | Keys compile to `const` in order; a forward reference throws `Cannot access ... before initialization` and blanks the screen. Declare dependencies first |
-| Listing the whole icon/token/component set "to see what exists" | Query the exact enum or file path for the values you actually reference; read only the component props you invoke |
-| Re-reading a reference or token file already loaded in this session | Reuse what you read; open a file again only for a new, specific question |
-| Reading `stores/`/`logic/` modules the task does not reference | Inspect an export only when you are about to call it through `run`/`stores`/`logic` |
+There is no central "common mistakes" table: every known error pattern is
+documented as a pre-write checklist **inside the reference section that covers
+the construct**, at the moment you are about to write it:
+
+- Loops and conditions: `references/spec-model.md`, "Conditions and loops".
+- Component invocations and bindable props: `references/spec-model.md`,
+  "Component" (and `references/runtime-contracts.md`, "Component invocation").
+- Layout, typography, and token style fields:
+  `references/styles-and-tokens.md` checklists in "Layout reference" and
+  "Position, appearance, and typography".
+- Reactivity and `data` derivation: `references/data-and-actions.md`,
+  "Data declarations" and "Reactivity".
+- Dropped fields and dead handlers: `references/runtime-contracts.md`,
+  its "Checklist before asking why does it not work?".
+- CLI/workflow mistakes: `references/cli.md`, "Common mistakes".
+
+When a check fails or the render is wrong, look up the construct in the table
+in "Load knowledge at the moment of use" above and read that section's
+checklist before guessing a fix.
+
+## Checkpoints
+
+- **Before the first edit of a task:** the relevant reference section from the
+  table above plus the nearest existing spec of the same kind; confirm every
+  referenced component, prop, token, asset, route, and export exists.
+- **After every edit:** `npx --no-install specify-cli validate <changed.yaml>`
+  and inspect the diff for unrelated rewrites or lost comments.
+- **Before the final report:** `git status --short`, the final diff, and the
+  aggregate `npm run verify` required by `AGENTS.md`; report any skipped
+  rendered checks explicitly.
 
 ## Definition of done
 

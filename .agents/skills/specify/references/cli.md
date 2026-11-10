@@ -50,6 +50,11 @@ Use `shot` for visual-review screenshots, `check` for rendered assertions, and
 `run` for interaction scenarios. Choose only the commands required by the task;
 they are not a mandatory sequence.
 
+Do not write a custom Playwright script or start a second dev server for a
+visual or interaction check: `shot`, `check`, and `run` cover screenshots,
+overflow, console errors, and interactions, and they reuse the running server.
+An installed browser alone does not require developing automation.
+
 ```bash
 # Screenshots at several viewports, optionally full page or a section
 npx --no-install specify-cli preview shot --path /landing --widths 390,1440 --full-page --out /tmp/landing
@@ -177,6 +182,22 @@ Validation errors are JSON on stderr:
 For invalid spec input, fix the value at `path` and rerun the command. At most
 20 AJV errors are returned; `truncated` reports how many additional errors were
 omitted.
+
+For structural errors, diagnose in this order:
+
+1. Run `validate` and read the reported JSON path and message.
+2. Run `read --compact` and inspect the node at that path in the parsed output.
+   Check its type, parent, and fields. YAML can parse successfully while placing
+   fields beside a layer instead of inside it, producing a `null` layer value.
+3. Repair that node, then rerun `validate` before making another structural
+   change. Do not infer hierarchy from indentation alone or repair it through
+   repeated line-range indentation shifts.
+
+Resolve failures in layers: YAML parsing first, schema validation second, build
+third, and rendered behavior last. Do not change behavior while an earlier layer
+still fails. A successful command is evidence only for what it actually checked:
+parsing does not prove schema validity, schema validity does not prove behavior,
+and an empty diff does not inspect an untracked file.
 
 Validation errors do not expand the editing scope in `AGENTS.md`. For an
 application task, report schema/mapping/CLI blockers instead of editing

@@ -211,6 +211,20 @@ field-demo:
 Before invoking a component, read its definition and match its actual props.
 Follow the naming and sizing conventions of nearby components.
 
+Checklist before writing a `c.*` invocation:
+
+- The prefix `c.` is required: `component-name: { ... }` in `layers` is a
+  dead key that validates silently and renders nothing.
+- Only `props`, `cond-if`, `for`/`key`, `styles`, `this`, `on-click`,
+  `on-mount`, `on-unmount` are forwarded; `on-change`, `on-submit`,
+  `on-keydown`, `id`, and `theme` on the invocation are silently dropped —
+  see `runtime-contracts.md`, "Component invocation".
+- A bindable `.propName` value must be an assignable target such as
+  `{{ state.field }}` or a parent's `{{ .propName }}` — literals and
+  computed expressions cannot bind.
+- Unknown keys inside layer nodes validate silently (`classname` instead of
+  `class` passes validation and does nothing).
+
 ### Styles on component invocations
 
 `styles` on a `c.*` invocation apply to the component root. They do not create a
@@ -483,6 +497,19 @@ current item. `Object.entries` yields `[key, value]` tuples, so no inline
 callback is needed. For reusable or complex transformations, use a small named
 logic helper rather than an inline callback (which can fail `svelte-check`
 typing).
+
+Before writing a `for` loop, check yourself against this list — every item
+below is a real error pattern:
+
+- `for` requires `key`; the key must be stable and unique per item.
+- `cond-if`, `key`, `this`, `id`, and `class` live on the **layer itself**,
+  never inside `styles`.
+- `cond-if` on the same layer as `for` wraps the whole loop and cannot
+  reference the loop variable; put per-item conditions on a descendant.
+- The `for` expression is a value path (`data.items`, `state.users.list`),
+  not a function call or an inline callback (`items.some(x => ...)` also
+  fails `svelte-check` with implicit `any`).
+- `{{ this }}` is not a loop-item alias; use the loop variable name.
 
 ## Form references
 
