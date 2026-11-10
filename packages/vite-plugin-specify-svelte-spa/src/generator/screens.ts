@@ -44,8 +44,6 @@ export function generateScreens(
       app,
       tokens,
       root,
-      kebabCase("screen-" + screenId),
-      [],
       0,
     );
 

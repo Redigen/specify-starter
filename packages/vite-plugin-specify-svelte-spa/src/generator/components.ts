@@ -55,8 +55,6 @@ export function generateComponents(
       app,
       tokens,
       root,
-      kebabCase("component-" + componentId),
-      [],
       0,
     );
 

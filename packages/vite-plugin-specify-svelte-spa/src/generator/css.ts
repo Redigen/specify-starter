@@ -1654,11 +1654,33 @@ function parseToPixels(value: string): number {
   return 0;
 }
 
+type DirectChildStyles = {
+  layerType: LayerTypes;
+  styles: Styles;
+};
+
+function getDirectChildStyles(node: Layers): DirectChildStyles | undefined {
+  const componentEntry = Object.entries(node).find(([key]) => key.startsWith("c."));
+  const layerType = node.frame ? "frame"
+    : node.text ? "text"
+    : node.image ? "image"
+    : node.vector ? "vector"
+    : node.field ? "field"
+    : node.iframe ? "iframe"
+    : node.canvas ? "canvas"
+    : componentEntry ? "component"
+    : undefined;
+  if (!layerType) return undefined;
+
+  const styles = layerType === "component"
+    ? (componentEntry?.[1] as ComponentLayer)?.styles || {}
+    : node[layerType]?.styles || {};
+  return { layerType, styles };
+}
+
 export function generateMediaQueries(
   layerType: LayerTypes,
-  prefix: string,
   className: string,
-  path: number[] = [],
   parentLay: Lay,
   app: AppConfig,
   tokens: TokensThemes,
@@ -1669,7 +1691,6 @@ export function generateMediaQueries(
 ): string {
   const lines: string[] = [];
   const breakpoints = styles?.breakpoints || [];
-  let currentLay = parentLay;
   const spaces = " ".repeat(indent);
 
   // Сортируем брейкпоинты по возрастанию
@@ -1753,14 +1774,28 @@ export function generateMediaQueries(
           lines.push(`${spaces}  }`);
         }
         if (bp.styles?.lay && layers) {
-          currentLay = bp.styles.lay;
-          layers
-            .map((layer: Layers, layerIndex: number) =>
-              lines.push(
-                `${spaces}${generateCSS(app, tokens, layer, prefix, [...(path as number[]), layerIndex], indent + 2, currentLay as Lay, interactiveParent, false)}`,
-              ),
-            )
-            .join("\n");
+          const baseLay = styles?.lay ?? "block";
+          const emittedClasses = new Set<string>();
+
+          for (const layer of layers) {
+            const child = getDirectChildStyles(layer);
+            if (!child || Object.keys(child.styles).length === 0) continue;
+
+            // HTML always uses the base lay to calculate the child's class.
+            const childClass = getStylesHash(layer, baseLay, interactiveParent);
+            if (emittedClasses.has(childClass)) continue;
+
+            const baseCss = generateCssFromYaml(child.layerType, {}, child.styles, baseLay);
+            const breakpointCss = generateCssFromYaml(child.layerType, {}, child.styles, bp.styles.lay);
+            if (baseCss === breakpointCss) continue;
+
+            emittedClasses.add(childClass);
+            // Scope the override so identical children outside this container
+            // keep the styles calculated for their own parent lay.
+            lines.push(`${spaces}  :global(.${className} > .${childClass}) {`);
+            lines.push(`${spaces}    ${breakpointCss}`);
+            lines.push(`${spaces}  }`);
+          }
         }
       }
       lines.push(`${spaces}}`);
@@ -1774,12 +1809,9 @@ export function generateCSS(
   app: AppConfig,
   tokens: TokensThemes,
   node: Layers,
-  prefix: string,
-  path: number[] = [],
   indent: number = 0,
   parentLay?: Lay | "block",
   interactiveParent?: string,
-  recursion: boolean = true,
 ): string | undefined {
   const className = getStylesHash(node, parentLay, interactiveParent);
 
@@ -1835,24 +1867,18 @@ export function generateCSS(
     }
 
     const layers = node.frame?.layers || [];
-    if (recursion) {
-      for (let index = 0; index < layers.length; index++) {
-        const layer = layers[index];
+    for (const layer of layers) {
+      const css = generateCSS(
+        app,
+        tokens,
+        layer,
+        indent,
+        currentLay as Lay,
+        interactiveParent
+      );
 
-        const css = generateCSS(
-          app,
-          tokens,
-          layer,
-          prefix,
-          [...(path as number[]), index],
-          indent,
-          currentLay as Lay,
-          interactiveParent
-        );
-
-        if (css) {
-          lines.push(css);
-        }
+      if (css) {
+        lines.push(css);
       }
     }
 
@@ -1860,9 +1886,7 @@ export function generateCSS(
       lines.push(
         generateMediaQueries(
           "frame",
-          prefix,
           className,
-          path,
           parentLay as Lay,
           app,
           tokens,
@@ -1908,9 +1932,7 @@ export function generateCSS(
         lines.push(
           generateMediaQueries(
             "text",
-            prefix,
             className,
-            path,
             parentLay as Lay,
             app,
             tokens,
@@ -1958,9 +1980,7 @@ export function generateCSS(
         lines.push(
           generateMediaQueries(
             "image",
-            prefix,
             className,
-            path,
             parentLay as Lay,
             app,
             tokens,
@@ -2012,9 +2032,7 @@ export function generateCSS(
         lines.push(
           generateMediaQueries(
             "vector",
-            prefix,
             className,
-            path,
             parentLay as Lay,
             app,
             tokens,
@@ -2070,9 +2088,7 @@ export function generateCSS(
         lines.push(
           generateMediaQueries(
             "field",
-            prefix,
             className,
-            path,
             parentLay as Lay,
             app,
             tokens,
@@ -2120,9 +2136,7 @@ export function generateCSS(
       lines.push(
         generateMediaQueries(
           "iframe",
-          prefix,
           className,
-          path,
           parentLay as Lay,
           app,
           tokens,
@@ -2169,9 +2183,7 @@ export function generateCSS(
       lines.push(
         generateMediaQueries(
           "canvas",
-          prefix,
           className,
-          path,
           parentLay as Lay,
           app,
           tokens,
@@ -2219,9 +2231,7 @@ export function generateCSS(
         lines.push(
           generateMediaQueries(
             "component",
-            prefix,
             className,
-            path,
             parentLay as Lay,
             app,
             tokens,
